@@ -6,39 +6,39 @@ const residenciaSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User'
   },
-  especialidad:{
+  speciality:{
     type:String,
     required:false
   },
-  institucion:{
+  institution:{
     type:Schema.Types.ObjectId,
-    ref:'Institucion'
+    ref:'Institution'
   },
   hospital:{
     type:String,
     required:false
   },
-  fechaInicio:{
+  startDate:{
     type:String,
     required:false
   },
-  fechaFin :{
+  endDate :{
     type:String,
     required:false
   },
-  cedulaEspecialidad:{
+  specialityLicence:{
     type:String,
     required:false
   },
-  copiaTituloEspecialidad :{
+  specialityLicenceCopu :{
     type:String,
     required:false
   },
-  cedulaEspecialista:{
+  specialistLicence:{
     type:String,
     required:false
-  },
-  certificadosConsejoEspecialidad:{
+  },  
+  specialityDirectorsCertificates:{
     type:String,
     required:false
   },
@@ -46,4 +46,4 @@ const residenciaSchema = new Schema({
   timestamps:true
 })
 
-module.exports = mongoose.model('Residencia', residenciaSchema)
+module.exports = mongoose.model('Residence', residenceSchema)

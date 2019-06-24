@@ -10,197 +10,181 @@ const userSchema = new Schema({
   },
 
   //basic data
-  datosBasicos:{
-    nombre :{
+  basicData:{
+    name :{
       type:String,      
     },
-    apellidoPaterno:{
+    dadSurname:{
       type:String,      
     },
-    apellidoMaterno:{
+    momSurname:{
       type:String,      
     },
-    especialidad :{
+    speciality :{
       type:String,      
     },
-    profileImageURL:{
+    photoURL:{
       type:String,      
     },
-    telefono:{
+    phone:{
       type:String,      
     },
-    estadoCivil :{
+    civilStatus :{
       type:String,      
       enum:['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo']
     },
     //direccion
-    domicilio:{
+    address:{
       type:{
           type:String,
           default:'Point'
       },
-      direccion:{
-        type:String,
-        required:false
+      addressName:{
+        type:String,      
       },
-      calle:{
-        type:String,
-        required:false
+      street:{
+        type:String,      
       },
-      numeroExterior:{
-        type:String,
-        required:false
+      outdoorNumber:{
+        type:String,      
       },
-      numeroInterior:{
-        type:String,
-        required:false
+      interiorNumber:{
+        type:String,      
       },
-      colonia:{
-        type:String,
-        required:false
+      colony:{
+        type:String,      
       },
-      codigoPostal:{
-        type:String,
-        required:false
+      zipCode:{
+        type:String,      
       },
-      ciudad:{
-        type:String,
-        required:false
+      city:{
+        type:String,      
       },
-      estado:{
-        type:String,
-        required:false
+      state:{
+        type:String,      
       },
-      coordenadas:[{
+      coordinates:[{
           type:Number
       }]
-    },     
+    },    
   },
   /**** *cónyugue if casado o unión libre****/
-  conyugue:{
-    nombre:{
+  spouse:{
+    name:{
       type:String,
       required:false
     },
-    apellidoPaterno:{
+    dadSurname:{
       type:String,
       required:false
     },
-    apellidoMaterno:{
+    momSurname:{
       type:String,
       required:false
     },
-    correo:{
+    email:{
       type:String,
       required:false
     },
-    telefono:{
+    phone:{
       type:String,
       required:false
     },
   },
   //*** */Condicional labora actualmente en un hospital o institución?***//
   //if applies
-  institucionesDondeLabora:[{
+  workedAtInstitutions:[{
     type:Schema.Types.ObjectId,
-    ref:'Institucion'
+    ref:'Institution'
   }],
   //***** Condicional labora posee un consultorio******/
 
-  //if applies
-  consultorios:[{
+  //if applies consultorios
+  consultories:[{
     type:Schema.Types.ObjectId,
-    ref:'Institucion'
+    ref:'Institution'
   }],
   //*** */Datos fiscales***/////Dirección fiscal (calle y número exterior)
-  datosFiscales:{
+  fiscalData:{
     rfc:{
       type:String,
       required:false
     },
-    telefono:{
+    phone:{
       type:String,
       required:false
     },
-    correo:{
+    email:{
       type:String,
       required:false
     },
-    domicilio:{
+    location:{
       type:{
           type:String,
           default:'Point'
       },
-      direccion:{
-        type:String,
-        required:false
+      addressName:{
+        type:String,      
       },
-      calle:{
-        type:String,
-        required:false
+      street:{
+        type:String,      
       },
-      numeroExterior:{
-        type:String,
-        required:false
+      outdoorNumber:{
+        type:String,      
       },
-      numeroInterior:{
-        type:String,
-        required:false
+      interiorNumber:{
+        type:String,      
       },
-      colonia:{
-        type:String,
-        required:false
+      colony:{
+        type:String,      
       },
-      codigoPostal:{
-        type:String,
-        required:false
+      zipCode:{
+        type:String,      
       },
-      ciudad:{
-        type:String,
-        required:false
+      city:{
+        type:String,      
       },
-      estado:{
-        type:String,
-        required:false
+      state:{
+        type:String,      
       },
-      coordenadas:[{
+      coordinates:[{
           type:Number
       }]
     },
   },
 
   /************** educación ***********/
-  estudios:[{
+  studies:[{
     type:Schema.Types.ObjectId,
-    ref:'Estudio'
+    ref:'Study'
   }],    
   /**********Internado de pregrado**********/
-  internados:[{
+  internships:[{
     type:Schema.Types.ObjectId,
-    ref:'Internado'
+    ref:'Internship'
   }],
   /**************Residencias y posgrados ************/
-  residencias:[{
+  residencies:[{
     type:Schema.Types.ObjectId,
-    ref:'Residencia'
+    ref:'REsidency'
   }],
   //Actividades docentes pasadas y presentes
-  actividadesDocentes:[{
+  teachingActivities:[{
     type:Schema.Types.ObjectId,
-    ref:'Actividad'
+    ref:'Activity'
   }],
-  //Actividades hospitalarias pasadas y presentes
-  actividadesHospitalarias:[{
+  //Activityes hospitalarias pasadas y presentes
+  hospitalActivities:[{
     type:Schema.Types.ObjectId,
-    ref:'Actividad'
+    ref:'Activity'
   }],
   //Sociedades médicas a las que pertenece *** o usar un modelo por separado para Sociedades
-  sociedadesMedicas:[{
+  medicalSocieties:[{
     type:Schema.Types.ObjectId,
-    ref:'Actividad'
+    ref:'Activity'
   }],
 //  "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso"
-  miembrosQueRecomiendan:[{
+  membersWhoRecommend:[{
     type:Schema.Types.ObjectId,
     ref:'User'
   }],
@@ -212,7 +196,7 @@ const userSchema = new Schema({
 
   /*Status Data*/
 
-  fechaRegistro:{
+  registrationDate:{
     type:String,    
   },
   membershipStatus:{
@@ -225,11 +209,11 @@ const userSchema = new Schema({
     enum:['Registrado', 'Aprobado', 'No Aprobado'],
     default:'Registrado'
   },
-  fechaRevision:{
+  revisionDate:{
     type:String,
     required:false
   },
-  revisadoPor:{
+  reviwedBy:{
     type:Schema.Types.ObjectId,
     ref:'User'
   }

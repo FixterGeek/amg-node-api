@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const internadoSchema = new Schema({
+const internshipSchema = new Schema({
   user:{
     type:Schema.Types.ObjectId,
     ref:'User'
   },
-  institucion:{
+  institution:{
     type:Schema.Types.ObjectId,
-    ref:'Institucion'
+    ref:'Institution'
   },
-  fechaInicio:{
+  startDate:{
     type:String,
     required:false
   },
-  fechaFin :{
+  endDate :{
     type:String,
     required:false
   },  
@@ -22,4 +22,4 @@ const internadoSchema = new Schema({
   timestamps:true
 })
 
-module.exports = mongoose.model('Internado', internadoSchema)
+module.exports = mongoose.model('Internship', internshipSchema)

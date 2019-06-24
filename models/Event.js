@@ -4,226 +4,233 @@ const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
 //Datos Generales
-  nombre:{
-    type: String,
-    required:false
+  title:{
+    type: String,    
   },
-  fechaInicio:{
-    type: String,
-    required:false
+  startDate:{
+    type: String,    
   },
-  fechaFinal:{
-    type: String,
-    required:false
+  endDate:{
+    type: String,    
   },
-  sede:{
-    type: String,
-    required:false
+  curricularValue:{
+    type: String,    
   },
-  ciudad:{
-    type: String,
-    required:false
+  curricularRegistrationNumber:{//numero de registro curricular al que pertenece:
+    type: String,    
   },
-  estado:{
-    type: String,
-    required:false
+  curriculaInstitution:{//institución que otorga valor curricular:{
+    type: String,    
   },
-  valorCurricular:{
-    type: String,
-    required:false
+  directedTo:{ //tags de especialidades //dirigidoA
+    type: String,    
   },
-  numeroRegistroCurricular:{//numero de registro curricular al que pertenece:
-    type: String,
-    required:false
+  cost:{
+    type: Number,    
   },
-  institucionCurricular:{//institución que otorga valor curricular:{
-    type: String,
-    required:false
-  },
-  dirigidoA:{ //tags de especialidades:{
-    type: String,
-    required:false
-  },
-  costo:{
-    type: String,
-    required:false
-  },
-  contacto:{
-    type: String,
-    required:false
+  contact:{
+    type: String,    
   },
 
 //Ubicación
-  sede:{
-    type: String,
-    required:false
-  },
-  direccion:{
-    type: String,
-    required:false
+  location:{
+    type:{
+        type:String,
+        default:'Point'
+    },
+    addressName:{
+      type:String,      
+    },
+    street:{
+      type:String,      
+    },
+    outdoorNumber:{
+      type:String,      
+    },
+    interiorNumber:{
+      type:String,      
+    },
+    colony:{
+      type:String,      
+    },
+    zipCode:{
+      type:String,      
+    },
+    city:{
+      type:String,      
+    },
+    state:{
+      type:String,      
+    },
+    coordinates:[{
+        type:Number
+    }]
   },
 
 //Programa
-  nombreActividad:{
-    type: String,
-    required:false
-  },
-  tipoActividad:{
-    type: String,
-    required:false
-  },
-  fecha:{
-    type: String,
-    required:false
-  },
-  horaInicio:{
-    type: String,
-    required:false
-  },
-  ubicacion:{
-    type: String,
-    required:false
-  },
-  ponente:{
-    type: String,
-    required:false
-  },
-  coordinador:{
-    type: String,
-    required:false
-  },
-  participante:{
-    type: String,
-    required:false
-  },
-  modulo:{
-    type: String,
-    required:false
-  },
-  tituloModulo:{
-    type: String,
-    required:false
-  },
-  coordinadorModulo:{
-    type: String,
-    required:false
-  },
+  program:[{    
+    activityName:{
+      type: String,      
+    },
+    activityType:{
+      type: String,      
+    },
+    date:{
+      type: String,      
+    },
+    startTime:{
+      type: String,      
+    },
+    place:{
+      type: String,      
+    },
+    speaker:{
+      title:{
+        type: String,    
+      },
+      completeName:{
+        type: String,    
+      },
+      photoUrl:{
+        type:String
+      },
+      origin:{
+        type: String,    
+      },
+      bio:{
+        type: String,    
+      },
+      profileURL:{ 
+        type: String,    
+      },
+      activities:{ 
+        type: String,    
+      },     
+    },
+    coordinator:{
+      type: String,      
+    },
+    participant:{
+      type: String,      
+    },
+    module:{
+      type: String,      
+    },
+    moduleTitle:{
+      type: String,      
+    },
+    moduleCoordinator:{
+      type: String,      
+    },
+  }],
 
 //ivote
   tituloActividad:{
-    type: String,
-    required:false
+    type: String,    
   },
   crearCuestionario:{ //???:{
-    type: String,
-    required:false
+    type: String,    
   },
-//Ponente
-  titulo:{
-    type: String,
-    required:false
-  },
-  nombreCompleto:{
-    type: String,
-    required:false
-  },
-  origen:{
-    type: String,
-    required:false
-  },
-  bio:{
-    type: String,
-    required:false
-  },
-  actividades:{ //actividades en que participa:{
-    type: String,
-    required:false
-  },
+//Speaker
+  // speakerTitle:{
+  //   type: String,    
+  // },
+  // completeName:{
+  //   type: String,    
+  // },
+  // origin:{
+  //   type: String,    
+  // },
+  // bio:{
+  //   type: String,    
+  // },
+  // profileURL:{ 
+  //   type: String,    
+  // },
+  // activities:{ 
+  //   type: String,    
+  // },
 
 //Directorio
 //Mesa directiva:
-  presidente:{
-    type: String,
-    required:false
+  president:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  vicepresidente:{
-    type: String,
-    required:false
+  vicepresident:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  secretario:{
-    type: String,
-    required:false
+  secretary:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  tesorero:{
-    type: String,
-    required:false
+  treasurer:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  protesorero:{
-    type: String,
-    required:false
+  protreasurer:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  secretarioActas:{
-    type: String,
-    required:false
+  proceedingsSecretary:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
-  secretarioRelaciones:{
-    type: String,
-    required:false
+  relationsSecretary:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
 //Consejo Consultivo:{
 
-  consejoConsultivo:[{ // [personas]
-    type: String,
-    required:false
+  consultiveDirectors:[{ // [personas]
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   }],
 //Directores de Curso:{
   
-  directorCurso:{
-    type: String,
-    required:false
+  courseDirector:{
+    type: Schema.Types.ObjectId,
+    ref:'User',    
   },
 //Cordinador General:{
   
-  cordinadorGeneral:{
-    type: String,
-    required:false
+  generalCoordinator:{
+    type: Schema.Types.ObjectId,
+    ref:'User',  
   },
 //Asociaciones participantes
- 
-  nombreInstitucion:{
-    type: String,
-    required:false
-  },
-  presidente:{
-    type: String,
-    required:false
-  },
-  logo:{
-    type: String,
-    required:false
-  },
+  participationAsosiations:[{
+    institutionName:{
+      type: Schema.Types.ObjectId,
+      ref:'Institucion', 
+    },
+    president:{
+      type: String,    
+    },
+    logoURL:{
+      type: String,    
+    },
+  }],
+  
+  
 //Imagen
   imagenEvento:{
-    type: String,
-    required:false
+    type: String,    
   },
-  logosInstituciones:{ //[]:{
-    type: String,
-    required:false
-  },
+  logosInstituciones:[{
+      type: String 
+    }],
 //Descargables //files:{
   
-  permiso :{
-    type: String,
-    required:false
+  permisoURL:{
+    type: String,    
   },
-  constancia:{
-    type: String,
-    required:false
+  constanciaURL:{
+    type: String,    
   },
-  programa :{
-    type: String,
-    required:false
+  programaURL :{
+    type: String,    
   },
 },{
   timestamps:true

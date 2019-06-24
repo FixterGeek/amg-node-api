@@ -66,8 +66,12 @@ app.locals.title = 'Express - Generated with Fixter Generator';
 
 const index = require('./routes/index');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
+const eventRoutes = require('./routes/events');
 app.use('/', index);
 app.use('/auth', authRoutes)
+app.use('/users', userRoutes)
+app.use('/events', eventRoutes)
 
 
 module.exports = app;

@@ -1,41 +1,39 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const actividadSchema = new Schema({
+const studySchema = new Schema({
   user:{
     type:Schema.Types.ObjectId,
     ref:'User'
   },
-  tipo:{
+  major:{
     type:String,
-    enum:['Hospitalaria', 'Docente', 'Sociedad'],
-    required:true
+    required:false
   },
-  institucion:{
+  institution:{
     type:Schema.Types.ObjectId,
-    ref:'Institucion',
-    required:true    
+    ref:'Institution', 
+    required:false   
   },
-  //If Docente
-  materia:{
+  startDate:{
     type:String,
     required:false
   },
-  //If Hospitalaria
-  cargo :{
+  endDate:{
     type:String,
     required:false
   },
-  fechaInicio :{
+  //(Año de titulación)
+  receptionDate :{
     type:String,
     required:false
   },
-  fechaFin :{
+  professionalLicence:{
     type:String,
     required:false
   },
-}, {
+},{
   timestamps:true
 })
 
-module.exports = mongoose.model('Actividad', actividadSchema)
+module.exports = mongoose.model('Study', studySchema) 
