@@ -4,19 +4,13 @@ const controller = {};
 
 controller.getEvents = async (req, res) => {
 	let events = [];
-	let queryParams = Object.keys(req.query);
-	// filtrando cursos activos por query params
+	let {query, limit, skip} = req.params
 	if( queryParams.length > 0 ){
-		let query = {active: true};
-		//creado el query dinamicamente
-		query["$or"] = queryParams.map(key => {
-			return {[key]: req.query[key]}
-		});
-		events = await Event.find(query);
+		events = await Event.find(query).limit(limit).skip(skip);
 		return res.status(200).json(events)
 	}
 	// si no hay query params mando todos
-	events = await Event.find();
+	events = await Event.find().limit(20).skip(0);
 	res.status(200).json(events)
 };
 
