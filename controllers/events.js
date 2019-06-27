@@ -3,10 +3,11 @@ const controller = {};
 
 
 controller.getEvents = async (req, res) => {
-	let events = [];
-	let {query, limit, skip} = req.params
-	if( queryParams.length > 0 ){
-		events = await Event.find(query).limit(limit).skip(skip);
+	let events = [];	
+	let {query, limit, skip} = req.query
+	if( query || limit || skip ){
+		query = JSON.parse(query)	
+		events = await User.find(query).limit(limit).skip(skip)
 		return res.status(200).json(events)
 	}
 	// si no hay query params mando todos

@@ -4,14 +4,16 @@ const controller = {};
 
 controller.getUsers = async (req, res) => {
 	let users = [];
-	const {query, limit, skip} = req.params
-	if( Object.keys(req.params).length > 0 ){
+	console.log(req.query)
+	let {query, limit, skip} = req.query
+	if( query || limit || skip ){
+		query = JSON.parse(query)	
 		users = await User.find(query).limit(limit).skip(skip)
-		return res.status(200).json({users})
+		return res.status(200).json(users)
 	}
 	// si no hay query params mando todos
 	users = await User.find().limit(20).skip(0);
-	return res.status(200).json({users})
+	return res.status(200).json(users)
 };
 
 controller.getUser = async(req, res) => {
