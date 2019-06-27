@@ -19,7 +19,7 @@ const eventSchema = new Schema({
   curricularRegistrationNumber:{//numero de registro curricular al que pertenece:
     type: String,    
   },
-  curriculaInstitution:{//institución que otorga valor curricular:{
+  curricularInstitution:{//institución que otorga valor curricular:{
     type: String,    
   },
   directedTo:{ //tags de especialidades //dirigidoA
@@ -77,10 +77,7 @@ const eventSchema = new Schema({
     },
     date:{
       type: String,      
-    },
-    startTime:{
-      type: String,      
-    },
+    },    
     place:{
       type: String,      
     },
@@ -200,17 +197,9 @@ const eventSchema = new Schema({
     ref:'User',  
   },
 //Asociaciones participantes
-  participationAsosiations:[{
-    institutionName:{
+  participationAsosiations:[{    
       type: Schema.Types.ObjectId,
-      ref:'Institucion', 
-    },
-    president:{
-      type: String,    
-    },
-    logoURL:{
-      type: String,    
-    },
+      ref:'Institucion',     
   }],
   
   
