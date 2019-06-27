@@ -1,130 +1,130 @@
-**User Model**
-{
-  email:"example@example.com"
+*User Model* &nbsp;
+{&nbsp;
+  email:"example@example.com" &nbsp;
 
-  ***basic data***
-  basicData:{
-    "name" :"oswaldinho",
-    "dadSurname":"Martinez",
-    "momSurname":"Anaya",
-    "birthDate":"31/08/1996",
-    "placeOfBirth":{     ,
-      "addressName":"Pachuca",
-      "street":"",
-      "outdoorNumber":"",
-      "interiorNumber":"",
-      "colony":"",
-      "zipCode":"",
-      "city":"Pachuca",
-      "state":"Hidalgo",
-      "coordinates":["123312","123123"]
-    },
-    speciality :"Especialidad",
-    photoURL:"lafoto.jpg"
-    phone:"1234567890"
-    civilStatus :enum:['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo'],
-    //direccion
-    address:{
-      "addressName":"Pachuca",
-      "street":"",
-      "outdoorNumber":"",
-      "interiorNumber":"",
-      "colony":"",
-      "zipCode":"",
-      "city":"Pachuca",
-      "state":"Hidalgo",
-      "coordinates":["123312","123123"]
-    },    
-  },
-  ***cónyugue if casado o unión libre***
-  spouse:{
-    "name":"spouse name",
-    "dadSurname":"elapellido",
-    "momSurname":"el otro apellido"
-    "email":"email@conyugue.com"
-    phone:"1234567890"
-  },
-  
-  *** */Datos fiscales***
-  fiscalData:{
-    "rfc":"1234567RTY"
-    "phone":"1234567890"
-    "email":"email@email.com"
-    address:{
-      "addressName":"Pachuca",
-      "street":"",
-      "outdoorNumber":"",
-      "interiorNumber":"",
-      "colony":"",
-      "zipCode":"",
-      "city":"Pachuca",
-      "state":"Hidalgo",
-      "coordinates":["123312","123123"]
-    }, 
-  },
+  ***basic data*** &nbsp;
+  basicData:{ &nbsp;
+    "name" :"oswaldinho", &nbsp;
+    "dadSurname":"Martinez", &nbsp;
+    "momSurname":"Anaya", &nbsp;
+    "birthDate":"31/08/1996", &nbsp;
+    "placeOfBirth":{     , &nbsp;
+      "addressName":"Pachuca", &nbsp;
+      "street":"", &nbsp;
+      "outdoorNumber":"", &nbsp;
+      "interiorNumber":"", &nbsp;
+      "colony":"", &nbsp;
+      "zipCode":"", &nbsp;
+      "city":"Pachuca", &nbsp;
+      "state":"Hidalgo", &nbsp;
+      "coordinates":["123312","123123"] &nbsp;
+    }, &nbsp;
+    speciality :"Especialidad", &nbsp;
+    photoURL:"lafoto.jpg" &nbsp;
+    phone:"1234567890" &nbsp;
+    civilStatus :enum:['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo'], &nbsp;
+    //direccion &nbsp;
+    address:{ &nbsp;
+      "addressName":"Pachuca", &nbsp;
+      "street":"", &nbsp;
+      "outdoorNumber":"", &nbsp;
+      "interiorNumber":"", &nbsp;
+      "colony":"", &nbsp;
+      "zipCode":"", &nbsp;
+      "city":"Pachuca", &nbsp;
+      "state":"Hidalgo", &nbsp;
+      "coordinates":["123312","123123"] &nbsp;
+    },     &nbsp;
+  }, &nbsp;
+  ***cónyugue if casado o unión libre*** &nbsp;
+  spouse:{ &nbsp;
+    "name":"spouse name", &nbsp;
+    "dadSurname":"elapellido", &nbsp;
+    "momSurname":"el otro apellido" &nbsp;
+    "email":"email@conyugue.com" &nbsp;
+    phone:"1234567890" &nbsp;
+  }, &nbsp;
 
-  ***Status Data***
-  registrationDate:"01/01/2010",
-  membershipStatus:enum:['Pendiente de Pago', 'Pagado', 'Veterano'],
+  *** */Datos fiscales*** &nbsp;
+  fiscalData:{ &nbsp;
+    "rfc":"1234567RTY" &nbsp;
+    "phone":"1234567890" &nbsp;
+    "email":"email@email.com" &nbsp;
+    address:{ &nbsp;
+      "addressName":"Pachuca", &nbsp;
+      "street":"", &nbsp;
+      "outdoorNumber":"", &nbsp;
+      "interiorNumber":"", &nbsp;
+      "colony":"", &nbsp;
+      "zipCode":"", &nbsp;
+      "city":"Pachuca", &nbsp;
+      "state":"Hidalgo", &nbsp;
+      "coordinates":["123312","123123"] &nbsp;
+    },  &nbsp;
+  }, &nbsp;
 
-  *** Aproval  Data ***
-  userStatus:enum:['Registrado', 'Aprobado', 'No Aprobado'],
-  revisionDate:"01/01/2010",
-  reviwedBy:{
-    type:Schema.Types.ObjectId,
-    ref:'User'
-  },
+  ***Status Data*** &nbsp;
+  registrationDate:"01/01/2010", &nbsp;
+  membershipStatus:enum:['Pendiente de Pago', 'Pagado', 'Veterano'], &nbsp;
 
-  *** "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso" ***
-  membersWhoRecommend:[{
-    type:Schema.Types.ObjectId,
-    ref:'User'
-  }],
+  *** Aproval  Data *** &nbsp;
+  userStatus:enum:['Registrado', 'Aprobado', 'No Aprobado'], &nbsp;
+  revisionDate:"01/01/2010", &nbsp;
+  reviwedBy:{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'User' &nbsp;
+  }, &nbsp;
+
+  *** "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso" *** &nbsp;
+  membersWhoRecommend:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'User' &nbsp;
+  }], &nbsp;
 
 ***/Condicional labora actualmente en un hospital o institución?***
-  //if applies
-  workedAtInstitutions:[{
-    type:Schema.Types.ObjectId,
-    ref:'Institution'
-  }],
-  *** Condicional labora posee un consultorio ***
-  //if applies
-  consultories:[{
-    type:Schema.Types.ObjectId,
-    ref:'Institution'
-  }],
-  
-  *** educación ***
-  studies:[{
-    type:Schema.Types.ObjectId,
-    ref:'Study'
-  }],    
-  *** Internado de pregrado ***
-  internships:[{
-    type:Schema.Types.ObjectId,
-    ref:'Internship'
-  }],
-  *** Residencias y posgrados ***
-  residencies:[{
-    type:Schema.Types.ObjectId,
-    ref:'REsidency'
-  }],
-  *** Actividades docentes pasadas y presentes ***
-  teachingActivities:[{
-    type:Schema.Types.ObjectId,
-    ref:'Activity'
-  }],
-  *** Activityes hospitalarias pasadas y presentes ***
-  hospitalActivities:[{
-    type:Schema.Types.ObjectId,
-    ref:'Activity'
-  }],
-  *** Sociedades médicas a las que pertenece *** o usar un modelo por separado para Sociedades ***
-  medicalSocieties:[{
-    type:Schema.Types.ObjectId,
-    ref:'Activity'
-  }],
+  //if applies &nbsp;
+  workedAtInstitutions:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Institution' &nbsp;
+  }], &nbsp;
+  *** Condicional labora posee un consultorio *** &nbsp;
+  //if applies &nbsp;
+  consultories:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Institution' &nbsp;
+  }], &nbsp;
+   &nbsp;
+  *** educación *** &nbsp;
+  studies:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Study' &nbsp;
+  }],     &nbsp;
+  *** Internado de pregrado *** &nbsp;
+  internships:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Internship' &nbsp;
+  }], &nbsp;
+  *** Residencias y posgrados *** &nbsp;
+  residencies:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'REsidency' &nbsp;
+  }], &nbsp;
+  *** Actividades docentes pasadas y presentes *** &nbsp;
+  teachingActivities:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Activity' &nbsp;
+  }], &nbsp;
+  *** Activityes hospitalarias pasadas y presentes *** &nbsp;
+  hospitalActivities:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Activity' &nbsp;
+  }], &nbsp;
+  *** Sociedades médicas a las que pertenece *** o usar un modelo por separado para Sociedades *** &nbsp;
+  medicalSocieties:[{ &nbsp;
+    type:Schema.Types.ObjectId, &nbsp;
+    ref:'Activity' &nbsp;
+  }], &nbsp;
 },{
-  createdAt:"",
-  updatedAt:""
+  createdAt:"", &nbsp;
+  updatedAt:"" &nbsp;
 } -->
