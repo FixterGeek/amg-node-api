@@ -107,7 +107,7 @@
   "medicalSocieties":["the Object ID of the Activities",], 
    "createdAt":"01/01/2019", 
   "updatedAt":"01/01/2019"  
-}
+}```
 
 # Activity Model 
 # Event Model
