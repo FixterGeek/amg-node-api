@@ -88,10 +88,10 @@ const eventSchema = new Schema({
       title:{
         type: String,    
       },
-      completeName:{
+      fullName:{
         type: String,    
       },
-      photoUrl:{
+      photoURL:{
         type:String
       },
       origin:{
@@ -215,7 +215,7 @@ const eventSchema = new Schema({
   
   
 //Imagen
-  imagenEvento:{
+  photoURL:{
     type: String,    
   },
   logosInstituciones:[{

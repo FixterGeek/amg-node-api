@@ -14,7 +14,7 @@ const tryCatch=(fn) =>{
 router.get('/self',verifyToken,tryCatch(controller.self))
 
 /*Post to login and return user and token*/
-router.post("/login",passport.authenticate("local"),tryCatch(controller.login));
+router.post("/login",tryCatch(controller.login))
 
 /*Post to register a new user, email and pass needed*/
 router.post("/signup", tryCatch(controller.signup));
