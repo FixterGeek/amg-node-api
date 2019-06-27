@@ -146,7 +146,7 @@ const userSchema = new Schema({
     email:{
       type:String,      
     },
-    location:{
+    address:{
       type:{
           type:String,
           default:'Point'
