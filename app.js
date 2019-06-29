@@ -68,10 +68,12 @@ const index = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
+const institutionRoutes = require('./routes/institutions');
 app.use('/', index);
 app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
 app.use('/events', eventRoutes)
+app.use('/institutions', institutionRoutes)
 
 
 module.exports = app;

@@ -1,6 +1,11 @@
 # Models and Endpoints Documentation
 ## Content:
  - [Users](#users)
+ - [Activities](#activities)
+ - [Institutions](#institutions)
+ - [Internships](#internships)
+ - [Residences](#residences)
+ - [Studies](#studies)
  - [Events](#events)
 
 <a name="users"></a>
@@ -117,11 +122,19 @@
       "createdAt":"01/01/2019", 
       "updatedAt":"01/01/2019"  
     }
-
+<a name="activities"></a>
 # Activities 
+
+<a name="institutions"></a>
 # Institutions
-# Internshipa
-# Residencea 
+
+<a name="internships"></a>
+# Internships
+
+<a name="residences"></a>
+# Residences 
+
+<a name="studies"></a>
 # Studies
 
 <a name="events"></a>
@@ -129,7 +142,7 @@
 
 ## Endpoints 
   ### Get all ecents
-    GET /events?query={"userStatus":"Aprobado", "filter":"value"}&limit=20&skip=0  
+    GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
   ### get a single event
