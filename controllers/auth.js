@@ -21,10 +21,7 @@ controller.login = async (req, res, next) => {
       let token = generateToken(req.user);
 			return res.status(200).send({ user: req.user, token });
     })
-  })(req, res, next)
-	// console.log(req)
-	// let token = generateToken(req.user);
-	// return res.status(200).send({ user: req.user, token });
+  })(req, res, next)	
 };
 
 /*Post to register a new user, email and pass needed*/

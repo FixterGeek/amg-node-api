@@ -19,7 +19,7 @@ const accountCreated = hbs.compile(
 exports.welcomeMail = ({ email, basicData }) => {	
 	transport
 		.sendMail({
-			subject: "👾🤖¡Bienvenido a FixterGeek!😎",
+			subject: "¡Bienvenido a AMG",
 			bcc: email,
 			html: accountCreated(basicData)
 		})
