@@ -25,7 +25,7 @@ controller.getUser = async(req, res) => {
 
 controller.updateUser = async (req, res) => {
 	const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
-	res.status(200).json(User);
+	res.status(200).json(user);
 };
 
 controller.deleteUser = async (req, res) => {

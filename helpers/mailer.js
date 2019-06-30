@@ -21,16 +21,21 @@ let transport = nodemailer.createTransport({
 // 	fs.readFileSync((__dirname, "./views/mail/contactForm.hbs"), "utf8")
 // );
 
-exports.welcomeMail = ({ email, displayName = "Geek!" }) => {
-	console.log('manda el mail ')
-	// transport
-	// 	.sendMail({
-	// 		subject: "👾🤖¡Bienvenido a FixterGeek!😎",
-	// 		bcc: email,
-	// 		html: accountCreated({ name: displayName })
-	// 	})
-	// 	.then(r => console.log(r))
-	// 	.catch(e => console.log(e));
+exports.welcomeMail = ({ email, displayName = "Geek!" }) => {	
+	transport
+		.sendMail({
+			subject: "👾🤖¡Bienvenido a FixterGeek!😎",
+			bcc: email,
+			html: accountCreated({ name: displayName })
+		})
+		.then(r => console.log(r))
+		.catch(e => console.log(e));
 };
+
+//exports.paid
+
+//exports.pay
+
+//exports.validating
 
 

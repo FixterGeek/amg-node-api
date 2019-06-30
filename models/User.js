@@ -216,12 +216,6 @@ const userSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User'
   }],
-  //Nombre y firma
-  // firma:{
-  //   type:String,
-//   
-  // }
-
   /*Status Data*/
 
   registrationDate:{
