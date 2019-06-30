@@ -228,7 +228,7 @@ const userSchema = new Schema({
   /* Aproval  Data*/
   userStatus:{
     type:String,
-    enum:['Registrado', 'Aprobado', 'No Aprobado'],
+    enum:['Registrado','Pendiente', 'Aprobado', 'No Aprobado'],
     default:'Registrado'
   },
   revisionDate:{

@@ -10,19 +10,19 @@ const tryCatch=(fn) =>{
   };
 }
 /* Get all Estudios*/
-router.get('/',verifyToken,tryCatch(controller.getEstudios))
+router.get('/',verifyToken,tryCatch(controller.getStudies))
 
 /* Post all Estudios*/
-router.post('/',verifyToken,tryCatch(controller.postEstudio))
+router.post('/',verifyToken,tryCatch(controller.postStudy))
 
 /*Get a single Estudios*/
-router.get('/:id',verifyToken,tryCatch(controller.getEstudio))
+router.get('/:id',verifyToken,tryCatch(controller.getStudy))
 
-/*Update a Estudios*/
-router.patch('/:id',verifyToken,tryCatch(controller.updateEstudio))
+/*Update a Studys*/
+router.patch('/:id',verifyToken,tryCatch(controller.updateStudy))
 
-/*Delete a Estudios*/
-router.delete('/:id',verifyToken,tryCatch(controller.deleteEstudio))
+/*Delete a Studys*/
+router.delete('/:id',verifyToken,tryCatch(controller.deleteStudy))
 
 
 module.exports = router;

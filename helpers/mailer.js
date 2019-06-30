@@ -1,6 +1,6 @@
 let nodemailer = require("nodemailer");
-// let hbs = require("hbs");
-// let fs = require("fs");
+let hbs = require("hbs");
+let fs = require("fs");
 
 let transport = nodemailer.createTransport({
 	service: "Gmail",
@@ -10,23 +10,18 @@ let transport = nodemailer.createTransport({
 	}
 });
 
-// const accountCreated = hbs.compile(
-// 	fs.readFileSync((__dirname, "./views/mail/bienvenida.hbs"), "utf8")
-// );
-// const applyDone = hbs.compile(
-// 	fs.readFileSync((__dirname, "./views/mail/apply.hbs"), "utf8")
-// );
+const accountCreated = hbs.compile(
+	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+);
 
-// const contactForm = hbs.compile(
-// 	fs.readFileSync((__dirname, "./views/mail/contactForm.hbs"), "utf8")
-// );
 
-exports.welcomeMail = ({ email, displayName = "Geek!" }) => {	
+
+exports.welcomeMail = ({ email, basicData }) => {	
 	transport
 		.sendMail({
 			subject: "👾🤖¡Bienvenido a FixterGeek!😎",
 			bcc: email,
-			html: accountCreated({ name: displayName })
+			html: accountCreated(basicData)
 		})
 		.then(r => console.log(r))
 		.catch(e => console.log(e));

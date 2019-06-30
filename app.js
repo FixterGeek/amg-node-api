@@ -45,7 +45,7 @@ app.use(require('node-sass-middleware')({
       
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
@@ -69,11 +69,21 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
 const institutionRoutes = require('./routes/institutions');
+const activityRoutes = require('./routes/activities');
+const internshipRoutes = require('./routes/internships');
+const residenceRoutes = require('./routes/residences');
+const studyRoutes = require('./routes/studies');
+
 app.use('/', index);
 app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
 app.use('/events', eventRoutes)
 app.use('/institutions', institutionRoutes)
+app.use('/activities', activityRoutes)
+app.use('/internships', internshipRoutes)
+app.use('/residences', residenceRoutes)
+app.use('/studiess', studyRoutes)
+
 
 
 module.exports = app;

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const residenciaSchema = new Schema({
+const residenceSchema = new Schema({
   user:{
     type:Schema.Types.ObjectId,
     ref:'User'
@@ -13,10 +13,6 @@ const residenciaSchema = new Schema({
   institution:{
     type:Schema.Types.ObjectId,
     ref:'Institution'
-  },
-  hospital:{
-    type:String,
-    required:false
   },
   startDate:{
     type:String,
@@ -30,7 +26,7 @@ const residenciaSchema = new Schema({
     type:String,
     required:false
   },
-  specialityLicenceCopu :{
+  specialityLicenceCopy :{
     type:String,
     required:false
   },

@@ -20,10 +20,8 @@ controller.postEvent = async (req, res) => {
 	res.status(200).json(event);
 };
 
-controller.getEvent = async (req, res) => {
-  console.log(req.params)
-  const event = await Event.findById(req.params.id);
-  console.log(event)
+controller.getEvent = async (req, res) => {  
+  const event = await Event.findById(req.params.id);  
 	res.status(200).json(event);
 };
 

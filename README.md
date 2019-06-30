@@ -27,8 +27,7 @@
     DELETE /users/:userId
   ### Get all users
     GET /users?query={"userStatus":"Aprobado", "filter":"value"}&limit=20&skip=0
-
-  
+ 
 
 ## Model
 
@@ -95,7 +94,7 @@
       "registrationDate":"01/01/2010", 
       "membershipStatus":"one of these=>:['Pendiente de Pago', 'Pagado', 'Veterano']", 
       ###* Aproval  Data  ***
-      "userStatus":"one of these=>['Registrado', 'Aprobado', 'No Aprobado']", 
+      "userStatus":"one of these=>['Registrado','Pendiente', 'Aprobado', 'No Aprobado']", 
       "revisionDate":"01/01/2010", 
       "reviwedBy":"the Object ID of the User",
 
@@ -125,23 +124,162 @@
 <a name="activities"></a>
 # Activities 
 
+## Endpoints
+
+### Get all activities
+    GET /activities?query={"filter":"value"}&limit=20&skip=0  
+  ### post an activity
+    POST /activities
+  ### get a single activity
+    GET /activities/:activityId
+  ### update an activity
+    PATCH /activities/:activityId
+  ### delete an activity
+    DELETE /activities/:activityId
+
+##Model
+
+    {
+      user: ID of the User
+      type:one of these['Hospitalaria', 'Docente', 'Sociedad'],
+      institution:ID of an Institution
+      //If Docente
+      subject:'La materia'
+      //If Hospitalaria
+      charge :'El cargo'
+      startDate :'10/10/2010',
+      endDate :'10/10/2010'
+    }
+
+
 <a name="institutions"></a>
 # Institutions
+
+## Endpoints
+
+### Get all institutions
+    GET /institutions?query={"filter":"value"}&limit=20&skip=0  
+  ### post an institushion
+    POST /institutions
+  ### get a single activity
+    GET /institutions/:institushionId
+  ### update an institushion
+    PATCH /institutions/:institushionId
+  ### delete an institushion
+    DELETE /institutions/:institushionId
+
+##Model
+
+    {         
+      name:'Institution Name'
+      president:''
+      type: => ['Hospital', 'Escuela', 'Consultorio', 'Sociedad']      
+      location:{
+        "addressName":"Pachuca", 
+          "street":"", 
+          "outdoorNumber":"", 
+          "interiorNumber":"", 
+          "colony":"", 
+          "zipCode":"", 
+          "city":"Pachuca", 
+          "state":"Hidalgo", 
+          "coordinates":["123312","123123"]
+      },
+      phones:[124123412341234,123412341234],
+      email:'institutionmail@mail.com'
+      logoURL:'institution.jpg'  
+    }
 
 <a name="internships"></a>
 # Internships
 
+## Endpoints
+
+### Get all internships
+    GET /internships?query={"filter":"value"}&limit=20&skip=0  
+  ### post an internship
+    POST /internships
+  ### get a single activity
+    GET /internships/:internshipId
+  ### update an internship
+    PATCH /internships/:internshipId
+  ### delete an internship
+    DELETE /internships/:internshipId
+
+##Model
+
+    {
+      user:User ID,
+      institution:Institution ID,
+      startDate:'10/10/10',
+      endDate :'10/10/10',
+    }
+
+
 <a name="residences"></a>
 # Residences 
+
+## Endpoints
+
+### Get all residences
+    GET /residences?query={"filter":"value"}&limit=20&skip=0  
+  ### post an residence
+    POST /residences
+  ### get a single activity
+    GET /residences/:residenceId
+  ### update an residence
+    PATCH /residences/:residenceId
+  ### delete an residence
+    DELETE /residences/:residenceId
+
+##Model
+
+    {
+      user:User ID,
+      speciality:'especialidad',
+      institution:InstitutionID,  
+      startDate:'10/10/10'
+      endDate :'10/10/10'
+      specialityLicence:'CEdula de especialidad'
+      specialityLicenceCopy :'file.jpg'
+      specialistLicence:'cedula de especialidad'
+      specialityDirectorsCertificates:'certificados del consejo de especialidad'
+    }
 
 <a name="studies"></a>
 # Studies
 
+## Endpoints
+
+### Get all studies
+    GET /studies?query={"filter":"value"}&limit=20&skip=0  
+  ### post an study
+    POST /studies
+  ### get a single activity
+    GET /studies/:studyId
+  ### update an study
+    PATCH /studies/:studyId
+  ### delete an study
+    DELETE /studies/:studyId
+
+##Model
+
+    {
+      user:User ID,
+      major:'Carrera'
+      institution:Institution ID,
+      startDate:'10/10/2010'
+      endDate:'10/10/2010'
+      //(Año de titulación)
+      receptionDate :'10/10/2015'
+      professionalLicence:'Cédula profesional'
+    }
+
 <a name="events"></a>
-# Events
+# Eventsv
 
 ## Endpoints 
-  ### Get all ecents
+  ### Get all events
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events

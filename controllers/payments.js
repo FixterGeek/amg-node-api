@@ -47,7 +47,7 @@ controller.subscription = (req,res) => {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-      User.findByIdAndUpdate(user._id, { $set: { enrolled: true, country } }, { new: true })
+      User.findByIdAndUpdate(user._id, { $set: { enrolled: true } }, { new: true })
         .then(u => {
           return res.status(200).json({ user:u, order: order.toObject() })
         }).catch(e => {
