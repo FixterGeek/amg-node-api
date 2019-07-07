@@ -199,7 +199,7 @@ const eventSchema = new Schema({
 //Asociaciones participantes
   participationAsosiations:[{    
       type: Schema.Types.ObjectId,
-      ref:'Institucion',     
+      ref:'Institution',     
   }],
   
   

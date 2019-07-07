@@ -29,7 +29,7 @@ exports.welcomeMail = ({ email, basicData }) => {
 
 //exports.paid
 
-//exports.pay
+//exports.paymentReference
 
 //exports.validating
 

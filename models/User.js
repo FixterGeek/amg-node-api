@@ -106,13 +106,7 @@ const userSchema = new Schema({
   },
   /**** *cónyugue if casado o unión libre****/
   spouse:{
-    name:{
-      type:String,      
-    },
-    dadSurname:{
-      type:String,      
-    },
-    momSurname:{
+    fullName:{
       type:String,      
     },
     email:{
@@ -237,7 +231,11 @@ const userSchema = new Schema({
   reviwedBy:{
     type:Schema.Types.ObjectId,
     ref:'User'
-  }
+  },
+  renewals:[{
+    type:Schema.Types.ObjectId,
+    ref:'Payment'
+  }]
 
 
 },{

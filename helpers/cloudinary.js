@@ -13,11 +13,9 @@ var storage = cloudinaryStorage({
   folder: 'amg', // The name of the folder in cloudinary
   allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // The file on cloudinary would have the same name as the original file name
+    cb(null, file.originalname); 
   }
 });
-
-//const uploadCloud = multer({ storage: storage }).single('file');
 const uploadCloud = multer({ storage: storage });
 
 module.exports = uploadCloud;

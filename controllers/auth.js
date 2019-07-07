@@ -35,4 +35,21 @@ controller.signup = async (req, res) => {
 	return res.status(201).send({ user, token });
 };
 
+controller.reset = async (req, res) =>{
+	let user = await User.findOne({email:req.body.email})
+	if(user){
+		console.log(user)
+		user.changePassword(req.body.oldPassword, req.body.newPassword)
+			.then(()=>{
+				console.log('change pass')
+				user.save()
+				return res.status(200).json(user)
+			}).catch((e)=>{
+				return res.status(400).json(e)		
+			})
+	}else{
+		return res.status(404).json({message:'Este usuario no existe'})
+	}
+}
+
 module.exports = controller;

@@ -2,10 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const institutionSchema = new Schema({
+
   // si aplica,   
+  owner:{
+    type:Schema.Types.ObjectId,
+    ref:'User'
+  },
   name:{
     type:String,
-    required:true
+    required:true,    
   },
   president:{
     type:String,

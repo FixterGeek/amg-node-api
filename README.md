@@ -19,6 +19,9 @@
     POST /auth/login
   ### Get auth User
     GET /auth/self
+  ### reset password
+    POST /auth/reset
+    {email, oldPassword, newPassword}
   ### get a single user
     GET /users/:userId
   ### update a user
@@ -27,6 +30,7 @@
     DELETE /users/:userId
   ### Get all users
     GET /users?query={"userStatus":"Aprobado", "filter":"value"}&limit=20&skip=0
+  
  
 
 ## Model
