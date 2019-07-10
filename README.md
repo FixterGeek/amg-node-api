@@ -19,9 +19,12 @@
     POST /auth/login
   ### Get auth User
     GET /auth/self
-  ### reset password
-    POST /auth/reset
+  ### change password
+    POST /auth/change
     {email, oldPassword, newPassword}
+  ### change password if forgotten
+    POST /auth/forgot
+    {email, password}
   ### get a single user
     GET /users/:userId
   ### update a user

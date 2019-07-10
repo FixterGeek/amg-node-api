@@ -20,7 +20,10 @@ router.post("/login",tryCatch(controller.login))
 router.post("/signup", tryCatch(controller.signup));
 
 /* REset Password*/
-router.post("/reset",verifyToken, tryCatch(controller.reset));
+router.post("/change",verifyToken, tryCatch(controller.changePass));
+
+/* forgot Password*/
+router.post("/forgot",verifyToken, tryCatch(controller.forgotPass));
 
 
 module.exports = router;
