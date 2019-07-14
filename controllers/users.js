@@ -20,21 +20,23 @@ controller.getUsers = async (req, res) => {
 
 controller.getUser = async(req, res) => {
 	const user = await User.findById(req.params.id)
-	res.status(200).json(user)
+	return res.status(200).json(user)
 }
 
 controller.updateUser = async (req, res) => {
-	console.log(req.file, req.files, req.body.basicData)
+	console.log(req.file, req.body.basicData)
 	if(req.file||req.files) {
 		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
 		req.body['basicData'] = basics
 	}
-x
+	const user = await User.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
+	//if(req.body.userStatus == 'Pendiente') validatingProfile(user)
+	return res.status(200).json(user)
 };
 
 controller.deleteUser = async (req, res) => {
 	const user = await User.findByIdAndRemove(req.params.id);
-	res.status(200).json(user);
+	return res.status(200).json(user);
 };
 
 module.exports = controller;

@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/events");
 //middlewares
 const { verifyToken } = require("../helpers/jwt");
+const upload = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
@@ -13,7 +14,7 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getEvents))
 
 /* Post all Eventos*/
-router.post('/',verifyToken,tryCatch(controller.postEvent))
+router.post('/',verifyToken,upload('events').any(),tryCatch(controller.postEvent))
 
 /*Get a single Eventos*/
 router.get('/:id',verifyToken,tryCatch(controller.getEvent))

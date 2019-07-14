@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/users");
 //middlewares
 const { verifyToken } = require("../helpers/jwt");
-const uploadCloud = require('../helpers/cloudinary')
+const upload = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
@@ -11,25 +11,16 @@ const tryCatch=(fn) =>{
   };
 }
 /* Get all users*/
-router.get('/',
-  verifyToken,
-  tryCatch(controller.getUsers))
+router.get('/',verifyToken,tryCatch(controller.getUsers))
 
 /*Get a single user*/
-router.get('/:id',
-  verifyToken,
-  tryCatch(controller.getUser))
+router.get('/:id',verifyToken,tryCatch(controller.getUser))
 
 /*Update a user*/
-router.patch('/:id',
-  verifyToken,
-  uploadCloud.single('photoURL'),
-  tryCatch(controller.updateUser))
+router.patch('/:id',verifyToken,upload('users').single('photo'),tryCatch(controller.updateUser))
 
 /*Delete a user*/
-router.delete('/:id',
-  verifyToken,
-  tryCatch(controller.deleteUser))
+router.delete('/:id',verifyToken,tryCatch(controller.deleteUser))
 
 
 module.exports = router;

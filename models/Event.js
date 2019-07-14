@@ -204,9 +204,15 @@ const eventSchema = new Schema({
   
   
 //Imagen
-  photoURL:{
+  mainImages:[{
     type: String,    
-  },
+  }],
+  thumbnailImages:[{
+    type: String,    
+  }],
+  iconImages:[{
+    type: String,    
+  }],
   logosInstituciones:[{
       type: String 
     }],

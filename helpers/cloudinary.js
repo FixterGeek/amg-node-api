@@ -8,14 +8,22 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
-var storage = cloudinaryStorage({
-  cloudinary,
-  folder: 'amg', // The name of the folder in cloudinary
-  allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); 
-  }
-});
-const uploadCloud = multer({ storage: storage });
+// cloudinary.image("lady.jpg", {transformation: [
+//   {width: 400, height: 400, gravity: "face", radius: "max", crop: "crop"},
+//   {width: 200, crop: "scale"}
+//   ]})
 
-module.exports = uploadCloud;
+const upload = (folder) =>{  
+    const storage = cloudinaryStorage({
+      cloudinary,
+      folder: folder, // The name of the folder in cloudinary
+      allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],      
+      filename: function (req, file, cb) {            
+        cb(null, `${file.originalname}-${new Date()}`); 
+      }
+    });
+    const uploadCloud = multer({ storage: storage });
+    return uploadCloud
+}
+
+module.exports = upload;

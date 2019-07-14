@@ -10,10 +10,10 @@ const publicationSchema = new Schema({
   urls:[{
     type:String
   }],
-  images:[{
+  imagesURLS:[{
     type:String
   }],
-  docs:[{
+  docsURLS:[{
     type:String
   }],
   text:String,

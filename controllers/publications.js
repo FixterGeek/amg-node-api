@@ -1,5 +1,6 @@
 const Publication = require("../models/Publication");
 const controller = {};
+const sharp = require('sharp')
 
 controller.getPublications = async (req, res) => {
 	
@@ -18,10 +19,12 @@ controller.getPublications = async (req, res) => {
 
 
 controller.postPublication = async (req, res) => {
+	//testing	
+	console.log(req.files, req.body)	
   req.body['user'] = req.user._id
   req.files.forEach(element => {
-    if(req.body[element.fieldname])req.body[element.fieldname].push(element.secure_url)
-    else req.body[element.fieldname] = [element.secure_url]
+    if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+    else req.body[`${element.fioollklkeldname}URLS`] = [element.secure_url]
   })
 	const publication = await Publication.create(req.body);
 	res.status(200).json(publication);

@@ -30,6 +30,7 @@
     GET /users/:userId
   ### update a user
     PATCH /users/:userId
+    // Send the user image file in the photo field
   ### delete a user
     DELETE /users/:userId
   ### Get all users
@@ -45,7 +46,7 @@
         "name" :"oswaldinho",     
         "dadSurname":"Martinez", 
         "momSurname":"Anaya",     
-        "birthDate":"31/08/1996", 
+        "birthDate":"31/08/1996",         
         "placeOfBirth":{
           "addressName":"Pachuca", 
           "street":"", 
@@ -58,7 +59,7 @@
           "coordinates":["123312","123123"] 
         }, 
         "speciality" :"Especialidad", 
-        "photoURL":"lafoto.jpg",
+        "photoURL":"url de la foto",        
         "phone":"1234567890",
         "civilStatus" :"one pf these=>['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo']",       
       "address":{ 
@@ -395,12 +396,12 @@
     {
       user:
       urls:['url1', 'url2', 'url3'],
-      //para post mandar los archivos en formdata
+      //para post mandar los archivos en formdata en el field images
       //para get viene el array de los links de los archivos
-      images:[],
-      //para post mandar los archivos en formdata
+      imagesURLS:[],
+      //para post mandar los archivos en formdata en el field docs
       //para get viene el array de los links de los archivos
-      docs:[],
+      docsURLS:[],
       text:"texto del post",
       liked:[urls de los usuarios que agregaron como fav el post]
     }

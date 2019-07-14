@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/publications");
 //middlewares
 const { verifyToken } = require("../helpers/jwt");
-const uploadCloud = require('../helpers/cloudinary')
+const upload = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
@@ -14,7 +14,7 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getPublications))
 
 /* Post all Publications*/
-router.post('/',verifyToken,uploadCloud.any(),tryCatch(controller.postPublication))
+router.post('/',verifyToken,upload('publications').any(),tryCatch(controller.postPublication))
 
 /* Like/ dislike a post*/
 router.post('/:id/like',verifyToken,tryCatch(controller.likePublication))
