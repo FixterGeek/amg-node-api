@@ -1,12 +1,13 @@
 const Publication = require("../models/Publication");
 const controller = {};
 
-
 controller.getPublications = async (req, res) => {
+	
 	let publications = [];	
 	let {query, limit, skip} = req.query
 	if( query || limit || skip ){
-		query = JSON.parse(query)	
+		query = JSON.parse(query)
+		console.log(query)
 		publications = await Publication.find(query).limit(limit).skip(skip)
 		return res.status(200).json(publications)
 	}
@@ -14,6 +15,7 @@ controller.getPublications = async (req, res) => {
 	publications = await Publication.find().limit(20).skip(0);
 	res.status(200).json(publications)
 };
+
 
 controller.postPublication = async (req, res) => {
   req.body['user'] = req.user._id

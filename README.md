@@ -377,7 +377,9 @@
 
 ## Endpoints 
   ### Get all publications
-    GET /publications?query={"filter":"value"}&limit=20&skip=0  
+    GET /publications?query={"filter":"value"}&limit=20&skip=0
+    //to get the favorites of a user
+    /publications?query={"liked":{"$in":["userID"]}}
   ### post an post
     POST /publications
   ### LIKE/DISLIKE a post
@@ -388,6 +390,20 @@
     PATCH /publications/:publicationId
   ### delete an post
     DELETE /publications/:publicationId
+
+  ## Model
+    {
+      user:
+      urls:['url1', 'url2', 'url3'],
+      //para post mandar los archivos en formdata
+      //para get viene el array de los links de los archivos
+      images:[],
+      //para post mandar los archivos en formdata
+      //para get viene el array de los links de los archivos
+      docs:[],
+      text:"texto del post",
+      liked:[urls de los usuarios que agregaron como fav el post]
+    }
 
 
 
