@@ -15,7 +15,8 @@ controller.getPublications = async (req, res) => {
 	res.status(200).json(publications)
 };
 
-controller.postPublication = async (req, res) => {  
+controller.postPublication = async (req, res) => {
+  req.body['user'] = req.user._id
   req.files.forEach(element => {
     if(req.body[element.fieldname])req.body[element.fieldname].push(element.secure_url)
     else req.body[element.fieldname] = [element.secure_url]
