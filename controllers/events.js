@@ -7,7 +7,7 @@ controller.getEvents = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if( query || limit || skip ){
 		query = JSON.parse(query)	
-		events = await User.find(query).limit(limit).skip(skip)
+		events = await Event.find(query).limit(limit).skip(skip)
 		return res.status(200).json(events)
 	}
 	// si no hay query params mando todos

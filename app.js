@@ -73,6 +73,7 @@ const activityRoutes = require('./routes/activities');
 const internshipRoutes = require('./routes/internships');
 const residenceRoutes = require('./routes/residences');
 const studyRoutes = require('./routes/studies');
+const publicationsRoutes = require('./routes/publications');
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -82,7 +83,9 @@ app.use('/institutions', institutionRoutes)
 app.use('/activities', activityRoutes)
 app.use('/internships', internshipRoutes)
 app.use('/residences', residenceRoutes)
-app.use('/studiess', studyRoutes)
+app.use('/studies', studyRoutes)
+app.use('/publications', publicationsRoutes)
+
 
 
 

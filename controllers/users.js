@@ -24,11 +24,12 @@ controller.getUser = async(req, res) => {
 }
 
 controller.updateUser = async (req, res) => {
-	console.log(req.file, req.files)
-	req.body['basicData']['imageURL'] = req.file.secure_url;
-	const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
-	if(req.body.userStatus == 'Pendiente') validatingProfile(user)
-	res.status(200).json(user);
+	console.log(req.file, req.files, req.body.basicData)
+	if(req.file||req.files) {
+		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
+		req.body['basicData'] = basics
+	}
+x
 };
 
 controller.deleteUser = async (req, res) => {

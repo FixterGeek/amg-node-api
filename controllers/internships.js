@@ -7,7 +7,7 @@ controller.getInternships = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if( query || limit || skip ){
 		query = JSON.parse(query)	
-		internships = await User.find(query).limit(limit).skip(skip)
+		internships = await Internship.find(query).limit(limit).skip(skip)
 		return res.status(200).json(internships)
 	}
 	// si no hay query params mando todos

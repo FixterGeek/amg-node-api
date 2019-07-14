@@ -7,7 +7,7 @@ controller.getResidences = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if( query || limit || skip ){
 		query = JSON.parse(query)	
-		residences = await User.find(query).limit(limit).skip(skip)
+		residences = await Residence.find(query).limit(limit).skip(skip)
 		return res.status(200).json(residences)
 	}
 	// si no hay query params mando todos

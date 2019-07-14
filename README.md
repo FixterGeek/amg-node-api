@@ -7,6 +7,7 @@
  - [Residences](#residences)
  - [Studies](#studies)
  - [Events](#events)
+ - [Publications](#publications)
 
 <a name="users"></a>
 # Users
@@ -371,6 +372,22 @@
       constanciaURL:"constancia.pdf"
       programaURL :"programa.pdf"
     }
+<a name="publications"></a>
+# Publications
+
+## Endpoints 
+  ### Get all publications
+    GET /publications?query={"filter":"value"}&limit=20&skip=0  
+  ### post an post
+    POST /publications
+  ### LIKE/DISLIKE a post
+    POST /publications/:publicationId/like
+  ### get a single post
+    GET /publications/:publicationId
+  ### update an post
+    PATCH /publications/:publicationId
+  ### delete an post
+    DELETE /publications/:publicationId
 
 
 

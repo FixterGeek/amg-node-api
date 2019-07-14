@@ -23,7 +23,7 @@ router.get('/:id',
 /*Update a user*/
 router.patch('/:id',
   verifyToken,
-  uploadCloud.single('imageURL'),
+  uploadCloud.single('photoURL'),
   tryCatch(controller.updateUser))
 
 /*Delete a user*/
