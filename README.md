@@ -300,6 +300,16 @@
     PATCH /events/:eventId
   ### delete an event
     DELETE /events/:eventId
+
+  ## Fields for images or files
+    permisos
+    constancias
+    programas
+    logosInstitucionales
+    mainImages
+    thumbnailImages
+    iconImages    
+
   
 
 ## Model

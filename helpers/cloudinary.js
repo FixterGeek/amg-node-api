@@ -26,13 +26,32 @@ exports.upload = (folder) =>{
     return uploadCloud
 }
 
-exports.uploadAndResize = (folder) =>{  
+exports.uploadAndResize = (folder) =>{ 
   const storage = cloudinaryStorage({
     cloudinary,    
     folder: folder, // The name of the folder in cloudinary
+    transformation:function(req,file,cb){
+      console.log(file)
+      if(file.fieldname=="mainImages"){
+        return cb(null,{width:700})                
+      }
+      if(file.fieldname=="thumbnailImages"){
+        //width: 400, aspect_ratio: "4:3"
+        return cb(null,{width:400})                
+      }
+      if(file.fieldname=="iconImages"){
+        return cb(null,{width:200,})                
+      }
+      cb()
+    },
     allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],      
     filename: function (req, file, cb) {
-      console.log(file)            
+      if(file.fieldname=="thumbnailImages"){
+        return cb(null,`thumbnail-${file.originalname}-${new Date()}`)                
+      }
+      if(file.fieldname=="iconImages"){
+        return cb(null,`icon-${file.originalname}-${new Date()}`)                
+      }      
       cb(null, `${file.originalname}-${new Date()}`); 
     }
   });
