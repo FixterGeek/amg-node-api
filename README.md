@@ -292,6 +292,8 @@
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
+  ### ASSIST/UNASSIST a post
+    POST /events/:eventId/assist
   ### get a single event
     GET /events/:eventId
   ### update an event
@@ -377,7 +379,7 @@
 # Publications
 
 ## Endpoints 
-  ### Get all publications
+  ### Get all publications 
     GET /publications?query={"filter":"value"}&limit=20&skip=0
     //to get the favorites of a user
     /publications?query={"liked":{"$in":["userID"]}}

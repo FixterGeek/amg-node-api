@@ -204,29 +204,35 @@ const eventSchema = new Schema({
   
   
 //Imagen
-  mainImages:[{
+  mainImagesURLS:[{
     type: String,    
   }],
-  thumbnailImages:[{
+  thumbnailImagesURLS:[{
     type: String,    
   }],
-  iconImages:[{
+  iconImagesURLS:[{
     type: String,    
   }],
-  logosInstituciones:[{
+  logosInstitucionesURLS:[{
       type: String 
     }],
 //Descargables //files:{
   
-  permisoURL:{
+  permisosURLS:[{
     type: String,    
-  },
-  constanciaURL:{
+  }],
+  constanciasURLS:[{
     type: String,    
-  },
-  programaURL :{
+  }],
+  programasURLS:[{
     type: String,    
-  },
+  }],
+
+  //asistentes
+  assistants:[{
+    type:Schema.Types.ObjectId,
+    ref:'User'
+  }]
 },{
   timestamps:true
 })

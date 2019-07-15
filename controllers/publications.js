@@ -22,10 +22,12 @@ controller.postPublication = async (req, res) => {
 	//testing	
 	console.log(req.files, req.body)	
   req.body['user'] = req.user._id
-  req.files.forEach(element => {
-    if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
-    else req.body[`${element.fioollklkeldname}URLS`] = [element.secure_url]
-  })
+  if(req.files){
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const publication = await Publication.create(req.body);
 	res.status(200).json(publication);
 };

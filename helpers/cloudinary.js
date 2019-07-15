@@ -13,7 +13,7 @@ cloudinary.config({
 //   {width: 200, crop: "scale"}
 //   ]})
 
-const upload = (folder) =>{  
+exports.upload = (folder) =>{
     const storage = cloudinaryStorage({
       cloudinary,
       folder: folder, // The name of the folder in cloudinary
@@ -26,4 +26,17 @@ const upload = (folder) =>{
     return uploadCloud
 }
 
-module.exports = upload;
+exports.uploadAndResize = (folder) =>{  
+  const storage = cloudinaryStorage({
+    cloudinary,    
+    folder: folder, // The name of the folder in cloudinary
+    allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],      
+    filename: function (req, file, cb) {
+      console.log(file)            
+      cb(null, `${file.originalname}-${new Date()}`); 
+    }
+  });
+  const uploadCloud = multer({ storage: storage });
+  return uploadCloud
+}
+

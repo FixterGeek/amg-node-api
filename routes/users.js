@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/users");
 //middlewares
 const { verifyToken } = require("../helpers/jwt");
-const upload = require('../helpers/cloudinary')
+const {upload} = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
