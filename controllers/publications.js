@@ -9,7 +9,7 @@ controller.getPublications = async (req, res) => {
 	if( query || limit || skip ){
 		query = JSON.parse(query)
 		console.log(query)
-		publications = await Publication.find(query).limit(limit).skip(skip)
+		publications = await Publication.find(query).populate('user').limit(limit).skip(skip)
 		return res.status(200).json(publications)
 	}
 	// si no hay query params mando todos
@@ -28,7 +28,7 @@ controller.postPublication = async (req, res) => {
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
 	}
-	const publication = await Publication.create(req.body);
+	const publication = await Publication.create(req.body).populate('user');
 	res.status(200).json(publication);
 };
 
@@ -37,21 +37,21 @@ controller.likePublication = async (req, res) => {
   console.log(publication)
   let liked
   if(publication==null){
-    liked = await Publication.findByIdAndUpdate({_id:req.params.id}, {$push:{liked:req.user._id}}, {new:true})
+    liked = await Publication.findByIdAndUpdate({_id:req.params.id}, {$push:{liked:req.user._id}}, {new:true}).populate('user')
     return res.status(200).json(liked)
   }else{
-    liked = await Publication.findByIdAndUpdate({_id:req.params.id}, {$pull:{liked:req.user._id}}, {new:true})
+    liked = await Publication.findByIdAndUpdate({_id:req.params.id}, {$pull:{liked:req.user._id}}, {new:true}).populate('user')
     return res.status(200).json(liked)
   }	
 };
 
 controller.getPublication = async (req, res) => {  
   const publication = await Publication.findById(req.params.id);  
-	res.status(200).json(publication);
+	res.status(200).json(publication).populate('user');
 };
 
 controller.updatePublication = async (req, res) => {
-	const publication = await Publication.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
+	const publication = await Publication.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}).populate('user');
 	res.status(200).json(publication);
 };
 

@@ -19,7 +19,7 @@ controller.getUsers = async (req, res) => {
 };
 
 controller.getUser = async(req, res) => {
-	const user = await User.findById(req.params.id)
+	const user = await User.findById(req.params.id).populate('workedAtInstitutions')
 	return res.status(200).json(user)
 }
 
