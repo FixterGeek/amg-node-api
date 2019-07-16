@@ -13,7 +13,7 @@ controller.getPublications = async (req, res) => {
 		return res.status(200).json(publications)
 	}
 	// si no hay query params mando todos
-	publications = await Publication.find().limit(20).skip(0);
+	publications = await Publication.find().limit(20).skip(0).populate('user');
 	res.status(200).json(publications)
 };
 
