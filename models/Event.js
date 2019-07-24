@@ -13,25 +13,9 @@ const eventSchema = new Schema({
   endDate:{
     type: String,    
   },
-  curricularValue:{
-    type: String,    
-  },
-  curricularRegistrationNumber:{//numero de registro curricular al que pertenece:
-    type: String,    
-  },
-  curricularInstitution:{//institución que otorga valor curricular:{
-    type: String,    
-  },
-  directedTo:{ //tags de especialidades //dirigidoA
-    type: String,    
-  },
-  cost:{
-    type: Number,    
-  },
-  contact:{
-    type: String,    
-  },
-
+  description:[{
+    type:String,
+  }],
 //Ubicación
   location:{
     type:{
@@ -68,140 +52,16 @@ const eventSchema = new Schema({
   },
 
 //Programa
-  program:[{    
-    activityName:{
-      type: String,      
-    },
-    activityType:{
-      type: String,      
-    },
-    date:{
-      type: String,      
-    },    
-    place:{
-      type: String,      
-    },
-    speaker:{
-      title:{
-        type: String,    
-      },
-      fullName:{
-        type: String,    
-      },
-      photoURL:{
-        type:String
-      },
-      origin:{
-        type: String,    
-      },
-      bio:{
-        type: String,    
-      },
-      profileURL:{ 
-        type: String,    
-      },
-      activities:{ 
-        type: String,    
-      },     
-    },
-    coordinator:{
-      type: String,      
-    },
-    participant:{
-      type: String,      
-    },
-    module:{
-      type: String,      
-    },
-    moduleTitle:{
-      type: String,      
-    },
-    moduleCoordinator:{
-      type: String,      
-    },
+  program:[{
+    title:String,
+    activities:[{
+      type:Schema.Types.ObjectId,
+      ref:'EventActivity'
+    }]
   }],
 
-//ivote
-  tituloActividad:{
-    type: String,    
-  },
-  crearCuestionario:{ //???:{
-    type: String,    
-  },
-//Speaker
-  // speakerTitle:{
-  //   type: String,    
-  // },
-  // completeName:{
-  //   type: String,    
-  // },
-  // origin:{
-  //   type: String,    
-  // },
-  // bio:{
-  //   type: String,    
-  // },
-  // profileURL:{ 
-  //   type: String,    
-  // },
-  // activities:{ 
-  //   type: String,    
-  // },
 
-//Directorio
 //Mesa directiva:
-  president:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  vicepresident:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  secretary:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  treasurer:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  protreasurer:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  proceedingsSecretary:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-  relationsSecretary:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-//Consejo Consultivo:{
-
-  consultiveDirectors:[{ // [personas]
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  }],
-//Directores de Curso:{
-  
-  courseDirector:{
-    type: Schema.Types.ObjectId,
-    ref:'User',    
-  },
-//Cordinador General:{
-  
-  generalCoordinator:{
-    type: Schema.Types.ObjectId,
-    ref:'User',  
-  },
-//Asociaciones participantes
-  participationAsosiations:[{    
-      type: Schema.Types.ObjectId,
-      ref:'Institution',     
-  }],
-  
   
 //Imagen
   mainImagesURLS:[{
@@ -212,27 +72,13 @@ const eventSchema = new Schema({
   }],
   iconImagesURLS:[{
     type: String,    
-  }],
-  logosInstitucionesURLS:[{
-      type: String 
-    }],
+  }],  
 //Descargables //files:{
   
   permisosURLS:[{
     type: String,    
   }],
-  constanciasURLS:[{
-    type: String,    
-  }],
-  programasURLS:[{
-    type: String,    
-  }],
-
-  //asistentes
-  assistants:[{
-    type:Schema.Types.ObjectId,
-    ref:'User'
-  }]
+   
 },{
   timestamps:true
 })

@@ -1,4 +1,5 @@
-const Event = require("../models/Event");
+
+const EventActivity = require("../models/EventActivity");
 const controller = {};
 
 
@@ -27,6 +28,17 @@ controller.postEvent = async (req, res) => {
 	res.status(200).json(event);
 };
 
+controller.assistEvent = async (req, res) => {
+  const event = await Event.findOne({_id:req.params.id,assistants:{$in:[req.user._id]}})  
+  let assist
+  if(event==null){
+    assist = await event.findByIdAndUpdate({_id:req.params.id}, {$push:{assistants:req.user._id}}, {new:true})
+    return res.status(200).json(assist)
+  }else{
+    assist = await event.findByIdAndUpdate({_id:req.params.id}, {$pull:{assistants:req.user._id}}, {new:true})
+    return res.status(200).json(assist)
+  }	
+};
 
 controller.getEvent = async (req, res) => {  
   const event = await Event.findById(req.params.id);  

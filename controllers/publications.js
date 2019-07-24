@@ -28,7 +28,8 @@ controller.postPublication = async (req, res) => {
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
 	}
-	const publication = await Publication.create(req.body).populate('user');
+	const publication = await Publication.create(req.body)
+	publication['user'] = req.user
 	res.status(200).json(publication);
 };
 

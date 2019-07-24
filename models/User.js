@@ -217,13 +217,18 @@ const userSchema = new Schema({
   },
   membershipStatus:{
     type:String,
-    enum:['Pendiente de Pago', 'Pagado', 'Veterano']
+    enum:['Free', 'Residente', 'Socio', 'Veterano'],
+    default:'Free'
   },
   /* Aproval  Data*/
   userStatus:{
     type:String,
-    enum:['Registrado','Pendiente', 'Aprobado', 'No Aprobado'],
+    enum:['Registrado', 'Aprobado', 'No Aprobado', 'Activo'],
     default:'Registrado'
+  },
+  userType:{
+    type:String,
+    enum:['Member', 'Editor', 'Admin']
   },
   revisionDate:{
     type:String,    

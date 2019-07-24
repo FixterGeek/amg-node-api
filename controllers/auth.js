@@ -12,7 +12,6 @@ controller.self = async (req,res) => {
 
 /*Post to login and return user and token*/
 controller.login = async (req, res, next) => {
-
 	passport.authenticate('local', (err, user, infoErr) => {
     if (err) return res.status(500).json({ err, infoErr })
     if (!user) return res.status(401).json( infoErr)
