@@ -26,6 +26,8 @@
   ### change password if forgotten
     POST /auth/forgot
     {email, password}
+  ### Follow/Unfollow User
+    POST /users/:userId/follow
   ### get a single user
     GET /users/:userId
   ### update a user
@@ -285,15 +287,14 @@
     }
 
 <a name="events"></a>
-# Eventsv
+# Events
 
 ## Endpoints 
   ### Get all events
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
-  ### ASSIST/UNASSIST a post
-    POST /events/:eventId/assist
+
   ### get a single event
     GET /events/:eventId
   ### update an event
@@ -318,13 +319,7 @@
       "title":"El evento del año"
       "startDate":"01/01/2019"
       "endDate":"01/01/2019"
-      "curricularValue":"Valor curricular"      
-      "curricularRegistrationNumber":"123123"
-      "curriculaInstitution":""
-      "valor curricular":"123123"
-      "directedTo":"Cientificos"
-      "cost":123123
-      "contact":"contacto"
+     "description":['parrafo1', 'Párrafo2],
 
       ### Ubicación
       location:{
@@ -340,51 +335,73 @@
       },
 
       ###Programa
-      program:[{    
-        "activityName":"activity name",
-        "activityType":"type",
-        "date":"01/01/2019 10:12:00",        
-        "place":"salón ..."
-        "speaker":{
-          "title":"Doc"
-          "fullName":"Oswaldo martinez"
-          "photoURL":"foto.png"
-          "origin":"origen"
-          "bio":"la bio"
-          "profileURL":"link de su perfil"
-          "activities":"actividades"
-        },
-        "coordinator":"coordinador"
-        "participant":"particioant"
-        "module":"modulo"
-        "moduleTitle":"titulo del modulo"
-        "moduleCoordinator":"coordinador del modulo"
+      program:[{
+        title:'Modulo 1',
+        activities:[Id's de EventActivity Model]
       }],
 
-      ###ivote
-      "tituloActividad":"titulo"
-      "crearCuestionario":"cuestionario"
-    
-      ###Mesa directiva:
-      "president":"id de usuario",
-      "vicepresident":"id de usuario",
-      "secretary":"id de usuario"
-      "treasurer":"id de usuario"
-      "protreasurer":"id de usuario"
-      "proceedingsSecretary":"id de usuario"
-      "relationsSecretary":"id de usuario"    
-      "consultiveDirectors":["ids de usuario"]   
-      "courseDirector":"id de usuario"
-      "generalCoordinator":"id de usuario"
-      "participationAsosiations":[id de instituciones],            
-      ###Imagen
-      photoURL:"imagen.png"
-      logosInstituciones:["imagen.png"]      
-      ###Descargables      
-      permisoURL:"permiso.pdf"
-      constanciaURL:"constancia.pdf"
-      programaURL :"programa.pdf"
+      mainImagesURLS:[image urls],
+      thumbnailImagesURLS:[image urls],
+      iconImagesURLS:[image urls],
+      permisosURLS:[carta permiso url]
     }
+
+    <a name="event-activities"></a>
+# Event Activities
+
+## Endpoints 
+  ### Get all events
+    GET /eventActivities?query={"filter":"value"}&limit=20&skip=0  
+  ### post an event
+    POST /eventActivities
+  ### ASSIST/UNASSIST a post
+    POST /eventActivities/:eventId/assist
+  ### get a single event
+    GET /eventActivities/:eventId
+  ### update an event
+    PATCH /eventActivities/:eventId
+  ### delete an event
+    DELETE /eventActivities/:eventId
+
+  ## Fields for images or files    
+    constancia
+    speakerPhoto
+
+    
+## Model
+    {
+      event:Event Id,
+        activityName:'Name of the activity
+        activityType:['Actividad', 'Conferencia', 'Taller', 'Otro']
+        cost:1000
+        date:10/10/2019 
+        location:{
+            "addressName":"Pachuca", 
+              "street":"", 
+              "outdoorNumber":"", 
+              "interiorNumber":"", 
+              "colony":"", 
+              "zipCode":"", 
+              "city":"Pachuca", 
+              "state":"Hidalgo", 
+              "coordinates":["123312","123123"] 
+          },
+        constanciaURL:constanciaURL
+        //if speaker is user
+        amgSpeaker:id of the amg USer
+        //else
+        speaker:{
+          professionalTitle:titulo
+          fullName:Oswaldinho Martinez Anaya
+          photoURL:url de su foto
+          origin:ciudad
+          bio:soy ex player bla bla         
+        },
+        //asistentes
+        assistants:[ids de los asistentes]
+    }
+
+
 <a name="publications"></a>
 # Publications
 

@@ -73,8 +73,7 @@ const eventSchema = new Schema({
   iconImagesURLS:[{
     type: String,    
   }],  
-//Descargables //files:{
-  
+//Descargables //files:{  
   permisosURLS:[{
     type: String,    
   }],

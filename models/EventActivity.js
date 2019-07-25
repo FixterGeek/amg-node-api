@@ -53,7 +53,7 @@ const acitivitySchema = new Schema({
           type:Number
       }]
     },
-    constanciasURL:{
+    constanciaURL:{
       type: String,    
     },
     amgSpeaker:{

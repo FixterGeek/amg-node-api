@@ -10,6 +10,10 @@ const tryCatch=(fn) =>{
     return fn(req, res).catch(e => next(e));
   };
 }
+
+
+/*follow unfollow users */
+router.post('/:id/follow', verifyToken, tryCatch(controller.followUser))
 /* Get all users*/
 router.get('/',verifyToken,tryCatch(controller.getUsers))
 
