@@ -14,6 +14,9 @@ const acitivitySchema = new Schema({
       type: String, 
       enum:['Actividad', 'Conferencia', 'Taller', 'Otro']     
     },
+    description:{
+      type:String
+    },
     cost:{
       type: Number,    
     },

@@ -7,11 +7,11 @@ controller.getEvents = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if( query || limit || skip ){
 		query = JSON.parse(query)	
-		events = await Event.find(query).limit(limit).skip(skip)
+		events = await Event.find(query).limit(limit).skip(skip).populate('program.activities')
 		return res.status(200).json(events)
 	}
 	// si no hay query params mando todos
-	events = await Event.find().limit(20).skip(0);
+	events = await Event.find().limit(20).skip(0).populate('program.activities')
 	res.status(200).json(events)
 };
 
