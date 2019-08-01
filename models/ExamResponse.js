@@ -11,7 +11,8 @@ const responseSchema = new Schema({
     ref:'User'
   },
   answers:[{
-    type:String
+    question:String,
+    answer:String
   }],
   score:Number
 },{

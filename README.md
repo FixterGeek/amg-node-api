@@ -9,6 +9,8 @@
  - [Events](#events)
  - [EventsActivities](#event-activities)
  - [Publications](#publications)
+ - [Exams](#exams)
+ - [ExamResponses](#exam-responses)
 
 <a name="users"></a>
 # Users
@@ -434,6 +436,67 @@
       docsURLS:[],
       text:"texto del post",
       liked:[urls de los usuarios que agregaron como fav el post]
+    }
+
+<a name="exams"></a>
+# Exams
+
+## Endpoints 
+  ### Get all exams 
+    GET /exams?query={"filter":"value"}&limit=20&skip=0
+  ### post an post
+    POST /exams  
+  ### get a single post
+    GET /exams/:examId
+  ### update an post
+    PATCH /exams/:examId
+  ### delete an post
+    DELETE /exams/:examId
+
+  ## Model
+    {
+      eventActivity: ID of the Activity EVent
+      title:El examen más perro del mundo,
+      date:10/10/10,
+      beginingTime:String,
+      endTime:String,
+      questions:[{
+        question:¿Porqué bla bla bla?,
+        answers:['la uno', 'la dos', 'la tres', 'la cuatro'],
+        correct:'la tres'
+      }]
+    }
+
+<a name="exam-responses"></a>
+# Exam Responses
+
+## Endpoints 
+  ### Get all publications 
+    GET /publications?query={"filter":"value"}&limit=20&skip=0
+    //to get the favorites of a user
+    /publications?query={"liked":{"$in":["userID"]}}
+  ### post an post
+    POST /publications
+  ### LIKE/DISLIKE a post
+    POST /publications/:publicationId/like
+  ### get a single post
+    GET /publications/:publicationId
+  ### update an post
+    PATCH /publications/:publicationId
+  ### delete an post
+    DELETE /publications/:publicationId
+
+  ## Model
+    {
+      exam:ID of the Exam
+      user: ID of the user who ansers
+      answers:[
+        {
+          question:'kiubo??',
+          answer:'lol'
+        },    
+      ],
+      score:10
     }
 
 

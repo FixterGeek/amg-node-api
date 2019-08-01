@@ -7,6 +7,9 @@ const examSchema = new Schema({
     ref:'EventActivity'
   },
   title:String,
+  date:String,
+  beginingTime:String,
+  endTime:String,
   questions:[{
     question:String,
     answers:[{

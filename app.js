@@ -89,8 +89,8 @@ app.use('/residences', residenceRoutes)
 app.use('/studies', studyRoutes)
 app.use('/publications', publicationsRoutes)
 app.use('/eventActivities', eventActivityRoutes)
-app.use('/examRoutes', examRoutes)
-app.use('/examResponseRoutes', examResponseRoutes)
+app.use('/exams', examRoutes)
+app.use('/examResponses', examResponseRoutes)
 
 
 

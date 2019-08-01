@@ -56,6 +56,9 @@ const userSchema = new Schema({
           type:Number
       }]
     },
+    title:{
+      type:String,
+    },
     speciality :{
       type:String,      
     },
