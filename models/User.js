@@ -12,7 +12,7 @@ const userSchema = new Schema({
   //basic data
   basicData:{
     name :{
-      type:String,      
+      type:String, 
     },
     dadSurname:{
       type:String,      

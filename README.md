@@ -7,6 +7,7 @@
  - [Residences](#residences)
  - [Studies](#studies)
  - [Events](#events)
+ - [EventsActivities](#event-activities)
  - [Publications](#publications)
 
 <a name="users"></a>
@@ -346,7 +347,7 @@
       permisosURLS:[carta permiso url]
     }
 
-    <a name="event-activities"></a>
+<a name="event-activities"></a>
 # Event Activities
 
 ## Endpoints 
@@ -355,13 +356,13 @@
   ### post an event
     POST /eventActivities
   ### ASSIST/UNASSIST a post
-    POST /eventActivities/:eventId/assist
+    POST /eventActivities/:eventActivityId/assist
   ### get a single event
-    GET /eventActivities/:eventId
+    GET /eventActivities/:eventActivityId
   ### update an event
-    PATCH /eventActivities/:eventId
+    PATCH /eventActivities/:eventActivityId
   ### delete an event
-    DELETE /eventActivities/:eventId
+    DELETE /eventActivities/:eventActivityId
 
   ## Fields for images or files    
     constancia
