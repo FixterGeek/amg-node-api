@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/events");
 //middlewares
-const { verifyToken } = require("../helpers/jwt");
+const { verifyToken, checkIfAdmin } = require("../helpers/jwt");
 const {uploadAndResize} = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
@@ -14,7 +14,7 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getEvents))
 
 /* Post all Eventos*/
-router.post('/',verifyToken,uploadAndResize('events').any(),tryCatch(controller.postEvent))
+router.post('/',verifyToken, checkIfAdmin, uploadAndResize('events').any(),tryCatch(controller.postEvent))
 
 /* assist or unassist an event*/
 router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))

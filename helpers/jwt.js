@@ -31,3 +31,8 @@ exports.verifyToken = (req, res, next) => {
     });
   });
 };
+
+exports.checkIfAdmin=(req, res, next)=>{
+  if (req.user.userType==="Admin")next()
+  else return res.status(401).json({ message: "Your Not Allowed" });
+}

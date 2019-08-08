@@ -21,15 +21,11 @@ controller.followUser = async(req, res) => {
 
 controller.getUsers = async (req, res) => {
 	let users = [];
-	console.log(req.query)
+	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		users = await User.find(query).limit(limit).skip(skip)
-		return res.status(200).json(users)
-	}
+	
 	// si no hay query params mando todos
-	users = await User.find().limit(20).skip(0);
+	users = await User.find(JSON.parse(query)||{}).limit(Number(limit)||0).skip(Number(skip)||0)
 	return res.status(200).json(users)
 };
 
