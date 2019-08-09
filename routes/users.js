@@ -14,8 +14,12 @@ const tryCatch=(fn) =>{
 
 /*follow unfollow users */
 router.post('/:id/follow', verifyToken, tryCatch(controller.followUser))
+
 /* Get all users*/
 router.get('/',verifyToken,tryCatch(controller.getUsers))
+
+// get summary of users (counts)
+router.get('/summary',verifyToken,tryCatch(controller.getUsersSummary))
 
 /*Get a single user*/
 router.get('/:id',verifyToken,tryCatch(controller.getUser))

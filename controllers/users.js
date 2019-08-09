@@ -23,11 +23,17 @@ controller.getUsers = async (req, res) => {
 	let users = [];
 	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	users = await User.find(JSON.parse(query)||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	users = await User.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
 	return res.status(200).json(users)
 };
+controller.getUsersSummary = async () => {
+	const users = await User.aggregate.count()
+	console.log(users)
+	return users
+
+}
 
 controller.getUser = async(req, res) => {
 	const user = await User.findById(req.params.id).populate('workedAtInstitutions')
