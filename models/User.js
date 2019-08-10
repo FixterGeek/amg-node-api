@@ -8,6 +8,9 @@ const userSchema = new Schema({
     type:String,
     unique:true,    
   },
+  titleURL:String,
+  certificateURL:String,
+  constancyURL:String,
 
   //basic data
   basicData:{

@@ -349,6 +349,33 @@
       permisosURLS:[carta permiso url]
     }
 
+<a name="modules"></a>
+# Modules
+
+## Endpoints 
+  ### Get all eventModules 
+    GET /eventModules?query={"filter":"value"}&limit=20&skip=0
+  ### post an post
+    POST /eventModules  
+  ### get a single post
+    GET /eventModules/:moduleId
+  ### update an post
+    PATCH /eventModules/:moduleId
+  ### delete an post
+    DELETE /eventModules/:moduleId
+
+  ## Model
+    {
+      event:id del evento ,
+      title:String,
+      date:String,
+      /*just in case*/
+      activities:[{
+        type:Schema.Types.ObjectId,
+        ref:'EventActivity'
+      }]
+    }
+
 <a name="event-activities"></a>
 # Event Activities
 

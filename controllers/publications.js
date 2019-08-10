@@ -4,17 +4,13 @@ const sharp = require('sharp')
 
 controller.getPublications = async (req, res) => {
 	
-	let publications = [];	
+	let publications = [];
+	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)
-		console.log(query)
-		publications = await Publication.find(query).populate('user').limit(limit).skip(skip)
-		return res.status(200).json(publications)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	publications = await Publication.find().limit(20).skip(0).populate('user');
-	res.status(200).json(publications)
+	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(publications)
 };
 
 

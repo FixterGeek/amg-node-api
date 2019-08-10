@@ -4,16 +4,13 @@ const controller = {};
 
 
 controller.getEvents = async (req, res) => {
-	let events = [];	
+	let events = [];
+	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		events = await EventActivity.find(query).limit(limit).skip(skip)
-		return res.status(200).json(events)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	events = await EventActivity.find().limit(20).skip(0);
-	res.status(200).json(events)
+	events = await EventActivity.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(events)
 };
 
 controller.postEvent = async (req, res) => {

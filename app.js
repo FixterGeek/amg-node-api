@@ -75,8 +75,9 @@ const residenceRoutes = require('./routes/residences');
 const studyRoutes = require('./routes/studies');
 const publicationsRoutes = require('./routes/publications');
 const eventActivityRoutes = require('./routes/eventActivities');
+const eventModuleRoutes = require('./routes/modules');
 const examRoutes = require('./routes/exams');
-const examResponseRoutes = require('./routes/examResponses');
+const examResponseRoutes = require('./routes/examResponses'); 
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -89,6 +90,7 @@ app.use('/residences', residenceRoutes)
 app.use('/studies', studyRoutes)
 app.use('/publications', publicationsRoutes)
 app.use('/eventActivities', eventActivityRoutes)
+app.use('/eventModules', eventModuleRoutes)
 app.use('/exams', examRoutes)
 app.use('/examResponses', examResponseRoutes)
 

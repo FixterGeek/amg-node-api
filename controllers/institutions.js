@@ -5,14 +5,10 @@ const controller = {};
 controller.getInstitutions = async (req, res) => {
 	let institutions = [];	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		institutions = await Institution.find(query).limit(limit).skip(skip)
-		return res.status(200).json(institutions)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	institutions = await Institution.find().limit(20).skip(0);
-	res.status(200).json(institutions)
+	institutions = await Institution.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(institutions)
 };
 
 controller.postInstitution = async (req, res) => {

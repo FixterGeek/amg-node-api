@@ -51,15 +51,33 @@ const eventSchema = new Schema({
     }]
   },
 
-//Programa
-  program:[{
-    title:String,
-    activities:[{
-      type:Schema.Types.ObjectId,
-      ref:'EventActivity'
-    }]
+  //speakers
+  speakers:[{          
+    // amgSpeaker:{
+    //   type:Schema.Types.ObjectId,
+    //   ref:'User'
+    // },      
+      professionalTitle:{
+        type: String,    
+      },
+      fullName:{
+        type: String,    
+      },
+      photoURL:{
+        type:String
+      },
+      origin:{
+        type: String,    
+      },
+      bio:{
+        type: String,    
+      },                
   }],
 
+  modules:[{
+    type:Schema.Types.ObjectId,
+    ref:'Module'
+  }],
 
 //Mesa directiva:
   

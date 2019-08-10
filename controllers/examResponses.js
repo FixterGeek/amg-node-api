@@ -3,16 +3,12 @@ const controller = {};
 
 
 controller.getExamResponses = async (req, res) => {
-	let examResponses = [];	
+	let responses = [];	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		examResponses = await ExamResponse.find(query).limit(limit).skip(skip)
-		return res.status(200).json(examResponses)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	examResponses = await ExamResponse.find().limit(20).skip(0);
-	res.status(200).json(examResponses)
+	responses = await ExamResponse.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(responses)
 };
 
 controller.postExamResponse = async (req, res) => {

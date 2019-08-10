@@ -40,12 +40,11 @@ controller.getUser = async(req, res) => {
 	return res.status(200).json(user)
 }
 
-controller.updateUser = async (req, res) => {
-	console.log(req.file, req.body.basicData)
+controller.updateUser = async (req, res) => {	
 	if(req.file||req.files) {
 		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
 		req.body['basicData'] = basics
-	}
+	}	
 	const user = await User.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
 	//if(req.body.userStatus == 'Pendiente') validatingProfile(user)
 	return res.status(200).json(user)

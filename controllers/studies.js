@@ -3,16 +3,13 @@ const controller = {};
 
 
 controller.getStudies = async (req, res) => {
-	let Studys = [];	
+	let studies = [];
+	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		Studys = await Study.find(query).limit(limit).skip(skip)
-		return res.status(200).json(Studys)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	studies = await Study.find().limit(20).skip(0);
-	res.status(200).json(studies)
+	studies = await Study.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(studies)
 };
 
 controller.postStudy = async (req, res) => {

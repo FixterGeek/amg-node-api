@@ -3,16 +3,13 @@ const controller = {};
 
 
 controller.getInternships = async (req, res) => {
-	let internships = [];	
+	let internships = [];
+	console.log(req.query)	
 	let {query, limit, skip} = req.query
-	if( query || limit || skip ){
-		query = JSON.parse(query)	
-		internships = await Internship.find(query).limit(limit).skip(skip)
-		return res.status(200).json(internships)
-	}
+	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	internships = await Internship.find().limit(20).skip(0);
-	res.status(200).json(internships)
+	internships = await Internship.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(internships)
 };
 
 controller.postInternship = async (req, res) => {

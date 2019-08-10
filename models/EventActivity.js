@@ -7,6 +7,10 @@ const acitivitySchema = new Schema({
       type:Schema.Types.ObjectId,
       ref:'Event'
     },
+    module:{
+      type:Schema.Types.ObjectId,
+      ref:'Module'
+    },
     activityName:{
       type: String,      
     },
@@ -59,6 +63,69 @@ const acitivitySchema = new Schema({
     constanciaURL:{
       type: String,    
     },
+    speakers:[{      
+        name :{
+          type:String, 
+        },
+        dadSurname:{
+          type:String,      
+        },
+        momSurname:{
+          type:String,      
+        },
+        birthDate:{
+          type:String
+        },
+        placeOfBirth:{
+          type:{
+              type:String,
+              default:'Point'
+          },
+          addressName:{
+            type:String,      
+          },
+          street:{
+            type:String,      
+          },
+          outdoorNumber:{
+            type:String,      
+          },
+          interiorNumber:{
+            type:String,      
+          },
+          colony:{
+            type:String,      
+          },
+          zipCode:{
+            type:String,      
+          },
+          city:{
+            type:String,      
+          },
+          state:{
+            type:String,      
+          },
+          coordinates:[{
+              type:Number
+          }]
+        },
+        title:{
+          type:String,
+        },
+        speciality :{
+          type:String,      
+        },
+        photoURL:{
+          type:String,      
+        },
+        phone:{
+          type:String,      
+        },
+        civilStatus :{
+          type:String,      
+          enum:['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo']
+        },
+    }],
     amgSpeaker:{
       type:Schema.Types.ObjectId,
       ref:'User'
