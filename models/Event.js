@@ -7,6 +7,9 @@ const eventSchema = new Schema({
   title:{
     type: String,    
   },
+  startTime:{
+    type: String,    
+  },
   startDate:{
     type: String,    
   },
@@ -52,12 +55,8 @@ const eventSchema = new Schema({
   },
 
   //speakers
-  speakers:[{          
-    // amgSpeaker:{
-    //   type:Schema.Types.ObjectId,
-    //   ref:'User'
-    // },      
-      professionalTitle:{
+  speakers:[{                
+      title:{
         type: String,    
       },
       fullName:{
@@ -66,7 +65,7 @@ const eventSchema = new Schema({
       photoURL:{
         type:String
       },
-      origin:{
+      city:{
         type: String,    
       },
       bio:{
@@ -95,6 +94,12 @@ const eventSchema = new Schema({
   permisosURLS:[{
     type: String,    
   }],
+
+  //asistentes
+  assistants:[{
+    type:Schema.Types.ObjectId,
+    ref:'User'
+  }]
    
 },{
   timestamps:true

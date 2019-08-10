@@ -301,7 +301,8 @@
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
-
+### ASSIST/UNASSIST an activity
+    POST /events/:eventId/assist
   ### get a single event
     GET /events/:eventId
   ### update an event
@@ -324,9 +325,10 @@
     {
       ### Datos Generales
       "title":"El evento del año"
+      startTime:"10:10:10"
       "startDate":"01/01/2019"
       "endDate":"01/01/2019"
-     "description":['parrafo1', 'Párrafo2],
+      "description":['parrafo1', 'Párrafo2],
 
       ### Ubicación
       location:{
@@ -342,10 +344,15 @@
       },
 
       ###Programa
-      program:[{
-        title:'Modulo 1',
-        activities:[Id's de EventActivity Model]
-      }],
+     modules:[ids de los modulos],
+     ###speakers
+     speakers:[{
+          title:'doctorazo'
+          fullName:'Oswaldso Martinez Anaya'
+          photoURL::'lalalalal.png'
+          city:'Pachuyork'
+          bio:'fit n geek'        
+        }]
 
       mainImagesURLS:[image urls],
       thumbnailImagesURLS:[image urls],
@@ -359,13 +366,13 @@
 ## Endpoints 
   ### Get all eventModules 
     GET /eventModules?query={"filter":"value"}&limit=20&skip=0
-  ### post an post
-    POST /eventModules  
-  ### get a single post
+  ### post an eventModule
+    POST /eventModules      
+  ### get a single eventModule
     GET /eventModules/:moduleId
-  ### update an post
+  ### update an eventModule
     PATCH /eventModules/:moduleId
-  ### delete an post
+  ### delete an eventModule
     DELETE /eventModules/:moduleId
 
   ## Model
@@ -388,7 +395,7 @@
     GET /eventActivities?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /eventActivities
-  ### ASSIST/UNASSIST a post
+  ### ASSIST/UNASSIST an activity
     POST /eventActivities/:eventActivityId/assist
   ### get a single event
     GET /eventActivities/:eventActivityId

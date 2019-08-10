@@ -26,6 +26,9 @@ const userSchema = new Schema({
     birthDate:{
       type:String
     },
+    bio:{
+      type:String
+    },
     placeOfBirth:{
       type:{
           type:String,
