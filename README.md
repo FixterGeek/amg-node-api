@@ -7,10 +7,14 @@
  - [Residences](#residences)
  - [Studies](#studies)
  - [Events](#events)
+ - [Event Modules](#event-modules)
  - [EventsActivities](#event-activities)
  - [Publications](#publications)
  - [Exams](#exams)
  - [ExamResponses](#exam-responses)
+
+
+ Send all queries as MONGODB syntax in String format(stringify)
 
 <a name="users"></a>
 # Users
@@ -349,7 +353,7 @@
       permisosURLS:[carta permiso url]
     }
 
-<a name="modules"></a>
+<a name="event-modules"></a>
 # Modules
 
 ## Endpoints 
@@ -400,7 +404,8 @@
     
 ## Model
     {
-      event:Event Id,
+        event:Event Id,
+        module:Module Id,
         activityName:'Name of the activity
         activityType:['Actividad', 'Conferencia', 'Taller', 'Otro']
         cost:1000
@@ -416,17 +421,8 @@
               "state":"Hidalgo", 
               "coordinates":["123312","123123"] 
           },
-        constanciaURL:constanciaURL
-        //if speaker is user
-        amgSpeaker:id of the amg USer
-        //else
-        speaker:{
-          professionalTitle:titulo
-          fullName:Oswaldinho Martinez Anaya
-          photoURL:url de su foto
-          origin:ciudad
-          bio:soy ex player bla bla         
-        },
+        constanciaURL:constanciaURL,
+        speakers:[{}],
         //asistentes
         assistants:[ids de los asistentes]
     }
