@@ -67,7 +67,7 @@
           "state":"Hidalgo", 
           "coordinates":["123312","123123"] 
         }, 
-        "speciality" :"Especialidad", 
+        "speciality" :=> ['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otras']      
         "photoURL":"url de la foto",        
         "phone":"1234567890",
         "civilStatus" :"one pf these=>['Soltero', 'Casado', 'Divorciado', 'Unión Libre', 'Viudo']",       
@@ -110,7 +110,8 @@
       }, 
       ###* Status Data ***
       "registrationDate":"01/01/2010", 
-      "membershipStatus":"one of these=>:['Pendiente de Pago', 'Pagado', 'Veterano']", 
+      "userType": enum:['Member', 'Editor', 'Admin'],
+      "membershipStatus":"one of these=>: enum:['Free', 'Residente', 'Socio', 'Veterano'], 
       ###* Aproval  Data  ***
       "userStatus":"one of these=>['Registrado','Pendiente', 'Aprobado', 'No Aprobado']", 
       "revisionDate":"01/01/2010", 

@@ -99,7 +99,13 @@ const eventSchema = new Schema({
   assistants:[{
     type:Schema.Types.ObjectId,
     ref:'User'
-  }]
+  }],
+
+  status:{
+    type:String,
+    enum:['draft', 'published'],
+    default:'draft'
+  }
    
 },{
   timestamps:true

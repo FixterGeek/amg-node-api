@@ -66,7 +66,8 @@ const userSchema = new Schema({
       type:String,
     },
     speciality :{
-      type:String,      
+      type:String,
+      enum:['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra']      
     },
     photoURL:{
       type:String,      
@@ -245,7 +246,8 @@ const userSchema = new Schema({
   },
   userType:{
     type:String,
-    enum:['Member', 'Editor', 'Admin']
+    enum:['Member', 'Editor', 'Admin'],
+    default:'Member'
   },
   revisionDate:{
     type:String,    
