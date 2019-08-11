@@ -12,6 +12,9 @@ controller.getEvents = async (req, res) => {
 };
 
 controller.postEvent = async (req, res) => {
+	const {speakers, location} = req.body
+	req.body['speakers'] = JSON.parse(speakers)
+	req.body['location'] = JSON.parse(location)
 
 	if(req.files){
 		req.files.forEach(element => {
