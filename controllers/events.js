@@ -12,9 +12,12 @@ controller.getEvents = async (req, res) => {
 };
 
 controller.postEvent = async (req, res) => {
-	const {speakers, location} = req.body
-	req.body['speakers'] = JSON.parse(speakers)
-	req.body['location'] = JSON.parse(location)
+	const {speakers, location, description} = req.body
+	console.log(req.body)
+	
+	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
+	if (req.body['location']) req.body['location'] = JSON.parse(location)
+	if (req.body['description']) req.body['description'] = JSON.parse(description)
 
 	if(req.files){
 		req.files.forEach(element => {
@@ -24,6 +27,22 @@ controller.postEvent = async (req, res) => {
 	}
 	const event = await Event.create(req.body);
 	res.status(200).json(event);
+};
+
+controller.addSpeaker = async (req, res) => {
+	let speaker
+	if(req.body._id){
+		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$pull:{speakers:req.body}}, {new:true})
+		return res.status(200).json(speaker)
+	}else{
+		if(req.files||req.file){
+			req.files.forEach(element => {
+				req.body[`${element.fieldname}URL`].push(element.secure_url)				
+			})
+		}
+		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$push:{speakers:req.body}}, {new:true})
+		return res.status(200).json(speaker)
+	}
 };
 
 controller.assistEvent = async (req, res) => {
@@ -45,6 +64,20 @@ controller.getEvent = async (req, res) => {
 };
 
 controller.updateEvent = async (req, res) => {
+	const {speakers, location, description} = req.body
+	
+	if(req.body._id) delete req.body._id
+	
+	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
+	if (req.body['location']) req.body['location'] = JSON.parse(location)
+	if (req.body['description']) req.body['description'] = JSON.parse(description)
+
+	if(req.files){
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const event = await Event.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
 	res.status(200).json(event);
 };

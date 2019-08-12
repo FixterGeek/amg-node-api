@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/events");
 //middlewares
 const { verifyToken, checkIfAdmin } = require("../helpers/jwt");
-const {uploadAndResize} = require('../helpers/cloudinary')
+const {uploadAndResize, upload} = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
@@ -18,6 +18,9 @@ router.post('/',verifyToken, checkIfAdmin, uploadAndResize('events').any(),tryCa
 
 /* assist or unassist an event*/
 router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))
+
+/* add or remove a speaker*/
+router.post('/:id/speaker',verifyToken,upload('speakers').any(),tryCatch(controller.addSpeaker))
 
 /*Get a single Eventos*/
 router.get('/:id',verifyToken,tryCatch(controller.getEvent))

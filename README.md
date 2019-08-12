@@ -302,8 +302,10 @@
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
-### ASSIST/UNASSIST an activity
+  ### ASSIST/UNASSIST an event
     POST /events/:eventId/assist
+  ### add/remove a speaker
+    POST /events/:eventId/speaker
   ### get a single event
     GET /events/:eventId
   ### update an event
@@ -319,6 +321,8 @@
     mainImages
     thumbnailImages
     iconImages    
+    ## Fields for speaker image
+    photo
 
   
 

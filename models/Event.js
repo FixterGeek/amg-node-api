@@ -60,7 +60,7 @@ const eventSchema = new Schema({
         type: String,    
       },
       fullName:{
-        type: String,    
+        type: String,
       },
       photoURL:{
         type:String
