@@ -32,8 +32,8 @@ controller.postEvent = async (req, res) => {
 controller.addSpeaker = async (req, res) => {
 	let speaker
 	if(req.body._id){
-		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$pull:{speakers:req.body}}, {new:true})
-		return res.status(200).json(speaker)
+		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$pull:{speakers:req.body}}, {new:true})		
+		return res.status(200).json({message:'The user was removed'})
 	}else{
 		if(req.files||req.file){
 			req.files.forEach(element => {
@@ -41,6 +41,7 @@ controller.addSpeaker = async (req, res) => {
 			})
 		}
 		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$push:{speakers:req.body}}, {new:true})
+		speaker = speaker['speakers'][speaker['speakers'].length -1]
 		return res.status(200).json(speaker)
 	}
 };

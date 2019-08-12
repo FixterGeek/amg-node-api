@@ -306,6 +306,9 @@
     POST /events/:eventId/assist
   ### add/remove a speaker
     POST /events/:eventId/speaker
+
+     it receives the object of the speaker in req.body and adds it to the speakers list in the event
+     if it has _id, it deletes it from the list
   ### get a single event
     GET /events/:eventId
   ### update an event
