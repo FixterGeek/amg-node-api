@@ -22,7 +22,7 @@ router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))
 /* add or remove a speaker*/
 router.post('/:id/speaker',verifyToken,upload('speakers').any(),tryCatch(controller.addSpeaker))
 
-/*Get a single Eventos*/
+/*Get a single Evento*/
 router.get('/:id',verifyToken,tryCatch(controller.getEvent))
 
 /*Update a Eventos*/

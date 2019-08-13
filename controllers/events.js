@@ -32,7 +32,7 @@ controller.postEvent = async (req, res) => {
 controller.addSpeaker = async (req, res) => {
 	let speaker
 	if(req.body._id){
-		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$pull:{speakers:req.body}}, {new:true})		
+		speaker = await Event.findByIdAndUpdate(req.params.id, {$pull:{speakers:req.body}}, {new:true})		
 		return res.status(200).json({message:'The user was removed'})
 	}else{
 		if(req.files||req.file){
@@ -40,7 +40,7 @@ controller.addSpeaker = async (req, res) => {
 				req.body[`${element.fieldname}URL`].push(element.secure_url)				
 			})
 		}
-		speaker = await Event.findByIdAndUpdate({_id:req.params.id}, {$push:{speakers:req.body}}, {new:true})
+		speaker = await Event.findByIdAndUpdate(req.params.id, {$push:{speakers:req.body}}, {new:true})
 		speaker = speaker['speakers'][speaker['speakers'].length -1]
 		return res.status(200).json(speaker)
 	}
@@ -50,17 +50,25 @@ controller.assistEvent = async (req, res) => {
   const event = await Event.findOne({_id:req.params.id,assistants:{$in:[req.user._id]}})  
   let assist
   if(event==null){
-    assist = await Event.findByIdAndUpdate({_id:req.params.id}, {$push:{assistants:req.user._id}}, {new:true})
+    assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})
     return res.status(200).json(assist)
   }else{
-    assist = await Event.findByIdAndUpdate({_id:req.params.id}, {$pull:{assistants:req.user._id}}, {new:true})
+    assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})
     return res.status(200).json(assist)
   }	
 };
 
 
 controller.getEvent = async (req, res) => {  
-  const event = await Event.findById(req.params.id);  
+	const event = await Event.findById(req.params.id)
+	.populate('modules')
+	.populate({ 
+		path: 'modules',
+		populate: {
+			path: 'activities',
+			model: 'EventActivity'
+		} 
+ })
 	res.status(200).json(event);
 };
 

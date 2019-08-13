@@ -1,4 +1,5 @@
 const Module = require("../models/Module");
+const Event = require("../models/Event");
 const controller = {};
 
 
@@ -12,8 +13,9 @@ controller.getModules = async (req, res) => {
 	return res.status(200).json(eModules)
 };
 
-controller.postModule = async (req, res) => {
+controller.postModule = async (req, res) => {	
 	const eModule = await Module.create(req.body);
+	const event = await Event.findByIdAndUpdate(req.body.event,{$push:{modules:eModule._id}}, {new:true})	
 	res.status(200).json(eModule);
 };
 
