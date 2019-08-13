@@ -60,15 +60,8 @@ controller.assistEvent = async (req, res) => {
 
 
 controller.getEvent = async (req, res) => {  
-	const event = await Event.findById(req.params.id)
-	.populate('modules')
-	.populate({ 
-		path: 'modules',
-		populate: {
-			path: 'activities',
-			model: 'EventActivity'
-		} 
- })
+	const event = await Event.findById(req.params.id).populate('modules')
+	
 	res.status(200).json(event);
 };
 
