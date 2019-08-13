@@ -13,7 +13,7 @@ controller.getEvents = async (req, res) => {
 
 controller.postEvent = async (req, res) => {
 	const {speakers, location, description} = req.body
-	
+	console.log(req.body)
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
@@ -60,8 +60,15 @@ controller.assistEvent = async (req, res) => {
 
 
 controller.getEvent = async (req, res) => {  
-	const event = await Event.findById(req.params.id).populate('modules')
-	
+	const event = await Event.findById(req.params.id)
+	.populate('modules')
+	.populate({ 
+		path: 'modules',
+		populate: {
+			path: 'activities',
+			model: 'EventActivity'
+		} 
+ })
 	res.status(200).json(event);
 };
 
