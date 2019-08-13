@@ -68,12 +68,17 @@ controller.updateEvent = async (req, res) => {
 	const {speakers, location, description} = req.body
 	
 	if(req.body._id) delete req.body._id
+	if(req.body.mainImagesURLS) delete req.body.mainImagesURLS
+	if(req.body.permisosURLS) delete req.body.permisosURLS
+	if(req.body.thumbnailImagesURLS) delete req.body.thumbnailImagesURLS
+	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS
+
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
 	if (req.body['description']) req.body['description'] = JSON.parse(description)
 
-	if(req.files){
+	if(req.files || req.file){
 		req.files.forEach(element => {
 			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
