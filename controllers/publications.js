@@ -1,6 +1,5 @@
 const Publication = require("../models/Publication");
 const controller = {};
-const sharp = require('sharp')
 
 controller.getPublications = async (req, res) => {
 	
@@ -9,7 +8,7 @@ controller.getPublications = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).populate('user')
 	return res.status(200).json(publications)
 };
 

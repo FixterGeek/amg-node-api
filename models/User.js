@@ -235,7 +235,7 @@ const userSchema = new Schema({
   },
   membershipStatus:{
     type:String,
-    enum:['Free', 'Residente', 'Socio', 'Veterano'],
+    enum:['Free', 'Residente', 'Socio', 'Veterano', 'Mesa Directiva'],
     default:'Free'
   },
   /* Aproval  Data*/
