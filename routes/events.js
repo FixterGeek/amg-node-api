@@ -26,7 +26,7 @@ router.post('/:id/speaker',verifyToken,upload('speakers').any(),tryCatch(control
 router.get('/:id',verifyToken,tryCatch(controller.getEvent))
 
 /*Update a Eventos*/
-router.patch('/:id',verifyToken,uploadAndResize('events').any().any(),tryCatch(controller.updateEvent))
+router.patch('/:id',verifyToken,uploadAndResize('events').any(),tryCatch(controller.updateEvent))
 
 /*Delete a Eventos*/
 router.delete('/:id',verifyToken,tryCatch(controller.deleteEvent))
