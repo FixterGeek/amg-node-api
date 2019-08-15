@@ -15,12 +15,19 @@ controller.getEvents = async (req, res) => {
 };
 
 controller.postEvent = async (req, res) => {
-	const {speakers, location, description} = req.body
+	const {speakers, location, description, permisosURLS, mainImagesURLS} = req.body
 	console.log(req.body)
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
 	if (req.body['description']) req.body['description'] = JSON.parse(description)
+	
+	if(req.body._id) delete req.body._id
+	if(req.body.mainImagesURLS) delete req.body.mainImagesURLS
+	if(req.body.permisosURLS) delete req.body.permisosURLS
+	if(req.body.thumbnailImagesURLS) delete req.body.thumbnailImagesURLS
+	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS
+	
 
 	if(req.files){
 		req.files.forEach(element => {
@@ -39,8 +46,9 @@ controller.addSpeaker = async (req, res) => {
 		return res.status(200).json({message:'The user was removed'})
 	}else{
 		if(req.files||req.file){
-			req.files.forEach(element => {
-				req.body[`${element.fieldname}URL`].push(element.secure_url)				
+			req.files.forEach(element => {				
+				if(req.body[`${element.fieldname}URL`])req.body[`${element.fieldname}URL`].push(element.secure_url)
+				else req.body[`${element.fieldname}URL`] = [element.secure_url]		
 			})
 		}
 		speaker = await Event.findByIdAndUpdate(req.params.id, {$push:{speakers:req.body}}, {new:true})
