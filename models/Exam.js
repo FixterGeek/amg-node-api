@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const Schema =  mongoose.Schema
 
 const examSchema = new Schema({  
-  eventActivity:{
+  event:{
     type:Schema.Types.ObjectId,
-    ref:'EventActivity'
+    ref:'Event'
   },
   title:String,
   date:String,

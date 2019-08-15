@@ -1,5 +1,8 @@
 const Event = require("../models/Event");
+const Module = require("../models/Module");
+const EventActivity = require("../models/EventActivity");
 const controller = {};
+
 
 
 controller.getEvents = async (req, res) => {
@@ -105,7 +108,10 @@ controller.updateEvent = async (req, res) => {
 };
 
 controller.deleteEvent = async (req, res) => {
+
 	const event = await Event.findByIdAndRemove(req.params.id);
+	await EventActivity.deleteMany({event:event._id})
+	await Module.deleteMany({event:event._id})
 	res.status(200).json(event);
 };
 
