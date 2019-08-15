@@ -423,6 +423,8 @@
         activityName:'Name of the activity
         activityType:['Actividad', 'Conferencia', 'Taller', 'Otro'],
         cost:1000,
+        limit:Number,
+        isOpen:Boolean (default is true)
         description:String,
         date:10/10/2019 
         address:String,

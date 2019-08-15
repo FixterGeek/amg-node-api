@@ -12,6 +12,10 @@ const acitivitySchema = new Schema({
       ref:'Module'
     },
     limit:Number,
+    isOpen:{
+      type:Boolean,
+      default:true
+    },
     activityName:{
       type: String,      
     },
