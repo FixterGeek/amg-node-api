@@ -119,9 +119,7 @@
 
       ###*  "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso"  ***
       "membersWhoRecommend":["the Object ID of the User", "the Object ID of the User"], 
-
-      ###* Condicional labora actualmente en un hospital o institución ***
-      "workedAtInstitutions":["the Object ID of the Users"], 
+      
       ###*  Condicional labora posee un consultorio  ***
       "consultories":["the Object ID of the Instituciones"], 
       
@@ -427,17 +425,7 @@
         cost:1000,
         description:String,
         date:10/10/2019 
-        location:{
-            "addressName":"Pachuca", 
-              "street":"", 
-              "outdoorNumber":"", 
-              "interiorNumber":"", 
-              "colony":"", 
-              "zipCode":"", 
-              "city":"Pachuca", 
-              "state":"Hidalgo", 
-              "coordinates":["123312","123123"] 
-          },
+        address:String,
         constanciaURL:constanciaURL,
         speakers:[{}],
         //asistentes

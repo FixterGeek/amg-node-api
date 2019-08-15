@@ -92,7 +92,15 @@ controller.updateEvent = async (req, res) => {
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
 	}
-	const event = await Event.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
+	const event = await Event.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+	.populate('modules')
+	.populate({ 
+		path: 'modules',
+		populate: {
+			path: 'activities',
+			model: 'EventActivity'
+		} 
+ });
 	res.status(200).json(event);
 };
 

@@ -50,6 +50,8 @@ controller.updateEvent = async (req, res) => {
 
 controller.deleteEvent = async (req, res) => {
 	const event = await EventActivity.findByIdAndRemove(req.params.id);
+	const eModule = assist = await Module.findByIdAndUpdate(req.body.module, {$pull:{activities:event._id}}, {new:true})
+	
 	res.status(200).json(event);
 };
 

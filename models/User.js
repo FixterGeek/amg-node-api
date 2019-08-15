@@ -126,12 +126,6 @@ const userSchema = new Schema({
       type:String,      
     },
   },
-  //*** */Condicional labora actualmente en un hospital o institución?***//
-  //if applies
-  workedAtInstitutions:[{
-    type:Schema.Types.ObjectId,
-    ref:'Institution'
-  }],
   //***** Condicional labora posee un consultorio******/
 
   //if applies consultorios

@@ -31,7 +31,8 @@ controller.updateModule = async (req, res) => {
 };
 
 controller.deleteModule = async (req, res) => {
-	const eModule = await Module.findByIdAndRemove(req.params.id);
+	const eModule = await Module.findByIdAndRemove(req.params.id);	
+	const event = await Event.findByIdAndUpdate(req.body.event,{$pull:{modules:eModule._id}}, {new:true})	
 	res.status(200).json(eModule);
 };
 

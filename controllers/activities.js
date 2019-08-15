@@ -1,4 +1,5 @@
 const Activity = require("../models/Activity");
+const User = require("../models/User");
 const controller = {};
 
 
@@ -13,8 +14,14 @@ controller.getActivities = async (req, res) => {
 };
 
 controller.postActivity = async (req, res) => {
-	const activity = await Activity.create(req.body).populate('institution')
-	res.status(200).json(activity);
+	const activity = await Activity.create(req.body)	
+	if (activity.type === 'Hospitalaria') await User.findByIdAndUpdate(req.body.user,{$push:{hospitalActivities:activity._id}}, {new:true})		
+	if (activity.type === 'Sociedad') await User.findByIdAndUpdate(req.body.user,{$push:{medicalSocieties:activity._id}}, {new:true})		
+	if (activity.type === 'Docente') await User.findByIdAndUpdate(req.body.user,{$push:{teachingActivities:activity._id}}, {new:true})		
+
+
+	
+	res.status(200).json(activity.populate('institution'));
 };
 
 controller.getActivity = async (req, res) => {  

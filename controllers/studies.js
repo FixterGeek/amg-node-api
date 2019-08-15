@@ -1,4 +1,5 @@
 const Study = require("../models/Study");
+const User = require("../models/User");
 const controller = {};
 
 
@@ -14,6 +15,7 @@ controller.getStudies = async (req, res) => {
 
 controller.postStudy = async (req, res) => {
 	const study = await Study.create(req.body);
+	const user = await User.findByIdAndUpdate(req.body.user,{$push:{studies:study._id}}, {new:true})		
 	res.status(200).json(study);
 };
 

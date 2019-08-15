@@ -36,7 +36,11 @@ controller.getUsersSummary = async () => {
 }
 
 controller.getUser = async(req, res) => {
-	const user = await User.findById(req.params.id).populate('workedAtInstitutions')
+	const user = await User.findById(req.params.id)
+	.populate('teachingActivities')
+	.populate('hospitalActivities')
+	.populate('medicalSocieties')
+	.populate('studies')
 	return res.status(200).json(user)
 }
 
