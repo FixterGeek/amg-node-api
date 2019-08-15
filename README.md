@@ -387,6 +387,7 @@
     {
       event:id del evento ,
       title:String,
+      description:String,
       date:String,
       /*just in case*/
       activities:[{
@@ -422,8 +423,9 @@
         event:Event Id,
         module:Module Id,
         activityName:'Name of the activity
-        activityType:['Actividad', 'Conferencia', 'Taller', 'Otro']
-        cost:1000
+        activityType:['Actividad', 'Conferencia', 'Taller', 'Otro'],
+        cost:1000,
+        description:String,
         date:10/10/2019 
         location:{
             "addressName":"Pachuca", 

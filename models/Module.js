@@ -6,6 +6,7 @@ const moduleSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'Event'
   },
+  description:String,
   title:String,
   date:String,
   activities:[{
