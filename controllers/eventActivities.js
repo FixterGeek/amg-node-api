@@ -1,5 +1,6 @@
 
 const EventActivity = require("../models/EventActivity");
+const Module = require("../models/Module");
 const controller = {};
 
 
