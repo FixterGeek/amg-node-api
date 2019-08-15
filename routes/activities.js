@@ -13,16 +13,16 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getActivities))
 
 /* Post all activities*/
-router.post('/',verifyToken,tryCatch(controller.postActivitiy))
+router.post('/',verifyToken,tryCatch(controller.postActivity))
 
 /*Get a single activities*/
-router.get('/:id',verifyToken,tryCatch(controller.getActivitiy))
+router.get('/:id',verifyToken,tryCatch(controller.getActivity))
 
 /*Update a activities*/
-router.patch('/:id',verifyToken,tryCatch(controller.updateActivitiy))
+router.patch('/:id',verifyToken,tryCatch(controller.updateActivity))
 
 /*Delete a activities*/
-router.delete('/:id',verifyToken,tryCatch(controller.deleteActivitiy))
+router.delete('/:id',verifyToken,tryCatch(controller.deleteActivity))
 
 
 module.exports = router;

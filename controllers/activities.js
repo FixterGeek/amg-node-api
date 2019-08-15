@@ -2,7 +2,7 @@ const Activity = require("../models/Activity");
 const controller = {};
 
 
-controller.getActivitys = async (req, res) => {
+controller.getActivities = async (req, res) => {
 	let activities = [];
 	console.log(req.query)	
 	let {query, limit, skip} = req.query
