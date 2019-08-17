@@ -19,6 +19,9 @@ router.post('/',verifyToken, checkIfAdmin, uploadAndResize('events').any(),tryCa
 /* assist or unassist an event*/
 router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))
 
+/* assist or unassist an event*/
+router.delete('/:id/unassist',verifyToken,tryCatch(controller.unassistEvent))
+
 /* add or remove a speaker*/
 router.post('/:id/speaker',verifyToken,upload('speakers').any(),tryCatch(controller.addSpeaker))
 
