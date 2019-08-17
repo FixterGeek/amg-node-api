@@ -10,6 +10,7 @@ const examSchema = new Schema({
   date:String,
   beginingTime:String,
   endTime:String,
+  questionDuration:Number,
   questions:[{
     question:String,
     answers:[{

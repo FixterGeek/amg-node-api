@@ -59,8 +59,11 @@ controller.unassistActivityEvent = async (req, res) => {
 	if(eventActivity.assistants.includes(req.user._id)){
 		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{assistedActivities:eventActivity._id}}, {new:true})
 		assist = await EventActivity.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})
+		return res.status(200).json(assist)
+	}else{
+		return res.status(400).json({message:'Ya no eres parte, Suscríbete'})
 	}
-	return res.status(200).json(assist)
+	
 };
 
 
