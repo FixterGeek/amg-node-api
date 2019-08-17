@@ -117,6 +117,9 @@
       "revisionDate":"01/01/2010", 
       "reviwedBy":"the Object ID of the User",
 
+      "assistedEvents":[]
+      "assistedActivities":[]
+
       ###*  "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso"  ***
       "membersWhoRecommend":["the Object ID of the User", "the Object ID of the User"], 
       
@@ -300,8 +303,10 @@
     GET /events?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /events
-  ### ASSIST/UNASSIST an event
+  ### ASSIST an activity
     POST /events/:eventId/assist
+  ### UNASSIST an activity
+    DELETE /events/:eventId/unassist
   ### add/remove a speaker
     POST /events/:eventId/speaker
 
@@ -402,8 +407,10 @@
     GET /eventActivities?query={"filter":"value"}&limit=20&skip=0  
   ### post an event
     POST /eventActivities
-  ### ASSIST/UNASSIST an activity
+  ### ASSIST an activity
     POST /eventActivities/:eventActivityId/assist
+  ### UNASSIST an activity
+    DELETE /eventActivities/:eventActivityId/unassist
   ### get a single event
     GET /eventActivities/:eventActivityId
   ### update an event

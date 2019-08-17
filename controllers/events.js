@@ -49,16 +49,31 @@ controller.addSpeaker = async (req, res) => {
 	}
 };
 
+
 controller.assistEvent = async (req, res) => {
-  const event = await Event.findOne({_id:req.params.id,assistants:{$in:[req.user._id]}})  
-  let assist
-  if(event==null){
-    assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})
-    return res.status(200).json(assist)
-  }else{
-    assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})
-    return res.status(200).json(assist)
-  }	
+		
+	const event = await Event.findById(req.params.id)
+	let assist
+	
+	if(!event.assistants.includes(req.user._id)){		
+		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedEvents:event._id}}, {new:true})		
+		assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})		
+	}else{
+		return res.status(400).json({message:'You are already registered'})
+	}
+	return res.status(200).json(assist)
+};
+
+controller.unassistEvent = async (req, res) => {
+		
+	const event = await Event.findById(req.params.id)
+	let assist
+	
+	if(event.assistants.includes(req.user._id)){		
+		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{assistedEvents:event._id}}, {new:true})		
+		assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})		
+	}
+	return res.status(200).json(assist)
 };
 
 
@@ -108,7 +123,6 @@ controller.updateEvent = async (req, res) => {
 };
 
 controller.deleteEvent = async (req, res) => {
-
 	const event = await Event.findByIdAndRemove(req.params.id);
 	await EventActivity.deleteMany({event:event._id})
 	await Module.deleteMany({event:event._id})

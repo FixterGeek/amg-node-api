@@ -217,6 +217,17 @@ const userSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'Activity'
   }],
+
+  //events related
+  assistedEvents:[{
+    type:Schema.Types.ObjectId,
+    ref:'Event'
+  }],
+
+  assistedActivities:[{
+    type:Schema.Types.ObjectId,
+    ref:'EventActivity'
+  }],
 //  "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso"
   membersWhoRecommend:[{
     type:Schema.Types.ObjectId,

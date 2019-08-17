@@ -11,22 +11,25 @@ const tryCatch=(fn) =>{
   };
 }
 /* Get all Eventos*/
-router.get('/',verifyToken,tryCatch(controller.getEvents))
+router.get('/',verifyToken,tryCatch(controller.getActivityEvents))
 
 /* Post all Eventos*/
-router.post('/',verifyToken,upload('eventActivities').any(),tryCatch(controller.postEvent))
+router.post('/',verifyToken,upload('eventActivities').any(),tryCatch(controller.postActivityEvent))
 
-/* assist or unassist an event*/
-router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))
+/* assist  an event*/
+router.post('/:id/assist',verifyToken,tryCatch(controller.assistActivityEvent))
+
+/* unassist an event*/
+router.delete('/:id/unassist',verifyToken,tryCatch(controller.unassistActivityEvent))
 
 /*Get a single Eventos*/
-router.get('/:id',verifyToken,tryCatch(controller.getEvent))
+router.get('/:id',verifyToken,tryCatch(controller.getActivityEvent))
 
 /*Update a Eventos*/
-router.patch('/:id',verifyToken,tryCatch(controller.updateEvent))
+router.patch('/:id',verifyToken,tryCatch(controller.updateActivityEvent))
 
 /*Delete a Eventos*/
-router.delete('/:id',verifyToken,tryCatch(controller.deleteEvent))
+router.delete('/:id',verifyToken,tryCatch(controller.deleteActivityEvent))
 
 
 module.exports = router;

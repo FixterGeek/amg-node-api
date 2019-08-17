@@ -41,6 +41,8 @@ controller.getUser = async(req, res) => {
 	.populate('hospitalActivities')
 	.populate('medicalSocieties')
 	.populate('studies')
+	.populate('assistedEvents')
+	.populate('assistedActivities')
 	return res.status(200).json(user)
 }
 

@@ -1,10 +1,12 @@
 
 const EventActivity = require("../models/EventActivity");
+const Event = require("../models/Event");
+const User = require("../models/User");
 const Module = require("../models/Module");
 const controller = {};
 
 
-controller.getEvents = async (req, res) => {
+controller.getActivityEvents = async (req, res) => {
 	let events = [];
 	console.log(req.query)	
 	let {query, limit, skip} = req.query
@@ -14,7 +16,7 @@ controller.getEvents = async (req, res) => {
 	return res.status(200).json(events)
 };
 
-controller.postEvent = async (req, res) => {
+controller.postActivityEvent = async (req, res) => {
 
 	if(req.files){
 		req.files.forEach(element => {
@@ -27,29 +29,53 @@ controller.postEvent = async (req, res) => {
 	res.status(200).json(event);
 };
 
-controller.assistEvent = async (req, res) => {
-  const event = await EventActivity.findOne({_id:req.params.id,assistants:{$in:[req.user._id]}})  
-  let assist
-  if(event==null){
-    assist = await EventActivity.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})
-    return res.status(200).json(assist)
-  }else{
-    assist = await EventActivity.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})
-    return res.status(200).json(assist)
-  }	
+controller.assistActivityEvent = async (req, res) => {
+	
+	const eventActivity = await EventActivity.findById(req.params.id)	
+	const event = await Event.findById(eventActivity.event)	
+	let assist
+	
+	if(!eventActivity.assistants.includes(req.user._id) && !event.assistants.includes(req.user._id)){		
+		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedActivities:eventActivity._id,assistedEvents:event._id}}, {new:true})
+		const upEvent = await Event.findByIdAndUpdate(eventActivity.event, {$push:{assistants:req.user._id}}, {new:true})
+		assist = await EventActivity.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})		
+	}else if(!eventActivity.assistants.includes(req.user._id) && event.assistants.includes(req.user._id)){
+		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedActivities:eventActivity._id}}, {new:true})		
+		assist = await EventActivity.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})
+	}else{
+		return res.status(400).json({message:'You are already registered'})
+	}
+
+	return res.status(200).json(assist)
 };
 
-controller.getEvent = async (req, res) => {  
+// check
+controller.unassistActivityEvent = async (req, res) => {
+	
+	const eventActivity = await EventActivity.findById(req.params.id)	
+	//const event = await Event.findById(eventActivity.event)	
+	let assist
+	
+	if(eventActivity.assistants.includes(req.user._id)){
+		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{assistedActivities:eventActivity._id}}, {new:true})
+		assist = await EventActivity.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})
+	}
+	return res.status(200).json(assist)
+};
+
+
+
+controller.getActivityEvent = async (req, res) => {  
   const event = await EveEventActivitynt.findById(req.params.id);  
 	res.status(200).json(event);
 };
 
-controller.updateEvent = async (req, res) => {
+controller.updateActivityEvent = async (req, res) => {
 	const event = await EventActivity.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
 	res.status(200).json(event);
 };
 
-controller.deleteEvent = async (req, res) => {
+controller.deleteActivityEvent = async (req, res) => {
 	const event = await EventActivity.findByIdAndRemove(req.params.id);
 	const eModule = assist = await Module.findByIdAndUpdate(req.body.module, {$pull:{activities:event._id}}, {new:true})
 	
