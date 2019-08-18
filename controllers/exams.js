@@ -34,7 +34,7 @@ controller.getExams = async (req, res) => {
 	return res.status(200).json(exams)
 };
 
-controller.postExam = async (req, res) => {	
+controller.postExam = async (req, res) => {
 	const exam = await Exam.create(req.body);
 	res.status(201).json(exam);
 };
@@ -45,11 +45,11 @@ controller.getExam = async (req, res) => {
 	let { id: examId } = req.params
 	//
 	//if user is admin
-	if(req.user.userType === 'Admin'){
+	if (req.user.userType === 'Admin') {
 		const examAdmin = await Exam.findById(req.params.id).populate('event')
 		return res.status(200).json(examAdmin)
 	}
-	
+
 	// 1.- check exam time to retreive if is allowed
 	let exam = await Exam.findOne({ _id: examId }, { title: 1, questions: 1, startTime: 1, endTime: 1, "questions.question": 1, "questions.answers": 1, "questions._id": 1 })
 	//return res.send(exam)
@@ -59,10 +59,10 @@ controller.getExam = async (req, res) => {
 	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
 		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
-		exam = exam.toObject()
-		exam.total = answer.total
-		exam.answers = answer.answers
-		if (answer) return res.status(200).json(exam);
+		let oExam = exam.toObject()
+		oExam.total = answer.total
+		oExam.answers = answer.answers
+		if (answer) return res.status(200).json(oExam);
 	}
 	///
 	if (afterTime(exam.startTime) && beforeTime(exam.endTime)) {
