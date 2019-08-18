@@ -62,6 +62,7 @@ controller.getExam = async (req, res) => {
 		let oExam = exam.toObject()
 		oExam.total = answer.total
 		oExam.answers = answer.answers
+		console.log("polloyon", answer)
 		if (answer) return res.status(200).json(oExam);
 	}
 	///
