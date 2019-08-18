@@ -28,13 +28,11 @@ controller.getExams = async (req, res) => {
 	let exams = [];
 	console.log(req.query)
 	let { limit, skip } = req.query
-	//if (query) {query = JSON.parse(query)}
-	// si no hay query params mando todos
 	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0).populate('event')
 	return res.status(200).json(exams)
 };
 
-controller.postExam = async (req, res) => {	
+controller.postExam = async (req, res) => {
 	const exam = await Exam.create(req.body);
 	res.status(201).json(exam);
 };
@@ -45,11 +43,11 @@ controller.getExam = async (req, res) => {
 	let { id: examId } = req.params
 	//
 	//if user is admin
-	if(req.user.userType === 'Admin'){
+	if (req.user.userType === 'Admin') {
 		const examAdmin = await Exam.findById(req.params.id).populate('event')
 		return res.status(200).json(examAdmin)
 	}
-	
+
 	// 1.- check exam time to retreive if is allowed
 	let exam = await Exam.findOne({ _id: examId }, { title: 1, questions: 1, startTime: 1, endTime: 1, "questions.question": 1, "questions.answers": 1, "questions._id": 1 })
 	//return res.send(exam)
@@ -59,10 +57,11 @@ controller.getExam = async (req, res) => {
 	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
 		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
-		exam = exam.toObject()
-		exam.total = answer.total
-		exam.answers = answer.answers
-		if (answer) return res.status(200).json(exam);
+		let oExam = exam.toObject()
+		oExam.total = answer.total
+		oExam.answers = answer.answers
+		console.log("polloyon", answer)
+		if (answer) return res.status(200).json(oExam);
 	}
 	///
 	if (afterTime(exam.startTime) && beforeTime(exam.endTime)) {
@@ -92,8 +91,8 @@ controller.answerExam = async (req, res) => {
 	/////
 	// 3.- Check question by qustion and add answers to the corresponding array
 	let resolved = {
-		user: "5d2410a7fdb6ac0017f4578d", // token
-		//user: req.user._id, // token
+		//user: "5d2410a7fdb6ac0017f4578d", // token
+		user: req.user._id, // token
 		answers: [],
 		total: 0
 	}
@@ -110,6 +109,9 @@ controller.answerExam = async (req, res) => {
 		else return acc
 	}, 0)
 	resolved.total = `${total}/${exam.questions.length}`
+	if (req.user.userType === 'Admin') {
+		return res.status(200).json(resolved);
+	}
 	// 4.- set the grade inside exam in DB
 	exam = await Exam.findByIdAndUpdate(req.params.id, { $push: { resolved } }, { new: true }) //.populate('resolved.user')
 	// 5.-  and responde with corresponding answer

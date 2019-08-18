@@ -22,7 +22,7 @@ router.post('/',
 /* assist or unassist an exam*/
 router.post('/:id/assist', verifyToken, tryCatch(controller.assistExam))
 
-/*Get a single Examos*/
+/*Get a single Exam with validation for solved ones*/
 router.get('/:id',
   verifyToken,
   tryCatch(controller.getExam))
