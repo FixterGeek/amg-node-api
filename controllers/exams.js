@@ -49,9 +49,9 @@ controller.getExam = async (req, res) => {
 	if (!exam) return res.status(404).json({ message: "El examen no existe" });
 	// If the user dd the exam already, we return the resolved
 	//let exists = exam.resolved.find(r => r.user == req.user._id)
-	let exist = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
+	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
-		let answer = exist.find(a => a.user == req.user._id)
+		let answer = exists.find(a => a.user == req.user._id)
 		if (answer) return res.status(200).json({ ...answer });
 	}
 	///
