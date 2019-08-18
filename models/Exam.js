@@ -1,25 +1,38 @@
 const mongoose = require('mongoose')
-const Schema =  mongoose.Schema
+const Schema = mongoose.Schema
 
-const examSchema = new Schema({  
-  event:{
-    type:Schema.Types.ObjectId,
-    ref:'Event'
+const examSchema = new Schema({
+  event: {
+    type: Schema.Types.ObjectId,
+    ref: 'Event'
   },
-  title:String,
-  date:String,
-  beginingTime:String,
-  endTime:String,
-  questionDuration:Number,
-  questions:[{
-    question:String,
-    answers:[{
-      type:String
+  title: String,
+  date: Date,
+  startTime: Date,
+  endTime: Date,
+  questionDuration: Number,
+  questions: [{
+    question: String,
+    answers: [{
+      type: String
     }],
-    correct:String
+    correct: String
   }],
-},{
-  timestamps:true
-})
+  resolved: [{
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    answers: [{
+      question: String,
+      answer: String,
+      correct: Boolean
+    }],
+    total: String
+  }]
+
+}, {
+    timestamps: true
+  })
 
 module.exports = mongoose.model('Exam', examSchema)
