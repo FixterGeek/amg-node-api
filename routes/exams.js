@@ -16,11 +16,9 @@ router.get('/',
 
 /* Post all Examos*/
 router.post('/',
-  //verifyToken, 
+  verifyToken, 
   tryCatch(controller.postExam))
 
-/* assist or unassist an exam*/
-router.post('/:id/assist', verifyToken, tryCatch(controller.assistExam))
 
 /*Get a single Exam with validation for solved ones*/
 router.get('/:id',

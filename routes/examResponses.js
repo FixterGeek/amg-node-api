@@ -15,9 +15,6 @@ router.get('/',verifyToken,tryCatch(controller.getExamResponses))
 /* Post all ExamResponseos*/
 router.post('/',verifyToken,tryCatch(controller.postExamResponse))
 
-/* assist or unassist an examResponse*/
-router.post('/:id/assist',verifyToken,tryCatch(controller.assistExamResponse))
-
 /*Get a single ExamResponseos*/
 router.get('/:id',verifyToken,tryCatch(controller.getExamResponse))
 

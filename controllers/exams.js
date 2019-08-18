@@ -32,7 +32,7 @@ controller.getExams = async (req, res) => {
 	return res.status(200).json(exams)
 };
 
-controller.postExam = async (req, res) => {
+controller.postExam = async (req, res) => {	
 	const exam = await Exam.create(req.body);
 	res.status(201).json(exam);
 };
