@@ -34,7 +34,7 @@ router.patch('/:id',
 
 /** Answer the exam */
 router.post('/:id/answer',
-  // verifyToken,
+  verifyToken,
   tryCatch(controller.answerExam))
 
 /*Delete a Examos*/
