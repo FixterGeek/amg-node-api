@@ -16,7 +16,7 @@ controller.getModules = async (req, res) => {
 controller.postModule = async (req, res) => {	
 	const eModule = await Module.create(req.body);
 	const event = await Event.findByIdAndUpdate(req.body.event,{$push:{modules:eModule._id}}, {new:true})	
-	res.status(200).json(eModule);
+	res.status(201).json(eModule);
 };
 
 

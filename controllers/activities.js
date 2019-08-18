@@ -21,7 +21,7 @@ controller.postActivity = async (req, res) => {
 
 
 	
-	res.status(200).json(activity.populate('institution'));
+	res.status(201).json(activity.populate('institution'));
 };
 
 controller.getActivity = async (req, res) => {  

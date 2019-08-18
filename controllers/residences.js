@@ -14,7 +14,7 @@ controller.getResidences = async (req, res) => {
 
 controller.postResidence = async (req, res) => {
 	const residence = await Residence.create(req.body);
-	res.status(200).json(residence);
+	res.status(201).json(residence);
 };
 
 controller.getResidence = async (req, res) => {  

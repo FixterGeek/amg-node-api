@@ -30,19 +30,26 @@ controller.getExams = async (req, res) => {
 	let { limit, skip } = req.query
 	//if (query) {query = JSON.parse(query)}
 	// si no hay query params mando todos
-	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
+	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0).populate('event')
 	return res.status(200).json(exams)
 };
 
-controller.postExam = async (req, res) => {
+controller.postExam = async (req, res) => {	
 	const exam = await Exam.create(req.body);
-	res.status(200).json(exam);
+	res.status(201).json(exam);
 };
 
 
 controller.getExam = async (req, res) => {
 	//let { user } = req
 	let { id: examId } = req.params
+	//
+	//if user is admin
+	if(req.user.userType === 'Admin'){
+		const examAdmin = await Exam.findById(req.params.id).populate('event')
+		return res.status(200).json(examAdmin)
+	}
+	
 	// 1.- check exam time to retreive if is allowed
 	let exam = await Exam.findOne({ _id: examId }, { title: 1, questions: 1, startTime: 1, endTime: 1, "questions.question": 1, "questions.answers": 1, "questions._id": 1 })
 	//return res.send(exam)

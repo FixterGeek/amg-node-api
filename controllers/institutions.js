@@ -13,7 +13,7 @@ controller.getInstitutions = async (req, res) => {
 
 controller.postInstitution = async (req, res) => {
 	const institution = await Institution.create(req.body);
-	res.status(200).json(institution);
+	res.status(201).json(institution);
 };
 
 controller.getInstitution = async (req, res) => {  

@@ -26,7 +26,7 @@ controller.postActivityEvent = async (req, res) => {
 	}
 	const event = await EventActivity.create(req.body);
 	const eModule = assist = await Module.findByIdAndUpdate(req.body.module, {$push:{activities:event._id}}, {new:true})
-	res.status(200).json(event);
+	res.status(201).json(event);
 };
 
 controller.assistActivityEvent = async (req, res) => {

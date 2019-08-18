@@ -13,7 +13,7 @@ controller.getExamResponses = async (req, res) => {
 
 controller.postExamResponse = async (req, res) => {
 	const examResponse = await ExamResponse.create(req.body);
-	res.status(200).json(examResponse);
+	res.status(201).json(examResponse);
 };
 
 

@@ -14,7 +14,7 @@ controller.getInternships = async (req, res) => {
 
 controller.postInternship = async (req, res) => {
 	const internship = await Internship.create(req.body);
-	res.status(200).json(internship);
+	res.status(201).json(internship);
 };
 
 controller.getInternship = async (req, res) => {  

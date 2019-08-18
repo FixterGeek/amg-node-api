@@ -25,7 +25,7 @@ controller.postPublication = async (req, res) => {
 	}
 	const publication = await Publication.create(req.body)
 	publication['user'] = req.user
-	res.status(200).json(publication);
+	res.status(201).json(publication);
 };
 
 controller.likePublication = async (req, res) => {
