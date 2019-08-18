@@ -28,8 +28,6 @@ controller.getExams = async (req, res) => {
 	let exams = [];
 	console.log(req.query)
 	let { limit, skip } = req.query
-	//if (query) {query = JSON.parse(query)}
-	// si no hay query params mando todos
 	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0).populate('event')
 	return res.status(200).json(exams)
 };
@@ -93,8 +91,8 @@ controller.answerExam = async (req, res) => {
 	/////
 	// 3.- Check question by qustion and add answers to the corresponding array
 	let resolved = {
-		user: "5d2410a7fdb6ac0017f4578d", // token
-		//user: req.user._id, // token
+		//user: "5d2410a7fdb6ac0017f4578d", // token
+		user: req.user._id, // token
 		answers: [],
 		total: 0
 	}
@@ -111,6 +109,9 @@ controller.answerExam = async (req, res) => {
 		else return acc
 	}, 0)
 	resolved.total = `${total}/${exam.questions.length}`
+	if (req.user.userType === 'Admin') {
+		return res.status(200).json(resolved);
+	}
 	// 4.- set the grade inside exam in DB
 	exam = await Exam.findByIdAndUpdate(req.params.id, { $push: { resolved } }, { new: true }) //.populate('resolved.user')
 	// 5.-  and responde with corresponding answer
