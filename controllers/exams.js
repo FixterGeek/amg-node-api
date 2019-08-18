@@ -52,6 +52,8 @@ controller.getExam = async (req, res) => {
 	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
 		let answer = exists.resolved.find(a => a.user == req.user._id)
+		console.log("exist", exists)
+		console.log("answer", answer)
 		if (answer) return res.status(200).json({ ...answer });
 	}
 	///
