@@ -52,10 +52,7 @@ controller.getExam = async (req, res) => {
 	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
 		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
-		console.log("exist", exists)
-		console.log("answer", answer)
-		console.log("user", req.user._id)
-		if (answer) return res.status(200).json({ ...answer });
+		if (answer) return res.status(200).json({ ...exam, total: answer.total, answers: [...answer.answers] });
 	}
 	///
 	if (afterTime(exam.startTime) && beforeTime(exam.endTime)) {
