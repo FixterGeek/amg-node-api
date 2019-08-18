@@ -46,7 +46,13 @@ controller.getUser = async(req, res) => {
 	return res.status(200).json(user)
 }
 
-controller.updateUser = async (req, res) => {	
+controller.updateUser = async (req, res) => {
+	if(req.body['teachingActivities']) delete req.body['teachingActivities']
+	if(req.body['hospitalActivities']) delete req.body['hospitalActivities']
+	if(req.body['medicalSocieties']) delete req.body['medicalSocieties']
+	if(req.body['studies']) delete req.body['studies']
+	if(req.body['assistedEvents']) delete req.body['assistedEvents']
+	if(req.body['assistedActivities']) delete req.body['assistedActivities']
 	if(req.file||req.files) {
 		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
 		req.body['basicData'] = basics
