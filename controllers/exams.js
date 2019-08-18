@@ -47,6 +47,10 @@ controller.getExam = async (req, res) => {
 	let exam = await Exam.findOne({ _id: examId }, { title: 1, questions: 1, startTime: 1, endTime: 1, "questions.question": 1, "questions.answers": 1, "questions._id": 1 })
 	//return res.send(exam)
 	if (!exam) return res.status(404).json({ message: "El examen no existe" });
+	// If the user dd the exam already, we return the resolved
+	let exists = exam.resolved.find(r => r.user == req.user._id)
+	if (exists) return res.status(200).json(exists);
+	///
 	if (afterTime(exam.startTime) && beforeTime(exam.endTime)) {
 		// si puedeo enviarlo
 		res.status(200).json(exam);
@@ -58,6 +62,7 @@ controller.getExam = async (req, res) => {
 	}
 	// 2.- check if user is assistant ???
 };
+
 
 controller.answerExam = async (req, res) => {
 	let { id: examId } = req.params

@@ -24,7 +24,7 @@ router.post('/:id/assist', verifyToken, tryCatch(controller.assistExam))
 
 /*Get a single Examos*/
 router.get('/:id',
-  //verifyToken,
+  verifyToken,
   tryCatch(controller.getExam))
 
 /*Update a Examos*/
@@ -34,7 +34,7 @@ router.patch('/:id',
 
 /** Answer the exam */
 router.post('/:id/answer',
-  verifyToken,
+  // verifyToken,
   tryCatch(controller.answerExam))
 
 /*Delete a Examos*/
