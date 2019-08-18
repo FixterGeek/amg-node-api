@@ -27,10 +27,10 @@ function afterTime(time) {
 controller.getExams = async (req, res) => {
 	let exams = [];
 	console.log(req.query)
-	let { query, limit, skip } = req.query
+	let { limit, skip } = req.query
 	//if (query) {query = JSON.parse(query)}
 	// si no hay query params mando todos
-	exams = await Exam.find(query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
+	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
 	return res.status(200).json(exams)
 };
 
