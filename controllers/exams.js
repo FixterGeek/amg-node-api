@@ -51,7 +51,7 @@ controller.getExam = async (req, res) => {
 	//let exists = exam.resolved.find(r => r.user == req.user._id)
 	let exists = await Exam.findOne({ "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
-		let answer = exists.resolved.find(a => a.user === req.user._id)
+		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
 		console.log("exist", exists)
 		console.log("answer", answer)
 		console.log("user", req.user._id)
