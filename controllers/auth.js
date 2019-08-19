@@ -27,7 +27,7 @@ controller.login = async (req, res, next) => {
 controller.signup = async (req, res) => {
 	let exists = await User.findOne({ email: req.body.email });
 	if (exists)
-		return res.status(401).json({ message: "Este email ya existe en el sistema" });
+		return res.status(400).json({ message: "Este email ya existe en el sistema" });
 	if(req.file||req.files) {
 		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
 		req.body['basicData'] = basics
