@@ -11,6 +11,39 @@ const userSchema = new Schema({
   titleURL: String,
   certificateURL: String,
   constancyURL: String,
+  address: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    addressName: {
+      type: String,
+    },
+    street: {
+      type: String,
+    },
+    outdoorNumber: {
+      type: String,
+    },
+    interiorNumber: {
+      type: String,
+    },
+    colony: {
+      type: String,
+    },
+    zipCode: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    coordinates: [{
+      type: Number
+    }]
+  },
 
   //basic data
   basicData: {
