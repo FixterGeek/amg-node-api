@@ -28,6 +28,10 @@ controller.signup = async (req, res) => {
 	let exists = await User.findOne({ email: req.body.email });
 	if (exists)
 		return res.status(401).json({ message: "Este email ya existe en el sistema" });
+	if(req.file||req.files) {
+		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
+		req.body['basicData'] = basics
+	}	
 	let user = await User.register(req.body, req.body.password);	
 	welcomeMail(user, req.body.password);
 	let token = generateToken(user);

@@ -17,7 +17,7 @@ router.get('/self',verifyToken,tryCatch(controller.self))
 router.post("/login",tryCatch(controller.login))
 
 /*Post to register a new user, email and pass needed*/
-router.post("/signup", tryCatch(controller.signup));
+router.post("/signup",upload('users').single('photo'), tryCatch(controller.signup));
 
 /* REset Password*/
 router.post("/change",verifyToken, tryCatch(controller.changePass));
