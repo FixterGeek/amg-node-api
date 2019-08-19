@@ -4,6 +4,7 @@ const controller = require("../controllers/auth");
 //middlewares
 const passport = require("passport");
 const { verifyToken } = require("../helpers/jwt");
+const {upload} = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
