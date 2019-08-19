@@ -32,6 +32,7 @@ controller.signup = async (req, res) => {
 		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
 		req.body['basicData'] = basics
 	}
+	req.body.username=req.body.email
 	console.log(req.body)
 	let user = await User.register(req.body, req.body.password);	
 	welcomeMail(user, req.body.password);
