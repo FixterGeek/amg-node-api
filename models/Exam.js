@@ -12,6 +12,7 @@ const examSchema = new Schema({
   endTime: Date,
   questionDuration: Number,
   questions: [{
+    imageURL:String,
     question: String,
     answers: [{
       type: String
