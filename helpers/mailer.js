@@ -19,15 +19,15 @@ const userInRevision = hbs.compile(
 
 
 
-exports.welcomeMail = ({ email, basicData },password) => {	
+exports.welcomeMail = ({ email, basicData },password) => {
 	transport
 		.sendMail({
 			subject: "¡Bienvenido a AMG",
 			bcc: email,
 			html: accountCreated({basicData,email,password})
 		})
-		.then(r => console.log(r))
-		.catch(e => console.log(e));
+		.then(r => r)
+		.catch(e => e);
 };
 
 //exports.paid
