@@ -16,7 +16,7 @@ router.get('/',
 
 /* Post all Examos*/
 router.post('/',
-  verifyToken, 
+  //verifyToken, 
   tryCatch(controller.postExam))
 
 
