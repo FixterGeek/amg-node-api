@@ -4,27 +4,35 @@ const controller = require("../controllers/auth");
 //middlewares
 const passport = require("passport");
 const { verifyToken } = require("../helpers/jwt");
-const {upload} = require('../helpers/cloudinary')
+const { upload } = require('../helpers/cloudinary')
 
-const tryCatch=(fn) =>{
+const tryCatch = (fn) => {
   return (req, res, next) => {
     return fn(req, res).catch(e => next(e));
   };
 }
 /* Get the logged user*/
-router.get('/self',verifyToken,tryCatch(controller.self))
+router.get('/self', verifyToken, tryCatch(controller.self))
 
 /*Post to login and return user and token*/
-router.post("/login",tryCatch(controller.login))
+router.post("/login", tryCatch(controller.login))
 
 /*Post to register a new user, email and pass needed*/
-router.post("/signup",upload('users').single('photo'), tryCatch(controller.signup));
+router.post("/signup", upload('users').single('photo'), tryCatch(controller.signup));
 
 /* REset Password*/
-router.post("/change",verifyToken, tryCatch(controller.changePass));
+router.post("/change", verifyToken, tryCatch(controller.changePass));
 
 /* forgot Password*/
-router.post("/forgot",verifyToken, tryCatch(controller.forgotPass));
+router.post("/forgot",
+  // verifyToken, 
+  tryCatch(controller.forgotPass));
+router.get("/recovery",
+  // verifyToken, 
+  tryCatch(controller.recovery));
+router.post("/recovery",
+  // verifyToken, 
+  tryCatch(controller.recoveryPost));
 
 
 module.exports = router;
