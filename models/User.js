@@ -3,12 +3,12 @@ const plm = require('passport-local-mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-
+  recoveryToken: Boolean,
   email: {
     type: String,
     unique: true,
   },
-  username:{
+  username: {
     type: String,
     unique: true,
   },

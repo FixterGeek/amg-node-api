@@ -18,13 +18,25 @@ const userInRevision = hbs.compile(
 );
 
 
+// recovery
+exports.recoveryMail = (email, token) => {
+	transport.sendMail({
+		subject: "Recuperación de contraseña",
+		bcc: email,
+		html: `
+		<h2>Crea una nueva contraseña aqui:</h2>
+		<a href="http://amg-api.herokuapp.com/auth/recovery?token=${token}"> Click aquí  </a>
+		`
+	})
+}
 
-exports.welcomeMail = ({ email, basicData },password) => {
+
+exports.welcomeMail = ({ email, basicData }, password) => {
 	transport
 		.sendMail({
 			subject: "¡Bienvenido a AMG",
 			bcc: email,
-			html: accountCreated({basicData,email,password})
+			html: accountCreated({ basicData, email, password })
 		})
 		.then(r => r)
 		.catch(e => e);
@@ -35,7 +47,7 @@ exports.welcomeMail = ({ email, basicData },password) => {
 //exports.paymentReference
 
 //exports.validating
-exports.validatingProfile = (user) => {	
+exports.validatingProfile = (user) => {
 	transport
 		.sendMail({
 			subject: "¡Tu perfil está en revisión!",
