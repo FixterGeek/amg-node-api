@@ -1,6 +1,7 @@
 const User = require('../models/User')
+const Payment = require('../models/Payment')
 const conekta = require('conekta')
-const controller = {};
+const controller = {};  
 
 
 
@@ -10,9 +11,10 @@ conekta.api_version = '2.0.0';
 conekta.locale = 'es'
 
 
-controller.subscription = (req,res) => {
-  const { conektaToken, plazo, country, phone } = req.body
-  const user = req.user
+
+controller.subscription = async (req,res) => {
+  const { conektaToken, plazo="contado", phone, price } = req.body
+  const {user} = req
 
   const chargeObj = {
     payment_method: {
@@ -22,19 +24,19 @@ controller.subscription = (req,res) => {
 
   };
 
-  if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
+  //if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
   const conektaObject =
   {
     currency: "MXN",
     customer_info: {
       name: user.username,
-      phone,
+      phone:user.basicData.phone || phone,
       email: user.email,
     },
     line_items: [
       {
-        name: "Bootcamp online",
-        unit_price: 1000 * 100,
+        name: "AMG Subscription",
+        unit_price: price * 100,
         quantity: 1,
       }
     ],
@@ -47,80 +49,88 @@ controller.subscription = (req,res) => {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-      User.findByIdAndUpdate(user._id, { $set: { enrolled: true } }, { new: true })
-        .then(u => {
-          return res.status(200).json({ user:u, order: order.toObject() })
-        }).catch(e => {
-          console.log(e)
-          return res.status(400).json(e)
-        })
+            
+      const payment = await Payment.create({
+        user:user._id,
+        conektaId: order.id,
+        date:order.created_at,
+        amount:order.amount,
+        paid:true,
+        paymentType:'Subscription'
+      })
+      await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })      
+      return res.status(200).json(payment)
     }
   );
 
 }
 
-// controller.pay = (req, res) => {
-//   //conekta payment
 
-//   const { conektaToken, plazo, application, cupon } = req.body
-//   let used = { [req.user._id]: true }
-//   const user = req.user
+controller.eventPayment = async (req,res) => {
+  const { conektaToken, plazo="contado", phone, price } = req.body
+  const {user} = req
 
+  const chargeObj = {
+    payment_method: {
+      type: "card",
+      token_id: conektaToken,
+    },
 
+  };
 
-//   App.findById(application._id)
-//     .then(elapp => {
-//       const chargeObj = {
-//         payment_method: {
-//           type: "card",
-//           token_id: conektaToken,
-//         },
+  //if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
+  const conektaObject =
+  {
+    currency: "MXN",
+    customer_info: {
+      name: user.username,
+      phone:user.basicData.phone || phone,
+      email: user.email,
+    },
+    line_items: [
+      {
+        name: "Event payment",
+        unit_price: price * 100,
+        quantity: 1,
+      }
+    ],
+    charges: [chargeObj]
+  }
+  conekta.Order.create(
+    conektaObject,
+    function (err, order) {
+      if (err) {
+        console.log('conektaerror', err)
+        return res.status(400).json(err);
+      }
+            
+      const payment = await Payment.create({
+        user:user._id,
+        conektaId: order.id,
+        date:order.created_at,
+        amount:order.amount,
+        paid:true,
+        paymentType:'Event'
+      })
+      await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
+      return res.status(200).json(payment)
+    }
+  );
 
-//       };
-      
-//       const conektaObject =
-//       {
-//         currency: "MXN",
-//         customer_info: {
-//           name: elapp.name,
-//           phone: elapp.tel,
-//           email: elapp.email
-//         },
-//         line_items: [
-//           {
-//             name: elapp.course,
-//             unit_price: elapp.cost - discount,
-//             quantity: 1,
-//           }
-//         ],
-//         charges: [chargeObj]
-//       }
-//       conekta.Order.create(
-//         conektaObject,
-//         function (err, order) {
-//           if (err) {
-//             console.log('conektaerror', err)
-//             return res.status(400).json(err);
-//           }
-//           App.findByIdAndUpdate(elapp._id, { $set: { paid: true } }, { new: true })
-//             .then(application => {
-//               //console.log(order.toObject())
-//               //cancelamos el cupon
-//               useCupon(cupon, used)
-//               //
-//               return res.status(200).json({ application, order: order.toObject() })
-//             }).catch(e => {
-//               console.log(e)
-//               return res.status(400).json(e)
-//             })
-//         }
-//       );
-
-//     }).catch(e => res.status(400).json(e))
+}
 
 
+controller.getPayments = async (req, res) => {
+	let payments = [];
+	console.log(req.query)	
+	let {query, limit, skip} = req.query
+	if(query) query = JSON.parse(query)
+	// si no hay query params mando todos
+	payments = await Payment.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(payments)
+};
 
-// }
+
 
 
 

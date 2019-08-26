@@ -78,6 +78,7 @@ const eventActivityRoutes = require('./routes/eventActivities');
 const eventModuleRoutes = require('./routes/modules');
 const examRoutes = require('./routes/exams');
 const examResponseRoutes = require('./routes/examResponses'); 
+const paymentRoutes = require('./routes/payments'); 
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -93,6 +94,7 @@ app.use('/eventActivities', eventActivityRoutes)
 app.use('/eventModules', eventModuleRoutes)
 app.use('/exams', examRoutes)
 app.use('/examResponses', examResponseRoutes)
+app.use('/payments', paymentRoutes)
 
 
 

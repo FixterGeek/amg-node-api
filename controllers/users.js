@@ -28,11 +28,11 @@ controller.getUsers = async (req, res) => {
 	users = await User.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
 	return res.status(200).json(users)
 };
+
 controller.getUsersSummary = async () => {
 	const users = await User.aggregate.count()
 	console.log(users)
 	return users
-
 }
 
 controller.getUser = async(req, res) => {
@@ -43,6 +43,8 @@ controller.getUser = async(req, res) => {
 	.populate('studies')
 	.populate('assistedEvents')
 	.populate('assistedActivities')
+	.populate('renewals')
+	.populate('eventOrders')
 	return res.status(200).json(user)
 }
 
