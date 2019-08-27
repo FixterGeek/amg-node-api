@@ -302,6 +302,10 @@ const userSchema = new Schema({
   renewals: [{
     type: Schema.Types.ObjectId,
     ref: 'Payment'
+  }],
+  eventOrders: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Payment'
   }]
 
 

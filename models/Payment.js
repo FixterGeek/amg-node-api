@@ -6,6 +6,7 @@ const paymentSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User'
   },
+  conektaId: String,
   date:{
     type:String,
     required:true    
@@ -17,6 +18,10 @@ const paymentSchema = new Schema({
   paid:{
     type:Boolean,
     default:false
+  },
+  paymentType:{
+    type:String,
+    enum:['Subscription', 'Event']
   }
 },{
   timestamps:true
