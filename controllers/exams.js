@@ -12,13 +12,13 @@ function nowInMexico() { // in case we have to force TimeZone
 
 function beforeTime(time) {
 	//let now = nowInMexico()
-	console.log("befo:", Date.now() < Date.parse(time))
+	//console.log("befo:", Date.now() < Date.parse(time))
 	return Date.now() < Date.parse(time)
 }
 
 function afterTime(time) {
 	//let now = nowInMexico()
-	console.log("afte", Date.now() > Date.parse(time))
+	//console.log("afte", Date.now() > Date.parse(time))
 	return Date.now() > Date.parse(time)
 }
 
@@ -32,7 +32,7 @@ controller.getExams = async (req, res) => {
 	return res.status(200).json(exams)
 };
 
-controller.postExam = async (req, res) => {	
+controller.postExam = async (req, res) => {
 	const exam = await Exam.create(req.body);
 	res.status(201).json(exam);
 };
@@ -54,13 +54,13 @@ controller.getExam = async (req, res) => {
 	if (!exam) return res.status(404).json({ message: "El examen no existe" });
 	// If the user dd the exam already, we return the resolved
 	//let exists = exam.resolved.find(r => r.user == req.user._id)
-	let exists = await Exam.findOne({_id:examId, "resolved.user": req.user._id }, { resolved: 1 })
+	let exists = await Exam.findOne({ _id: examId, "resolved.user": req.user._id }, { resolved: 1 })
 	if (exists) {
 		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
 		let oExam = exam.toObject()
 		oExam.total = answer.total
 		oExam.answers = answer.answers
-		console.log("polloyon", answer)
+		//console.log("polloyon", answer)
 		if (answer) return res.status(200).json(oExam);
 	}
 	///

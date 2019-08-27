@@ -43,7 +43,7 @@ controller.signup = async (req, res) => {
 controller.changePass = async (req, res) => {
 	let user = await User.findOne({ email: req.body.email })
 	if (user) {
-		console.log(user)
+		//console.log(user)
 		user.changePassword(req.body.oldPassword, req.body.newPassword)
 			.then(() => {
 				user.save()
@@ -57,7 +57,6 @@ controller.changePass = async (req, res) => {
 }
 
 controller.forgotPass = async (req, res) => {
-	console.log(req.body)
 	let user = await User.findOne({ email: req.body.email })
 	if (user) {
 		//console.log(user)
