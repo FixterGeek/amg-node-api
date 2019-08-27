@@ -96,6 +96,7 @@ controller.recoveryPost = async (req, res) => {
 	let { password, email } = req.body
 	let user = await User.findOne({ email: email })
 	await user.setPassword(password);
+	await user.save()
 	res.send("Pasword actualizado con éxito")
 }
 
