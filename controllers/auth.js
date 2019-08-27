@@ -58,6 +58,7 @@ controller.changePass = async (req, res) => {
 
 controller.forgotPass = async (req, res) => {
 	let user = await User.findOne({ email: req.body.email })
+	console.log("showUser"), user
 	if (user) {
 		console.log(user)
 		// ENVIAR MAIL CON TOKEN
