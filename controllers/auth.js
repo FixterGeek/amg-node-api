@@ -57,6 +57,7 @@ controller.changePass = async (req, res) => {
 }
 
 controller.forgotPass = async (req, res) => {
+	console.log("wtf: ", req.body)
 	let user = await User.findOne({ email: req.body.email })
 	if (user) {
 		//console.log(user)

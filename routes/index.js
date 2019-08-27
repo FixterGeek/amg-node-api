@@ -17,28 +17,6 @@ router.get('/', (req, res, next) => {
     site: "www.fixter.org",
     bliss: "t(*_*t)"
   })
-  // const arr = []
-  // data.forEach((item, idx)=>{
-  //   if(item['Institución']=='Pensionado'|| item['Institución']=='Jubilado' || item['Institución']=='NO APLICA' || institutions[idx]==undefined)return
-  //   console.log(institutions[idx])
-  //   const newObject = {
-  //     _id:new ObjectId(),
-  //     user: users[idx]._id,
-  //     type:'Hospitalaria',
-  //     institution:institutions[idx]._id,
-  //     //If Docente
-  //     subject:'',
-  //     //If Hospitalaria
-  //     charge :item['Especialidad'],
-  //     startDate :'',
-  //     endDate :''
-  //   }
-  //   arr.push(newObject)
-  // })
-  // console.log(arr)
-  // fs.writeFile("activities.json", JSON.stringify(arr),'utf8',(err)=>{
-  //   console.log(err)
-  // })
 });
 
 
