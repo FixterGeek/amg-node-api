@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const Payment = require('../models/Payment')
 const conekta = require('conekta')
-const controller = {};  
+const controller = {};
 
 
 
@@ -12,9 +12,9 @@ conekta.locale = 'es'
 
 
 
-controller.subscription = async (req,res) => {
-  const { conektaToken, plazo="contado", phone, price } = req.body
-  const {user} = req
+controller.subscription = async (req, res) => {
+  const { conektaToken, plazo = "contado", phone, price } = req.body
+  const { user } = req
 
   const chargeObj = {
     payment_method: {
@@ -30,7 +30,7 @@ controller.subscription = async (req,res) => {
     currency: "MXN",
     customer_info: {
       name: user.username,
-      phone:user.basicData.phone || phone,
+      phone: user.basicData.phone || phone,
       email: user.email,
     },
     line_items: [
@@ -44,21 +44,21 @@ controller.subscription = async (req,res) => {
   }
   conekta.Order.create(
     conektaObject,
-    function (err, order) {
+    async function (err, order) {
       if (err) {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-            
+
       const payment = await Payment.create({
-        user:user._id,
+        user: user._id,
         conektaId: order.id,
-        date:order.created_at,
-        amount:order.amount,
-        paid:true,
-        paymentType:'Subscription'
+        date: order.created_at,
+        amount: order.amount,
+        paid: true,
+        paymentType: 'Subscription'
       })
-      await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })      
+      await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })
       return res.status(200).json(payment)
     }
   );
@@ -66,9 +66,9 @@ controller.subscription = async (req,res) => {
 }
 
 
-controller.eventPayment = async (req,res) => {
-  const { conektaToken, plazo="contado", phone, price } = req.body
-  const {user} = req
+controller.eventPayment = async (req, res) => {
+  const { conektaToken, plazo = "contado", phone, price } = req.body
+  const { user } = req
 
   const chargeObj = {
     payment_method: {
@@ -84,7 +84,7 @@ controller.eventPayment = async (req,res) => {
     currency: "MXN",
     customer_info: {
       name: user.username,
-      phone:user.basicData.phone || phone,
+      phone: user.basicData.phone || phone,
       email: user.email,
     },
     line_items: [
@@ -98,19 +98,19 @@ controller.eventPayment = async (req,res) => {
   }
   conekta.Order.create(
     conektaObject,
-    function (err, order) {
+    async function (err, order) {
       if (err) {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-            
+
       const payment = await Payment.create({
-        user:user._id,
+        user: user._id,
         conektaId: order.id,
-        date:order.created_at,
-        amount:order.amount,
-        paid:true,
-        paymentType:'Event'
+        date: order.created_at,
+        amount: order.amount,
+        paid: true,
+        paymentType: 'Event'
       })
       await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
       return res.status(200).json(payment)
@@ -121,13 +121,13 @@ controller.eventPayment = async (req,res) => {
 
 
 controller.getPayments = async (req, res) => {
-	let payments = [];
-	console.log(req.query)	
-	let {query, limit, skip} = req.query
-	if(query) query = JSON.parse(query)
-	// si no hay query params mando todos
-	payments = await Payment.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
-	return res.status(200).json(payments)
+  let payments = [];
+  console.log(req.query)
+  let { query, limit, skip } = req.query
+  if (query) query = JSON.parse(query)
+  // si no hay query params mando todos
+  payments = await Payment.find(query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
+  return res.status(200).json(payments)
 };
 
 
