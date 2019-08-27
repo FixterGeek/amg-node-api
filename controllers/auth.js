@@ -57,10 +57,10 @@ controller.changePass = async (req, res) => {
 }
 
 controller.forgotPass = async (req, res) => {
+	console.log(req.body)
 	let user = await User.findOne({ email: req.body.email })
-	console.log("showUser"), user
 	if (user) {
-		console.log(user)
+		//console.log(user)
 		// ENVIAR MAIL CON TOKEN
 		let token = jwt.sign({
 			email: user.email
