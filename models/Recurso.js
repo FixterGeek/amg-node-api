@@ -20,7 +20,11 @@ const recursoSchema = new Schema({
   liked:[{
     type:Schema.Types.ObjectId,
     ref:'User'
-  }]
+  }],
+  tipo:{
+    type:String,
+    enum:['Guías y consensos', 'Publicaciones']
+  }
 
 },{
   timestamps:true

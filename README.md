@@ -12,6 +12,7 @@
  - [Publications](#publications)
  - [Exams](#exams)
  - [ExamResponses](#exam-responses)
+ - [Recursos](#recursos)
 
 
  Send all queries as MONGODB syntax in String format(stringify)
@@ -536,5 +537,37 @@
       score:10
     }
 
+
+<a name="recursos"></a>
+# Recursos
+
+## Endpoints 
+  ### Get all recursos 
+    GET /recursos?query={"filter":"value"}&limit=20&skip=0
+    //to get the favorites of a user
+    /recursos?query={"liked":{"$in":["userID"]}}
+  ### post an recurso
+    POST /recursos
+  ### LIKE/DISLIKE a recuros
+    POST /recursos/:recursoId/like
+  ### get a single recuros
+    GET /recursos/:recursoId
+  ### update an recuros
+    PATCH /recursos/:recursoId
+  ### delete an recuros
+    DELETE /recursos/:recursoId
+
+  ## Model
+    {
+      user:user Id,
+      url:String,
+      imagesURLS:['imagen.jpg],
+      docsURLS:['imagen.jpg'],
+      title:'titulin',
+      subtitle:''totulin,
+      footer:'footer',
+      liked:[userIDs],
+      tipo:enum:['Guías y consensos', 'Publicaciones']
+    }
 
 
