@@ -28,7 +28,7 @@ controller.postRecurso = async (req, res) => {
 	res.status(201).json(recurso);
 };
 
-controller.likerecurso = async (req, res) => {
+controller.likeRecurso = async (req, res) => {
   const recurso = await Recurso.findOne({_id:req.params.id,liked:{$in:[req.user._id]}})
   console.log(recurso)
   let liked
@@ -41,17 +41,17 @@ controller.likerecurso = async (req, res) => {
   }	
 };
 
-controller.getrecurso = async (req, res) => {  
+controller.getRecurso = async (req, res) => {  
   const recurso = await Recurso.findById(req.params.id);  
 	res.status(200).json(recurso).populate('user');
 };
 
-controller.updaterecurso = async (req, res) => {
+controller.updateRecurso = async (req, res) => {
 	const recurso = await Recurso.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}).populate('user');
 	res.status(200).json(recurso);
 };
 
-controller.deleterecurso = async (req, res) => {
+controller.deleteRecurso = async (req, res) => {
 	const recurso = await Recurso.findByIdAndRemove(req.params.id);
 	res.status(200).json(recurso);
 };
