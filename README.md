@@ -564,10 +564,13 @@
       imagesURLS:['imagen.jpg],
       docsURLS:['imagen.jpg'],
       title:'titulin',
-      subtitle:''totulin,
+      subtitle:'totulin',
       footer:'footer',
       liked:[userIDs],
-      tipo:enum:['Guías y consensos', 'Publicaciones']
+      tipo:enum:['Guías y consensos', 'Publicaciones'],
+      volume:String,
+      publishedAt:String,
+      authors:String
     }
 
 

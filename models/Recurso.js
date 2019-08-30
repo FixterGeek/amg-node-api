@@ -24,7 +24,10 @@ const recursoSchema = new Schema({
   tipo:{
     type:String,
     enum:['Guías y consensos', 'Publicaciones']
-  }
+  },
+  volume:String,
+  publishedAt:String,
+  authors:String
 
 },{
   timestamps:true
