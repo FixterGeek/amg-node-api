@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const institutionSchema = new Schema({
 
-  // si aplica,   
+  // si aplica
   owner:{
     type:Schema.Types.ObjectId,
     ref:'User'
