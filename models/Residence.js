@@ -38,6 +38,9 @@ const residenceSchema = new Schema({
     type:String,
     required:false
   },
+  certificadoURLS:[{
+    type:String
+  }],
 },{
   timestamps:true
 })

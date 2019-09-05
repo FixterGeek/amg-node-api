@@ -13,6 +13,12 @@ controller.getResidences = async (req, res) => {
 };
 
 controller.postResidence = async (req, res) => {
+	if(req.file||req.files){		
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const residence = await Residence.create(req.body);
 	res.status(201).json(residence);
 };
@@ -23,6 +29,12 @@ controller.getResidence = async (req, res) => {
 };
 
 controller.updateResidence = async (req, res) => {
+	if(req.file||req.files){		
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const residence = await Residence.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
 	res.status(200).json(residence);
 };

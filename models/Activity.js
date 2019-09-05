@@ -8,7 +8,7 @@ const activitySchema = new Schema({
   },
   type:{
     type:String,
-    enum:['Hospitalaria', 'Docente', 'Sociedad'],
+    enum:['Hospitalaria', 'Docente', 'Sociedad', 'Laboral'],
     required:true
   },
   institution:{

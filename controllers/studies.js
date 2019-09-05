@@ -14,6 +14,12 @@ controller.getStudies = async (req, res) => {
 };
 
 controller.postStudy = async (req, res) => {
+	if(req.file||req.files){		
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const study = await Study.create(req.body);
 	const user = await User.findByIdAndUpdate(req.body.user,{$push:{studies:study._id}}, {new:true})		
 	res.status(201).json(study);
@@ -25,6 +31,12 @@ controller.getStudy = async (req, res) => {
 };
 
 controller.updateStudy = async (req, res) => {
+	if(req.file||req.files){		
+		req.files.forEach(element => {
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const study = await Study.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
 	res.status(200).json(study);
 };

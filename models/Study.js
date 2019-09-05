@@ -32,6 +32,12 @@ const studySchema = new Schema({
     type:String,
     required:false
   },
+  cedulaURLS:[{
+    type:String
+  }],
+  tituloURLS:[{
+    type:String
+  }],
 },{
   timestamps:true
 })

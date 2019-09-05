@@ -38,10 +38,16 @@ controller.signup = async (req, res) => {
 	let exists = await User.findOne({ email: req.body.email });
 	if (exists)
 		return res.status(400).json({ message: "Este email ya existe en el sistema" });
-	if (req.file || req.files) {
-		let basics = { ...req.body.basicData, photoURL: req.file.secure_url }
-		req.body['basicData'] = basics
-	}
+		if(req.file||req.files){		
+			req.files.forEach(element => {
+				if(element.fieldname == 'photo'){
+					let basics = {...req.body.basicData, photoURL:element.secure_url}	
+					return req.body['basicData'] = basics
+				}
+				if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+				else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+			})
+		}
 	req.body.username = req.body.email
 	let user = await User.register(req.body, req.body.password);
 	welcomeMail(user)

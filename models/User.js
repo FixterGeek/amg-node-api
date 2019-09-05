@@ -310,7 +310,15 @@ const userSchema = new Schema({
   deleted:{
     type:Boolean,
     default:false
-  }
+  },
+  deletedBy:{
+    type:String,
+    enum:['Admin', 'Self']
+  },
+  /************************Files************************************/
+  residentLetterURLS:[{
+    type:String
+  }],    
 
 
 }, {

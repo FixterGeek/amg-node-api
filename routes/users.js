@@ -25,7 +25,7 @@ router.get('/summary',verifyToken,tryCatch(controller.getUsersSummary))
 router.get('/:id',verifyToken,tryCatch(controller.getUser))
 
 /*Update a user*/
-router.patch('/:id',verifyToken,upload('users').single('photo'),tryCatch(controller.updateUser))
+router.patch('/:id',verifyToken,upload('users').any(),tryCatch(controller.updateUser))
 
 /*Delete a user*/
 router.delete('/:id',verifyToken,tryCatch(controller.deleteUser))

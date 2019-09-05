@@ -46,6 +46,9 @@
     DELETE /users/:userId
   ### Get all users
     GET /users?query={"userStatus":"Aprobado", "filter":"value"}&limit=20&skip=0
+
+## Files
+residentLetter  
   
  
 
@@ -254,6 +257,9 @@
   ### delete an residence
     DELETE /residences/:residenceId
 
+##FIles
+  certificado
+
 ##Model
 
     {
@@ -283,6 +289,11 @@
     PATCH /studies/:studyId
   ### delete an study
     DELETE /studies/:studyId
+
+##Files
+
+  cedula
+  titulo
 
 ##Model
 

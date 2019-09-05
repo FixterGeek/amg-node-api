@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/residences");
 //middlewares
 const { verifyToken } = require("../helpers/jwt");
+const {upload} = require('../helpers/cloudinary')
 
 const tryCatch=(fn) =>{
   return (req, res, next) => {
@@ -13,10 +14,10 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getResidences))
 
 /* Post all Residencees*/
-router.post('/',verifyToken,tryCatch(controller.postResidence))
+router.post('/',verifyToken,upload('residencies').any(),tryCatch(controller.postResidence))
 
 /*Get a single Residencees*/
-router.get('/:id',verifyToken,tryCatch(controller.getResidence))
+router.get('/:id',verifyToken,upload('residencies').any(),tryCatch(controller.getResidence))
 
 /*Update a Residencees*/
 router.patch('/:id',verifyToken,tryCatch(controller.updateResidence))

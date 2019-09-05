@@ -54,11 +54,17 @@ controller.updateUser = async (req, res) => {
 	if(req.body['medicalSocieties']) delete req.body['medicalSocieties']
 	if(req.body['studies']) delete req.body['studies']
 	if(req.body['assistedEvents']) delete req.body['assistedEvents']
-	if(req.body['assistedActivities']) delete req.body['assistedActivities']
-	if(req.file||req.files) {
-		let basics = {...req.body.basicData, photoURL:req.file.secure_url}	
-		req.body['basicData'] = basics
-	}		
+	if(req.body['assistedActivities']) delete req.body['assistedActivities']	
+	if(req.file||req.files){		
+		req.files.forEach(element => {
+			if(element.fieldname == 'photo'){
+				let basics = {...req.body.basicData, photoURL:element.secure_url}	
+				return req.body['basicData'] = basics
+			}
+			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
+			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
+		})
+	}
 	const user = await User.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
 	//if(req.body.userStatus == 'Pendiente') validatingProfile(user)
 	return res.status(200).json(user)
