@@ -8,7 +8,16 @@ let jwt = require('jsonwebtoken')
 /*Get the logged user*/
 controller.self = async (req, res) => {
 	let { user } = req
-	return res.status(200).send(user)
+	user = await User.findById(user._id)
+	.populate('teachingActivities')
+	.populate('hospitalActivities')
+	.populate('medicalSocieties')
+	.populate('studies')
+	.populate('assistedEvents')
+	.populate('assistedActivities')
+	.populate('renewals')
+	.populate('eventOrders')
+	return res.status(200).json(user)	
 }
 
 /*Post to login and return user and token*/

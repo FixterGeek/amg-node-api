@@ -13,6 +13,7 @@
  - [Exams](#exams)
  - [ExamResponses](#exam-responses)
  - [Recursos](#recursos)
+ - [Payments](#payments)
 
 
  Send all queries as MONGODB syntax in String format(stringify)
@@ -571,6 +572,18 @@
       volume:String,
       publishedAt:String,
       authors:String
+    }
+
+
+<a name="payments"></a>
+# Payments
+
+## Endpoints 
+  
+
+  ## Model
+    {
+      
     }
 
 

@@ -306,7 +306,11 @@ const userSchema = new Schema({
   eventOrders: [{
     type: Schema.Types.ObjectId,
     ref: 'Payment'
-  }]
+  }],
+  deleted:{
+    type:Boolean,
+    default:false
+  }
 
 
 }, {

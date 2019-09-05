@@ -7,11 +7,14 @@ const eventSchema = new Schema({
   title:{
     type: String,    
   },
+  cost:{
+    type: Number,    
+  },
   startTime:{
     type: String,    
   },
   startDate:{
-    type: String,    
+    type: String,
   },
   endDate:{
     type: String,    
