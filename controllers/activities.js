@@ -14,17 +14,15 @@ controller.getActivities = async (req, res) => {
 };
 
 controller.postActivity = async (req, res) => {
-	const activity = await Activity.create(req.body)	
-	if (activity.type === 'Hospitalaria') await User.findByIdAndUpdate(req.body.user,{$push:{hospitalActivities:activity._id}}, {new:true})		
-	if (activity.type === 'Sociedad') await User.findByIdAndUpdate(req.body.user,{$push:{medicalSocieties:activity._id}}, {new:true})		
-	if (activity.type === 'Docente') await User.findByIdAndUpdate(req.body.user,{$push:{teachingActivities:activity._id}}, {new:true})		
-
-
-	
-	res.status(201).json(activity.populate('institution'));
+	let activity = await Activity.create(req.body)
+	if (activity.type === 'Hospitalaria') await User.findByIdAndUpdate(req.body.user,{$push:{hospitalActivities:activity._id}}, {new:true})
+	if (activity.type === 'Sociedad') await User.findByIdAndUpdate(req.body.user,{$push:{medicalSocieties:activity._id}}, {new:true})
+	if (activity.type === 'Docente') await User.findByIdAndUpdate(req.body.user,{$push:{teachingActivities:activity._id}}, {new:true})
+	activity = await Activity.findById(activity._id).populate('institution')
+	res.status(201).json(activity);
 };
 
-controller.getActivity = async (req, res) => {  
+controller.getActivity = async (req, res) => {
   const activity = await Activity.findById(req.params.id).populate('institution')
 	res.status(200).json(activity);
 };
