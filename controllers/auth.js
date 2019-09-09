@@ -28,6 +28,7 @@ controller.login = async (req, res, next) => {
 		req.logIn(user, err => {
 			if (err) return res.status(500).json(err)
 			let token = generateToken(req.user);
+			delete user.hash
 			return res.status(200).send({ user: req.user, token });
 		})
 	})(req, res, next)
@@ -48,10 +49,11 @@ controller.signup = async (req, res) => {
 				else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 			})
 		}
-	req.body.username = req.body.email
+	if(!req.body.username)req.body.username = req.body.email
 	let user = await User.register(req.body, req.body.password);
 	welcomeMail(user)
 	let token = generateToken(user);
+	delete user.hash
 	return res.status(201).send({ user, token });
 };
 

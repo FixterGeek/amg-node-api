@@ -558,6 +558,12 @@ residentLetter
     GET /recursos?query={"filter":"value"}&limit=20&skip=0
     //to get the favorites of a user
     /recursos?query={"liked":{"$in":["userID"]}}
+    //to search by title or authors or volume
+    /recursos?search=searchText
+    
+    // use limit and skip to make pagination, total count is given in response
+    // 
+    /recursos?limit=10&skip=10
   ### post an recurso
     POST /recursos
   ### LIKE/DISLIKE a recuros
@@ -590,11 +596,35 @@ residentLetter
 # Payments
 
 ## Endpoints 
+ ### Get all payments 
+    GET /payments?query={"filter":"value"}&limit=20&skip=0
+    //to get the favorites of a user
+    /payments?query={"liked":{"$in":["userID"]}}
+  ### post a payment
+    POST /payments
+  ### post a subscription payment by conekta
+    POST /subscription
+  ### post an event payment by conekta
+    POST /event
+  <!-- ### get a single recuros
+    GET /payments/:paymentId
+  ### update an recuros
+    PATCH /payments/:paymentId
+  ### delete an recuros
+    DELETE /payments/:paymentId -->
+
   
 
   ## Model
     {
-      
+      user: id of the user
+      conektaId: id of conekta order if conekta was used
+      concept:
+      date:date of payment
+      amount: 10000
+      paid:false
+      paymentType:enum:['Subscription', 'Event']  
+      recipetURL:String
     }
 
 

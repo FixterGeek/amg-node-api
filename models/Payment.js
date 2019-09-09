@@ -6,6 +6,7 @@ const paymentSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User'
   },
+  concept:String,
   conektaId: String,
   date:{
     type:String,
@@ -22,7 +23,8 @@ const paymentSchema = new Schema({
   paymentType:{
     type:String,
     enum:['Subscription', 'Event']
-  }
+  },
+  recipetURL:String
 },{
   timestamps:true
 })

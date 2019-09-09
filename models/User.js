@@ -1,9 +1,16 @@
 const mongoose = require('mongoose')
 const plm = require('passport-local-mongoose')
 const Schema = mongoose.Schema
+const slug = require('mongoose-slug-generator');
+
 
 const userSchema = new Schema({
   recoveryToken: Boolean,
+  slug: {
+    type: String,
+    slug: ["username"],
+    unique: true
+  },
   email: {
     type: String,
     unique: true,
@@ -324,6 +331,8 @@ const userSchema = new Schema({
 }, {
     timestamps: true
   })
+
+userSchema.plugin(slug);
 
 userSchema.plugin(plm, { usernameField: 'email' })
 

@@ -5,11 +5,23 @@ controller.getRecursos = async (req, res) => {
 	
 	let recursos = [];
 	console.log(req.query)	
-	let {query, limit, skip} = req.query
+	let {query, limit, skip, search} = req.query
 	if(query) query = JSON.parse(query)
+	if (search){
+		//title authors volume y fecha; 
+		query = {$or:[
+			{title:{$regex:search || '', $options:'i'}},
+			{authors:{$regex:search || '', $options:'i'}},
+			{volume:{$regex:search || '', $options:'i'}}
+		]}
+	}
 	// si no hay query params mando todos
-	recursos = await Recurso.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).populate('user')
-	return res.status(200).json(recursos)
+	let count  = await Recurso.count()
+	recursos = await Recurso.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).sort('-created_at')//.populate('user')
+	return res.status(200).json({
+		count,
+		data:recursos
+	})
 };
 
 

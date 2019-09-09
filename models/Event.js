@@ -97,6 +97,9 @@ const eventSchema = new Schema({
   permisosURLS:[{
     type: String,    
   }],
+  constanciasURLS:[{
+    type: String,    
+  }],
 
   //asistentes
   assistants:[{

@@ -6,15 +6,15 @@ const controller = {};
 
 
 
-conekta.api_key = process.env.CONEKTA_KEY
+conekta.api_key = process.env.CONEKTA_PRIVATE_KEY
 conekta.api_version = '2.0.0';
 conekta.locale = 'es'
 
 
 
 controller.subscription = async (req, res) => {
-  const { conektaToken, plazo = "contado", phone, price } = req.body
-  const { user } = req
+  const { conektaToken, plazo="contado", price, subscriptionType, phone} = req.body
+  const { user } = req  
 
   const chargeObj = {
     payment_method: {
@@ -52,6 +52,7 @@ controller.subscription = async (req, res) => {
 
       const payment = await Payment.create({
         user: user._id,
+        concept:`Suscripción ${subscriptionType}`,
         conektaId: order.id,
         date: order.created_at,
         amount: order.amount,
@@ -67,8 +68,10 @@ controller.subscription = async (req, res) => {
 
 
 controller.eventPayment = async (req, res) => {
-  const { conektaToken, plazo = "contado", phone, price } = req.body
+  const { conektaToken, plazo="contado", eventId, phone} = req.body
   const { user } = req
+
+  const event = await Event.findbyId(eventId)
 
   const chargeObj = {
     payment_method: {
@@ -90,7 +93,7 @@ controller.eventPayment = async (req, res) => {
     line_items: [
       {
         name: "Event payment",
-        unit_price: price * 100,
+        unit_price: event.cost * 100,
         quantity: 1,
       }
     ],
@@ -106,6 +109,7 @@ controller.eventPayment = async (req, res) => {
 
       const payment = await Payment.create({
         user: user._id,
+        concept:event.title,
         conektaId: order.id,
         date: order.created_at,
         amount: order.amount,
@@ -129,6 +133,30 @@ controller.getPayments = async (req, res) => {
   payments = await Payment.find(query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
   return res.status(200).json(payments)
 };
+
+controller.postPayment = async (req, res) => {
+  const {userId} = req.body
+  if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url
+  const payment = await Payment.create(req.body)
+  await User.findByIdAndUpdate(userId, { $push: { renewals: payment._id } }, { new: true })
+  return res.status(200).json(payment)
+};
+
+// controller.getPayment = async (req, res) => {
+// 	const payment = await Payment.findById(req.params.id);
+// 	res.status(200).json(payment);
+// };
+
+// controller.updatePayment = async (req, res) => {
+//   if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url
+// 	const payment = await Payment.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+// 	res.status(200).json(payment);
+// };
+
+// controller.deletePayment = async (req, res) => {
+// 	const payment = await Payment.findByIdAndRemove(req.params.id);
+// 	res.status(200).json(payment);
+// };
 
 
 
