@@ -71,13 +71,14 @@ controller.subscription = async (req, res) => {
 controller.eventPayment = async (req, res) => {
   const { conektaToken, eventId, phone, plazo="contado", } = req.body
   const { user } = req
+  console.log(conektaToken)
 
   const event = await Event.findById(eventId)
 
   const chargeObj = {
     payment_method: {
       type: "card",
-      token_id: conektaToken,
+      token_id: conektaToken.id,
     },
 
   };
@@ -87,7 +88,7 @@ controller.eventPayment = async (req, res) => {
   {
     currency: "MXN",
     customer_info: {
-      name: user.username,
+      name: user.basicData.name || user.username,
       phone: user.basicData.phone || phone,
       email: user.email,
     },
