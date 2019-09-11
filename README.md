@@ -603,9 +603,9 @@ residentLetter
   ### post a payment
     POST /payments
   ### post a subscription payment by conekta
-    POST /subscription
+    POST /payments/subscription
   ### post an event payment by conekta
-    POST /event
+    POST /payments/event
   <!-- ### get a single recuros
     GET /payments/:paymentId
   ### update an recuros
