@@ -13,7 +13,7 @@ conekta.locale = 'es'
 
 
 controller.subscription = async (req, res) => {
-  const { conektaToken, plazo="contado", price, subscriptionType, phone} = req.body
+  const { conektaToken, price, subscriptionType, phone, plazo="contado"} = req.body
   const { user } = req  
 
   const chargeObj = {
@@ -68,7 +68,7 @@ controller.subscription = async (req, res) => {
 
 
 controller.eventPayment = async (req, res) => {
-  const { conektaToken, plazo="contado", eventId, phone} = req.body
+  const { conektaToken, eventId, phone, plazo="contado", } = req.body
   const { user } = req
 
   const event = await Event.findbyId(eventId)
