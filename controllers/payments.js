@@ -72,7 +72,7 @@ controller.eventPayment = async (req, res) => {
   const { conektaToken, eventId, phone, plazo="contado", } = req.body
   const { user } = req
 
-  const event = await Event.findbyId(eventId)
+  const event = await Event.findById(eventId)
 
   const chargeObj = {
     payment_method: {
