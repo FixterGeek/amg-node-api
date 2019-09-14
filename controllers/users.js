@@ -45,6 +45,8 @@ controller.getUser = async(req, res) => {
 	.populate('assistedActivities')
 	.populate('renewals')
 	.populate('eventOrders')
+	.populate('following')
+	.populate('followers')
 	return res.status(200).json(user)
 }
 
