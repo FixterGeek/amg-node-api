@@ -633,11 +633,11 @@ residentLetter
 
 ## Endpoints  
 ### GET data
-    GET /dataFacturacion/:id
+    GET /dataFacturacion
   ### post data
     POST /dataFacturacion
   ### patch the data
-    PATCH /dataFacturacion
+    PATCH /dataFacturacion/id
 
   ## Model
     {

@@ -17,7 +17,7 @@ exports.upload = (folder) =>{
     const storage = cloudinaryStorage({
       cloudinary,
       folder: folder, // The name of the folder in cloudinary
-      allowedFormats: ['jpg', 'png','jpeg','gif','pdf'],      
+      allowedFormats: ['jpg', 'png','jpeg','gif','pdf', '.pem', '.key', '.cer'],
       filename: function (req, file, cb) {            
         cb(null, `${file.originalname}-${new Date()}`); 
       }

@@ -12,6 +12,6 @@ const tryCatch=(fn) =>{
 }
 
 /*Generate a CFDI */
-router.post('/new',verifyToken,controller.postInvoice)
+router.post('/new/:paymentId',verifyToken,controller.postInvoice)
 
 module.exports = router

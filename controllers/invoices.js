@@ -1,5 +1,6 @@
 'use strict'
 const Payment = require("../models/Payment");
+const DataFacturacion = require("../models/DataFacturacion");
 const {timbrarCfdi, getApiToken} = require('../helpers/contabilizate')
 const CFDI = require('cfdiv33').CFDI
 const Emisor = require('cfdiv33').Emisor
@@ -15,22 +16,21 @@ const controller = {};
 
 controller.postInvoice=async(req, res)=>{
 
-  const amgData = await AmgData.findById()  
+  const amgDataFacturacion = await DataFacturacion.find()
+  const amgData = amgDataFacturacion[0]
   const {basicData, fiscalData} = req.user
-  const {id} = req.params
-  const payment = await Payment.findById(id)
+  const {paymentId} = req.params
+  const payment = await Payment.findById(paymentId)
 
+  if (!payment) return res.status(400).json({message:'Sin Orden no podemos facturar!'})  
   if (payment.invoice) return res.status(400).json({message:'Ya se ha facturado este pago'}) 
-  if (!fiscalData.rfc) return res.status(400).json({message:'No es posible facturar sin tu RFC'}) 
-  
- let serie = amgData.subscriptiontSeries || 'C'  
- if(payment.paymentType == 'Event') serie = amgData.eventSeries || 'G'
+  if (!fiscalData.rfc) return res.status(400).json({message:'No es posible facturar sin tu RFC'})    
   
  const cfdi = new CFDI({
-   'Serie': serie,
-   'Folio': amgData.folio + 1,
+   'Serie':payment.paymentType == 'Event' ? amgData.eventSerie : amgData.membershipSerie,
+   'Folio': payment.paymentType == 'Event' ? amgData.eventFolio + 1 : amgData.membershipFolio + 1,
    'Fecha': new Date().toISOString().split('.')[0],
-   'NoCertificado': amgData.certificado,
+   'NoCertificado': amgData.privateNumber,
    'SubTotal': (payment.amount * .84).toString(),
    'Moneda': 'MXN',
    'Total': payment.amount.toString(),
@@ -47,8 +47,8 @@ controller.postInvoice=async(req, res)=>{
   
  cfdi.add(new Emisor({
    'Rfc': amgData.rfc,
-   'Nombre': amgData.nombre,
-   'RegimenFiscal': amg.regimen
+   'Nombre': amgData.name,
+   'RegimenFiscal': amgData.regime
  }))
     
  cfdi.add(new Receptor({
@@ -111,6 +111,8 @@ controller.postInvoice=async(req, res)=>{
   
 
 }
+
+
 
 module.exports = controller;
 

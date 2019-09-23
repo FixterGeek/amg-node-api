@@ -3,12 +3,13 @@ const User = require("../models/User");
 const controller = {};
 
 controller.getDataFacturacion = async (req, res) => {	
-	const data = await DataFacturacion.findById(req.params.id)
-	res.status(201).json(DataFacturacion);
+	const data = await DataFacturacion.find()
+	res.status(201).json(data[0]);
 };
 
 
 controller.postDataFacturacion = async (req, res) => {
+	req.body.user = req.user._id
 	if(req.files){
 		req.files.forEach(element => {			
 			req.body[`${element.fieldname}URL`] = [element.secure_url]
@@ -19,6 +20,7 @@ controller.postDataFacturacion = async (req, res) => {
 };
 
 controller.updateDataFacturacion = async (req, res) => {
+	req.body.user = req.user._id
 	if(req.files){
 		req.files.forEach(element => {			
 			req.body[`${element.fieldname}URL`] = [element.secure_url]

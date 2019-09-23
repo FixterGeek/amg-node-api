@@ -13,9 +13,9 @@ const tryCatch = (fn) => {
 
 router.get("/",verifyToken, checkIfAdmin, tryCatch(controller.getDataFacturacion))
 
-router.post("/",verifyToken, checkIfAdmin, upload('facts').any(), tryCatch(controller.postDataFacturacion))
+router.post("/",verifyToken, checkIfAdmin, upload('dataFacts').any(), tryCatch(controller.postDataFacturacion))
 
-router.patch("/", verifyToken, checkIfAdmin, upload('facts').any(), tryCatch(controller.updateDataFacturacion));
+router.patch("/:id", verifyToken, checkIfAdmin, upload('dataFacts').any(), tryCatch(controller.updateDataFacturacion));
 
 
 module.exports = router;

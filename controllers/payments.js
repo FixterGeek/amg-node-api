@@ -20,7 +20,7 @@ controller.subscription = async (req, res) => {
   const chargeObj = {
     payment_method: {
       type: "card",
-      token_id: conektaToken,
+      token_id: conektaToken.id,
     },
 
   };
@@ -30,7 +30,7 @@ controller.subscription = async (req, res) => {
   {
     currency: "MXN",
     customer_info: {
-      name: user.username,
+      name: `${user.name} ${user.dadSurname} ${user.momSurname}`,
       phone: user.basicData.phone || phone,
       email: user.email,
     },
@@ -50,15 +50,15 @@ controller.subscription = async (req, res) => {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-
+      
       const payment = await Payment.create({
         user: user._id,
         concept:`Suscripción ${subscriptionType}`,
-        conektaId: order.id,
-        date: order.created_at,
-        amount: order.amount,
+        conektaId: order.toObject().id,
+        date: req.body.date ||order.toObject().created_at,
+        amount: order.toObject().amount/100,
         paid: true,
-        paymentType: 'Subscription'
+        paymentType: 'Subscription',        
       })
       await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })
       return res.status(200).json(payment)
@@ -88,7 +88,7 @@ controller.eventPayment = async (req, res) => {
   {
     currency: "MXN",
     customer_info: {
-      name: user.basicData.name || user.username,
+      name: `${user.basicData.name} ${user.basicData.dadSurname} ${user.basicData.momSurname}`,
       phone: user.basicData.phone || phone,
       email: user.email,
     },
@@ -108,15 +108,15 @@ controller.eventPayment = async (req, res) => {
         console.log('conektaerror', err)
         return res.status(400).json(err);
       }
-
+ 
       const payment = await Payment.create({
         user: user._id,
         concept:event.title,
-        conektaId: order.id,
-        date: order.created_at,
-        amount: order.amount,
+        conektaId: order.toObject().id,
+        date: req.body.date ||order.toObject().created_at,
+        amount: order.toObject().amount,
         paid: true,
-        paymentType: 'Event'
+        paymentType: 'Event'        
       })
       await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
       return res.status(200).json(payment)
