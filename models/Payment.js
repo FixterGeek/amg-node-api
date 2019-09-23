@@ -24,6 +24,7 @@ const paymentSchema = new Schema({
     type:String,
     enum:['Subscription', 'Event']
   },
+  invoice:String,
   recipetURL:String
 },{
   timestamps:true

@@ -81,6 +81,7 @@ const examResponseRoutes = require('./routes/examResponses');
 const paymentRoutes = require('./routes/payments'); 
 const recursoRoutes = require('./routes/recursos'); 
 const invoiceRoutes = require('./routes/invoices'); 
+const dataFacturacionRoutes = require('./routes/dataFacturacion'); 
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -99,6 +100,7 @@ app.use('/examResponses', examResponseRoutes)
 app.use('/payments', paymentRoutes)
 app.use('/recursos', recursoRoutes)
 app.use('/invoices', invoiceRoutes)
+app.use('/dataFacturacion', dataFacturacionRoutes)
 
 
 

@@ -628,3 +628,40 @@ residentLetter
     }
 
 
+    <a name="datos-facturacion"></a>
+# Datos Facturación
+
+## Endpoints  
+### GET data
+    GET /dataFacturacion/:id
+  ### post data
+    POST /dataFacturacion
+  ### patch the data
+    PATCH /dataFacturacion
+
+  ## Model
+    {
+      user:ID  
+      membershipSerie: String,
+      membershipSerieFolio: String,
+      membershipSerieDescription: String,
+      eventSerie: String,
+      eventSerieFolio: String,
+      eventSerieDescription: String,
+      privateNumber: String,
+      certificate: String,
+      rfc: String,
+      name: String,
+      regime: String,
+      zipCode: String,
+      cerURL: String,
+      keyURL: String,
+    }
+
+    ## Files
+      cer
+      key
+
+
+
+
