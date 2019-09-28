@@ -1,6 +1,7 @@
 'use strict'
 const Payment = require("../models/Payment");
 const DataFacturacion = require("../models/DataFacturacion");
+const User = require("../models/User");
 const {timbrarCfdi, getApiToken} = require('../helpers/contabilizate')
 const CFDI = require('cfdiv33').CFDI
 const Emisor = require('cfdiv33').Emisor
@@ -18,9 +19,10 @@ controller.postInvoice=async(req, res)=>{
 
   const amgDataFacturacion = await DataFacturacion.find()
   const amgData = amgDataFacturacion[0]
-  const {basicData, fiscalData} = req.user
   const {paymentId} = req.params
   const payment = await Payment.findById(paymentId)
+  const user = await User.findById(payment.user);
+  const {basicData, fiscalData} = user;
 
   if (!payment) return res.status(400).json({message:'Sin Orden no podemos facturar!'})  
   if (payment.invoice) return res.status(400).json({message:'Ya se ha facturado este pago'}) 
