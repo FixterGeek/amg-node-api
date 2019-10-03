@@ -58,4 +58,19 @@ exports.validatingProfile = (user) => {
 		.catch(e => console.log(e));
 };
 
+exports.contactMail = (from, name, subject) => {
+	transport.sendMail({
+		subject: `Contacto - ${subject}`,
+		bcc: 'jo123.garcia.s@gmail.com',
+		html: `
+			<h2>Información de contacto</h2>
+			<div><strong>Nombre: </strong> ${name}</div>
+			<div><strong>Email: </strong> ${from}</div>
+			<div><strong>Asunto: </strong> ${subject}</div>
+		`
+	})
+		.then(response => console.log(response))
+		.catch(error => console.log(error));
+}
+
 

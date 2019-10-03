@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { contactMail } = require('../helpers/mailer');
 
 const controller = {};
 
@@ -14,6 +15,12 @@ controller.recapcha = async (request, response) => {
     .catch(({ response }) => {
       response.status(400).json(response)
     });
+};
+
+controller.contact = async (request, response) => {
+  const { body } = request;
+  contactMail(body.email, body.name, body.topic);
+  response.status(200).json({ status: 'success' });
 };
 
 module.exports = controller;

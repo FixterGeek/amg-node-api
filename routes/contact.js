@@ -9,5 +9,6 @@ const tryCatch = (fn) => {
 }
 
 router.post('/recapcha', tryCatch(controller.recapcha));
+router.post('/', tryCatch(controller.contact));
 
 module.exports = router;
