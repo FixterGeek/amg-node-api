@@ -273,6 +273,16 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'EventActivity'
   }],
+  //courses related
+  enrolledCourses: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Course'
+  }],
+
+  enrolledActivities: [{
+    type: Schema.Types.ObjectId,
+    ref: 'CourseActivity'
+  }],
   //  "Miembros de la asociación mexicana de gastroenterología que recomiendan su ingreso"
   membersWhoRecommend: [{
     type: Schema.Types.ObjectId,

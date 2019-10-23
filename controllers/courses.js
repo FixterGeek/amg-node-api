@@ -1,21 +1,21 @@
-const Event = require("../models/Event");
+const Course = require("../models/Course");
 const User = require("../models/User");
 const Module = require("../models/Module");
-const EventActivity = require("../models/EventActivity");
+const CourseActivity = require("../models/CourseActivity");
 const controller = {};
 
 
 
-controller.getEvents = async (req, res) => {
-	let events = [];	
+controller.getCourses = async (req, res) => {
+	let courses = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	events = await Event.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
-	return res.status(200).json(events)
+	courses = await Course.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	return res.status(200).json(courses)
 };
 
-controller.postEvent = async (req, res) => {
+controller.postCourse = async (req, res) => {
 	const {speakers, location, description, permisosURLS, mainImagesURLS} = req.body
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
@@ -35,14 +35,14 @@ controller.postEvent = async (req, res) => {
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
 	}
-	const event = await Event.create(req.body);
-	res.status(201).json(event);
+	const course = await Course.create(req.body);
+	res.status(201).json(course);
 };
 
 controller.addSpeaker = async (req, res) => {
 	let speaker
 	if(req.body._id){
-		speaker = await Event.findByIdAndUpdate(req.params.id, {$pull:{speakers:req.body}}, {new:true})		
+		speaker = await Course.findByIdAndUpdate(req.params.id, {$pull:{speakers:req.body}}, {new:true})		
 		return res.status(200).json({message:'The user was removed'})
 	}else{
 		if(req.files||req.file){
@@ -51,36 +51,36 @@ controller.addSpeaker = async (req, res) => {
 				else req.body[`${element.fieldname}URL`] = [element.secure_url]		
 			})
 		}
-		speaker = await Event.findByIdAndUpdate(req.params.id, {$push:{speakers:req.body}}, {new:true})
+		speaker = await Course.findByIdAndUpdate(req.params.id, {$push:{speakers:req.body}}, {new:true})
 		speaker = speaker['speakers'][speaker['speakers'].length -1]
 		return res.status(200).json(speaker)
 	}
 };
 
 
-controller.assistEvent = async (req, res) => {
+controller.enrollCourse = async (req, res) => {
 		
-	const event = await Event.findById(req.params.id)
-	let assist
+	const course = await Course.findById(req.params.id)
+	let enroll
 	
-	if(!event.assistants.includes(req.user._id)){		
-		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedEvents:event._id}}, {new:true})		
-		assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})		
+	if(!course.students.includes(req.user._id)){		
+		const user = await User.findByIdAndUpdate(req.user._id, {$push:{enrolledCourses:Course._id}}, {new:true})		
+		enroll = await Course.findByIdAndUpdate(req.params.id, {$push:{students:req.user._id}}, {new:true})		
 	}else{
 		return res.status(400).json({message:'You are already registered'})
 	}
-	return res.status(200).json(assist)
+	return res.status(200).json(enroll)
 };
 
-controller.unassistEvent = async (req, res) => {
+controller.unenrollCourse = async (req, res) => {
 		
-	const event = await Event.findById(req.params.id)
-	let assist
+	const course = await Course.findById(req.params.id)
+	let enroll
 	
-	if(event.assistants.includes(req.user._id)){		
-		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{assistedEvents:event._id}}, {new:true})		
-		assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:req.user._id}}, {new:true})		
-		return res.status(200).json(assist)
+	if(course.students.includes(req.user._id)){		
+		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{enrolledCourses:Course._id}}, {new:true})		
+		enroll = await Course.findByIdAndUpdate(req.params.id, {$pull:{students:req.user._id}}, {new:true})		
+		return res.status(200).json(enroll)
 	}else{
 		return res.status(400).json({message:'Ya no eres parte, suscríbete!'})
 	}
@@ -88,20 +88,20 @@ controller.unassistEvent = async (req, res) => {
 };
 
 
-controller.getEvent = async (req, res) => {  
-	const event = await Event.findById(req.params.id)
+controller.getCourse = async (req, res) => {  
+	const course = await Course.findById(req.params.id)
 	.populate('modules')
 	.populate({ 
 		path: 'modules',
 		populate: {
 			path: 'activities',
-			model: 'EventActivity'
+			model: 'CourseActivity'
 		} 
  })
-	res.status(200).json(event);
+	res.status(200).json(course);
 };
 
-controller.updateEvent = async (req, res) => {
+controller.updateCourse = async (req, res) => {
 	const {speakers, location, description} = req.body
 	
 	if(req.body._id) delete req.body._id
@@ -121,23 +121,23 @@ controller.updateEvent = async (req, res) => {
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
 	}
-	const event = await Event.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+	const course = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
 	.populate('modules')
 	.populate({ 
 		path: 'modules',
 		populate: {
 			path: 'activities',
-			model: 'EventActivity'
+			model: 'CourseActivity'
 		} 
  });
-	res.status(200).json(event);
+	res.status(200).json(course);
 };
 
-controller.deleteEvent = async (req, res) => {
-	const event = await Event.findByIdAndRemove(req.params.id);
-	await EventActivity.deleteMany({event:event._id})
-	await Module.deleteMany({event:event._id})
-	res.status(200).json(event);
+controller.deleteCourse = async (req, res) => {
+	const course = await Course.findByIdAndRemove(req.params.id);
+	await CourseActivity.deleteMany({Course:Course._id})
+	await Module.deleteMany({Course:Course._id})
+	res.status(200).json(course);
 };
 
 module.exports = controller;

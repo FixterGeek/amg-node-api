@@ -82,6 +82,10 @@ const paymentRoutes = require('./routes/payments');
 const recursoRoutes = require('./routes/recursos'); 
 const invoiceRoutes = require('./routes/invoices'); 
 const dataFacturacionRoutes = require('./routes/dataFacturacion'); 
+const courseRoutes = require('./routes/courses'); 
+const courseModulesRoutes = require('./routes/courseModules'); 
+const courseActivitiesRoutes = require('./routes/courseActivities'); 
+const filialesRoutes = require('./routes/filiales'); 
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -101,6 +105,10 @@ app.use('/payments', paymentRoutes)
 app.use('/recursos', recursoRoutes)
 app.use('/invoices', invoiceRoutes)
 app.use('/dataFacturacion', dataFacturacionRoutes)
+app.use('/courses', courseRoutes)
+app.use('/courseModules', courseModulesRoutes)
+app.use('/courseActivities', courseActivitiesRoutes)
+app.use('/filiales', filialesRoutes)
 
 
 
