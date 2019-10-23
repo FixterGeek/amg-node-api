@@ -25,7 +25,7 @@ controller.postCourseActivity = async (req, res) => {
 		})
 	}
 	const course = await CourseActivity.create(req.body);
-	const cModule = await CourseModule.findByIdAndUpdate(req.body.module, {$push:{activities:Course._id}}, {new:true})
+	const cModule = await CourseModule.findByIdAndUpdate(req.body.module, {$push:{activities:course._id}}, {new:true})
 	res.status(201).json(course);
 };
 
@@ -35,11 +35,11 @@ controller.enrollCourseActivity = async (req, res) => {
 	const course = await Course.findById(courseActivity.course)	
 	let enroll
 	
-	if(!CourseActivity.students.includes(req.user._id) && !Course.students.includes(req.user._id)){		
+	if(!courseActivity.students.includes(req.user._id) && !course.students.includes(req.user._id)){		
 		const user = await User.findByIdAndUpdate(req.user._id, {$push:{enrolledActivities:courseActivity._id,enrolledCourses:course._id}}, {new:true})
 		const upCourse = await Course.findByIdAndUpdate(courseActivity.course, {$push:{students:req.user._id}}, {new:true})
 		enroll = await CourseActivity.findByIdAndUpdate(req.params.id, {$push:{students:req.user._id}}, {new:true})		
-	}else if(!CourseActivity.students.includes(req.user._id) && course.students.includes(req.user._id)){
+	}else if(!courseActivity.students.includes(req.user._id) && course.students.includes(req.user._id)){
 		const user = await User.findByIdAndUpdate(req.user._id, {$push:{enrolledActivities:courseActivity._id}}, {new:true})		
 		enroll = await CourseActivity.findByIdAndUpdate(req.params.id, {$push:{students:req.user._id}}, {new:true})
 	}else{
@@ -56,20 +56,17 @@ controller.unenrollCourseActivity = async (req, res) => {
 	//const course = await Course.findById(CourseActivity.Course)	
 	let enroll
 	
-	if(CourseActivity.students.includes(req.user._id)){
+	if(courseActivity.students.includes(req.user._id)){
 		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{enrolledActivities:courseActivity._id}}, {new:true})
 		enroll = await CourseActivity.findByIdAndUpdate(req.params.id, {$pull:{students:req.user._id}}, {new:true})
 		return res.status(200).json(enroll)
 	}else{
 		return res.status(400).json({message:'Ya no eres parte, Suscríbete'})
-	}
-	
+	}	
 };
 
-
-
 controller.getCourseActivity = async (req, res) => {  
-  const course = await EveCourseActivitynt.findById(req.params.id);  
+  const course = await CourseActivity.findById(req.params.id);  
 	res.status(200).json(course);
 };
 

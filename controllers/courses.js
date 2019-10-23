@@ -59,7 +59,6 @@ controller.addSpeaker = async (req, res) => {
 	}
 };
 
-
 controller.enrollCourse = async (req, res) => {
 		
 	const course = await Course.findById(req.params.id)
@@ -85,10 +84,8 @@ controller.unenrollCourse = async (req, res) => {
 		return res.status(200).json(enroll)
 	}else{
 		return res.status(400).json({message:'Ya no eres parte, suscríbete!'})
-	}
-	
+	}	
 };
-
 
 controller.getCourse = async (req, res) => {  
 	const course = await Course.findById(req.params.id)
