@@ -13,7 +13,7 @@ const tryCatch=(fn) =>{
 router.get('/',verifyToken,tryCatch(controller.getFiliales))
 
 /* Post all Filialos*/
-router.post('/',verifyToken, checkIfAdmin,,tryCatch(controller.postFilial))
+router.post('/',verifyToken, checkIfAdmin,tryCatch(controller.postFilial))
 
 /*Get a single Filialo*/
 router.get('/:id',verifyToken,tryCatch(controller.getFilial))
