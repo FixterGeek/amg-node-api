@@ -17,6 +17,7 @@ router.post('/',upload('payments').single('recipet'),verifyToken,tryCatch(contro
 // router.get('/:id',verifyToken,tryCatch(controller.getPayment))
 router.post('/event', verifyToken, tryCatch(controller.eventPayment))
 router.post('/subscription', verifyToken, tryCatch(controller.subscription))
+router.post('/subscriptionOxxo', verifyToken, tryCatch(controller.subscriptionOxxo))
 
 
 module.exports = router

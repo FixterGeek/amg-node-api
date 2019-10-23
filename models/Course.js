@@ -4,6 +4,10 @@ const Schema = mongoose.Schema
 
 const courseSchema = new Schema({
 //Datos Generales
+  event:{
+    type:Schema.Types.ObjectId,
+    ref:'Event'
+  },
   title:{
     type: String,    
   },

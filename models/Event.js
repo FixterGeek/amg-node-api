@@ -111,7 +111,11 @@ const eventSchema = new Schema({
     type:String,
     enum:['draft', 'published'],
     default:'draft'
-  }
+  },
+  courses:[{
+    type:Schema.Types.ObjectId,
+    ref:'Course'
+  }]
    
 },{
   timestamps:true

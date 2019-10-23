@@ -34,8 +34,9 @@ controller.postCourse = async (req, res) => {
 			if(req.body[`${element.fieldname}URLS`])req.body[`${element.fieldname}URLS`].push(element.secure_url)
 			else req.body[`${element.fieldname}URLS`] = [element.secure_url]
 		})
-	}
+	}	
 	const course = await Course.create(req.body);
+	const event = await Event.findByIdAndUpdate(req.body.event, {$push:{courses:course._id}}, {new:true})
 	res.status(201).json(course);
 };
 

@@ -14,16 +14,22 @@ conekta.locale = 'es'
 
 
 controller.subscription = async (req, res) => {
-  const { conektaToken, price, subscriptionType, phone, plazo="contado"} = req.body
-  const { user } = req  
+  const { conektaToken, price, subscriptionType, phone, plazo="contado", isOxxoPayment=false} = req.body
+  const { user } = req
 
   const chargeObj = {
     payment_method: {
-      type: "card",
-      token_id: conektaToken.id,
-    },
-
+      type: "oxxo_cash",
+    }
   };
+  
+  if (!isOxxoPayment){
+    chargeObj['payment_method'] = {
+      type: "card",
+      token_id: conektaToken.id
+    }
+  }
+  
 
   //if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
   const conektaObject =
@@ -61,15 +67,14 @@ controller.subscription = async (req, res) => {
         paymentType: 'Subscription',        
       })
       await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })
-      return res.status(200).json(payment)
+      return res.status(200).json({payment, conektaOrder:order._json})
     }
   );
 
 }
 
-
 controller.eventPayment = async (req, res) => {
-  const { conektaToken, eventId, phone, plazo="contado", } = req.body
+  const { conektaToken, eventId, phone, plazo="contado", isOxxoPayment=false} = req.body
   const { user } = req
   console.log(conektaToken)
 
@@ -77,11 +82,16 @@ controller.eventPayment = async (req, res) => {
 
   const chargeObj = {
     payment_method: {
-      type: "card",
-      token_id: conektaToken.id,
-    },
-
+      type: "oxxo_cash",
+    }
   };
+  
+  if (!isOxxoPayment){
+    chargeObj['payment_method'] = {
+      type: "card",
+      token_id: conektaToken.id
+    }
+  }
 
   //if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
   const conektaObject =
@@ -119,7 +129,7 @@ controller.eventPayment = async (req, res) => {
         paymentType: 'Event'        
       })
       await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
-      return res.status(200).json(payment)
+      return res.status(200).json({payment, conektaOrder:order._json})
     }
   );
 
