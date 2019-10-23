@@ -1,6 +1,7 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
-const Module = require("../models/Module");
+const Event = require("../models/Event");
+const Module = require("../models/CourseModule");
 const CourseActivity = require("../models/CourseActivity");
 const controller = {};
 
