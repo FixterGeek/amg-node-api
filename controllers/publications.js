@@ -1,4 +1,5 @@
 const Publication = require("../models/Publication");
+const User = require("../models/User");
 const controller = {};
 
 controller.getPublications = async (req, res) => {
@@ -7,8 +8,8 @@ controller.getPublications = async (req, res) => {
 	console.log(req.query)	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
-	const user = User.findById(req.user._id)
-	query = {user:{$in:[user.following]}}
+	const user = await User.findById(req.user._id)	
+	query = {user:{$in:user.following}}
 	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).sort('-created_at').populate('user')
 	return res.status(200).json(publications)
 };

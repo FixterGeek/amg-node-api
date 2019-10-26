@@ -13,6 +13,14 @@ controller.getCourses = async (req, res) => {
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
 	courses = await Course.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	.populate('modules')
+	.populate({ 
+		path: 'modules',
+		populate: {
+			path: 'activities',
+			model: 'CourseActivity'
+		} 
+ })
 	return res.status(200).json(courses)
 };
 
