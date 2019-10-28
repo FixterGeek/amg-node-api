@@ -306,7 +306,7 @@ const userSchema = new Schema({
   },
   userType: {
     type: String,
-    enum: ['Member', 'Editor', 'Admin'],
+    enum: ['Member', 'Editor', 'Admin', 'Filial'],
     default: 'Member'
   },
   revisionDate: {
