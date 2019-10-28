@@ -335,7 +335,15 @@ const userSchema = new Schema({
   /************************Files************************************/
   residentLetterURLS:[{
     type:String
-  }],    
+  }],
+  filialAsUser:{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  },
+  filialAsAdmin:{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  }
 
 
 }, {

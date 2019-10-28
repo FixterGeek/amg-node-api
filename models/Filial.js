@@ -63,7 +63,15 @@ const filialSchema = new Schema({
     accountNumber:String,
     bank:String,
     CLABE:String
-  }
+  },
+  users:[{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  }],
+  administrators:[{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  }]
 },{
   timestamps: true
 })
