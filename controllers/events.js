@@ -16,7 +16,7 @@ controller.getEvents = async (req, res) => {
 };
 
 controller.postEvent = async (req, res) => {
-	const {speakers, location, description, permisosURLS, mainImagesURLS} = req.body
+	const {speakers, location, description, permisosURLS, mainImagesURLS, cost} = req.body
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
