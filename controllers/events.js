@@ -20,6 +20,7 @@ controller.postEvent = async (req, res) => {
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
+	if (req.body['cost']) req.body['cost'] = JSON.parse(cost)
 	if (req.body['description']) req.body['description'] = JSON.parse(description)
 	
 	if(req.body._id) delete req.body._id
@@ -113,6 +114,7 @@ controller.updateEvent = async (req, res) => {
 	
 	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
 	if (req.body['location']) req.body['location'] = JSON.parse(location)
+	if (req.body['cost']) req.body['cost'] = JSON.parse(cost)
 	if (req.body['description']) req.body['description'] = JSON.parse(description)
 
 	if(req.files || req.file){
