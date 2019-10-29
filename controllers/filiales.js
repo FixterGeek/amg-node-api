@@ -12,8 +12,7 @@ controller.getFiliales = async (req, res) => {
 };
 
 controller.postFilial = async (req, res) => {
-	let filial = await Filial.create(req.body)	
-	filial = await Filial.findById(Filial._id)
+	let filial = await Filial.create(req.body)
 	res.status(201).json(filial);
 };
 
