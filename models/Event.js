@@ -8,7 +8,9 @@ const eventSchema = new Schema({
     type: String,    
   },
   cost:{
-    type: Number,    
+    freeCost:Number,
+    residentCost:Number,
+    socioCost:Number
   },
   startTime:{
     type: String,    

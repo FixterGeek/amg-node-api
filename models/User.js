@@ -306,7 +306,7 @@ const userSchema = new Schema({
   },
   userType: {
     type: String,
-    enum: ['Member', 'Editor', 'Admin'],
+    enum: ['Member', 'Editor', 'Admin', 'Filial'],
     default: 'Member'
   },
   revisionDate: {
@@ -335,7 +335,15 @@ const userSchema = new Schema({
   /************************Files************************************/
   residentLetterURLS:[{
     type:String
-  }],    
+  }],
+  filialAsUser:{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  },
+  filialAsAdmin:{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  }
 
 
 }, {
