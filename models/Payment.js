@@ -10,7 +10,7 @@ const paymentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  chat: Array,
+  chat: Object,
   concept: String,
   conektaId: String,
   date: {
