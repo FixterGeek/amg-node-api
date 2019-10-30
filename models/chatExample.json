@@ -1,0 +1,13 @@
+{
+  "messages": [
+    {
+      "user": {
+        "photoURL": "link",
+        "name": "Juanito Perez",
+        "id": "98379823"
+      },
+      "message": "Hola mijo",
+      "date": "Date.now()"
+    }
+  ]
+}
