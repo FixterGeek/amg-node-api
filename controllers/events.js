@@ -16,20 +16,19 @@ controller.getEvents = async (req, res) => {
 };
 
 controller.postEvent = async (req, res) => {
-	const {speakers, location, description, permisosURLS, mainImagesURLS, cost} = req.body
+	const {speakers, location, description, permisosURLS, mainImagesURLS, cost, constanciasURLS} = req.body
 	
-	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
-	if (req.body['location']) req.body['location'] = JSON.parse(location)
-	if (req.body['cost']) req.body['cost'] = JSON.parse(cost)
-	if (req.body['description']) req.body['description'] = JSON.parse(description)
+	if (speakers) req.body['speakers'] = JSON.parse(speakers)
+	if (location) req.body['location'] = JSON.parse(location)
+	if (cost) req.body['cost'] = JSON.parse(cost)
+	if (description) req.body['description'] = JSON.parse(description)
+	if (constanciasURLS) req.body['constanciasURLS'] = JSON.parse(constanciasURLS)
 	
 	if(req.body._id) delete req.body._id
 	if(req.body.mainImagesURLS) delete req.body.mainImagesURLS
 	if(req.body.permisosURLS) delete req.body.permisosURLS
 	if(req.body.thumbnailImagesURLS) delete req.body.thumbnailImagesURLS
-	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS
-	if(req.body.constanciasURLS) delete req.body.constanciasURLS
-	
+	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS	
 
 	if(req.files){
 		req.files.forEach(element => {
@@ -104,19 +103,20 @@ controller.getEvent = async (req, res) => {
 };
 
 controller.updateEvent = async (req, res) => {
-	const {speakers, location, description} = req.body
+	const {speakers, location, description, constanciasURLS, cost} = req.body
 	
 	if(req.body._id) delete req.body._id
 	if(req.body.mainImagesURLS) delete req.body.mainImagesURLS
 	if(req.body.permisosURLS) delete req.body.permisosURLS
 	if(req.body.thumbnailImagesURLS) delete req.body.thumbnailImagesURLS
-	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS
+	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS	
 
 	
-	if (req.body['speakers']) req.body['speakers'] = JSON.parse(speakers)
-	if (req.body['location']) req.body['location'] = JSON.parse(location)
-	if (req.body['cost']) req.body['cost'] = JSON.parse(cost)
-	if (req.body['description']) req.body['description'] = JSON.parse(description)
+	if (speakers) req.body['speakers'] = JSON.parse(speakers)
+	if (location) req.body['location'] = JSON.parse(location)
+	if (cost) req.body['cost'] = JSON.parse(cost)
+	if (description) req.body['description'] = JSON.parse(description)
+	if (constanciasURLS) req.body['constanciasURLS'] = JSON.parse(constanciasURLS)
 
 	if(req.files || req.file){
 		req.files.forEach(element => {
