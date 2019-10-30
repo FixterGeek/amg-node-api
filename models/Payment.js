@@ -25,7 +25,11 @@ const paymentSchema = new Schema({
     enum:['Subscription', 'Event']
   },
   invoice:String,
-  recipetURL:String
+  recipetURL:String,
+  filial:{
+    type:Schema.Types.ObjectId,
+    ref:'Filial'
+  }
 },{
   timestamps:true
 })

@@ -147,10 +147,11 @@ controller.getPayments = async (req, res) => {
 };
 
 controller.postPayment = async (req, res) => {
-  const {userId} = req.body
-  if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url
+  const {userId, filialId} = req.body
+  if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url  
   const payment = await Payment.create(req.body)
   await User.findByIdAndUpdate(userId, { $push: { renewals: payment._id } }, { new: true })
+  if (filialId) await Filial.findByIdAndUpdate(filialId, { $push: { payments: payment._id } }, { new: true })
   return res.status(200).json(payment)
 };
 

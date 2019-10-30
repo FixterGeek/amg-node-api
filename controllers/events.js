@@ -28,6 +28,7 @@ controller.postEvent = async (req, res) => {
 	if(req.body.permisosURLS) delete req.body.permisosURLS
 	if(req.body.thumbnailImagesURLS) delete req.body.thumbnailImagesURLS
 	if(req.body.iconImagesURLS) delete req.body.iconImagesURLS
+	if(req.body.constanciasURLS) delete req.body.constanciasURLS
 	
 
 	if(req.files){
@@ -43,7 +44,7 @@ controller.postEvent = async (req, res) => {
 controller.addSpeaker = async (req, res) => {
 	let speaker
 	if(req.body._id){
-		speaker = await Event.findByIdAndUpdate(req.params.id, {$pull:{speakers:req.body}}, {new:true})		
+		speaker = await Event.findByIdAndUpdate(req.params.id, {$pull:{speakers:req.body}}, {new:true})
 		return res.status(200).json({message:'The user was removed'})
 	}else{
 		if(req.files||req.file){
