@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const filialSchema = new Schema({
+  photoURL:String,
+  businessName:'String',
   state: {
     type: String,
     unique: true,
