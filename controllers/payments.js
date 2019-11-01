@@ -142,7 +142,7 @@ controller.getPayments = async (req, res) => {
   let { query, limit, skip } = req.query
   if (query) query = JSON.parse(query)
   // si no hay query params mando todos
-  payments = await Payment.find(query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0)
+  payments = await Payment.find(query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0).populate('users').populate('filial')
   return res.status(200).json(payments)
 };
 

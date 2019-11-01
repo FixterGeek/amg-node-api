@@ -111,6 +111,4 @@ app.use('/courseActivities', courseActivitiesRoutes)
 app.use('/filiales', filialesRoutes)
 
 
-
-
 module.exports = app;
