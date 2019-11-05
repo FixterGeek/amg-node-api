@@ -76,7 +76,6 @@ controller.subscription = async (req, res) => {
 controller.eventPayment = async (req, res) => {
   const { conektaToken, eventId, phone, plazo="contado", isOxxoPayment=false} = req.body
   const { user } = req
-  console.log(conektaToken)
 
   const event = await Event.findById(eventId)
 
@@ -155,21 +154,21 @@ controller.postPayment = async (req, res) => {
   return res.status(200).json(payment)
 };
 
-// controller.getPayment = async (req, res) => {
-// 	const payment = await Payment.findById(req.params.id);
-// 	res.status(200).json(payment);
-// };
+controller.getPayment = async (req, res) => {
+	const payment = await Payment.findById(req.params.id);
+	res.status(200).json(payment);
+};
 
-// controller.updatePayment = async (req, res) => {
-//   if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url
-// 	const payment = await Payment.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-// 	res.status(200).json(payment);
-// };
+controller.updatePayment = async (req, res) => {
+  if(req.file || req.files) req.body['recipetURL'] = req.file.secure_url || req.file.url
+	const payment = await Payment.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+	res.status(200).json(payment);
+};
 
-// controller.deletePayment = async (req, res) => {
-// 	const payment = await Payment.findByIdAndRemove(req.params.id);
-// 	res.status(200).json(payment);
-// };
+controller.deletePayment = async (req, res) => {
+	const payment = await Payment.findByIdAndRemove(req.params.id);
+	res.status(200).json(payment);
+};
 
 
 
