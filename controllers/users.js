@@ -21,8 +21,7 @@ controller.followUser = async(req, res) => {
 }
 
 controller.getUsers = async (req, res) => {
-	let users = [];
-	console.log(req.query)	
+	let users = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
@@ -31,8 +30,7 @@ controller.getUsers = async (req, res) => {
 };
 
 controller.getUsersSummary = async () => {
-	const users = await User.aggregate.count()
-	console.log(users)
+	const users = await User.aggregate.count()	
 	return users
 }
 
@@ -46,6 +44,7 @@ controller.getUser = async(req, res) => {
 	.populate('assistedActivities')
 	.populate('renewals')
 	.populate('eventOrders')
+	.populate('courseOrders')
 	.populate('following')
 	.populate('followers')
 	return res.status(200).json(user)

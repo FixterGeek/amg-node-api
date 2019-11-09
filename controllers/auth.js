@@ -17,6 +17,7 @@ controller.self = async (req, res) => {
 	.populate('assistedActivities')
 	.populate('renewals')
 	.populate('eventOrders')
+	.populate('courseOrders')
 	.populate('following')
 	.populate('followers')
 	return res.status(200).json(user)	
@@ -61,8 +62,7 @@ controller.signup = async (req, res) => {
 
 controller.changePass = async (req, res) => {
 	let user = await User.findOne({ email: req.body.email })
-	if (user) {
-		//console.log(user)
+	if (user) {		
 		user.changePassword(req.body.oldPassword, req.body.newPassword)
 			.then(() => {
 				user.save()

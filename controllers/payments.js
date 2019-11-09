@@ -76,8 +76,12 @@ controller.subscription = async (req, res) => {
 controller.eventPayment = async (req, res) => {
   const { conektaToken, eventId, phone, plazo="contado", isOxxoPayment=false} = req.body
   const { user } = req
-
   const event = await Event.findById(eventId)
+  let eventCost = event.cost.socioCost;
+  
+  if(user.membershipStatus == 'Free') eventCost = event.cost.freeCost
+  if(user.membershipStatus == 'Residente') eventCost = event.cost.residentCost
+  if(user.membershipStatus == 'Socio') eventCost = event.cost.socioCost
 
   const chargeObj = {
     payment_method: {
@@ -104,7 +108,7 @@ controller.eventPayment = async (req, res) => {
     line_items: [
       {
         name: "Event payment",
-        unit_price: event.cost * 100,
+        unit_price: eventCost * 100,
         quantity: 1,
       }
     ],
@@ -128,6 +132,71 @@ controller.eventPayment = async (req, res) => {
         paymentType: 'Event'        
       })
       await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
+      return res.status(200).json({payment, conektaOrder:order._json})
+    }
+  );
+
+}
+
+controller.coursePayment = async (req, res) => {
+  const { conektaToken, courseId, phone, plazo="contado", isOxxoPayment=false} = req.body
+  const { user } = req
+  const course = await Course.findById(courseId)
+  let courseCost = course.cost.socioCost;
+  
+  if(user.membershipStatus == 'Free') courseCost = course.cost.freeCost
+  if(user.membershipStatus == 'Residente') courseCost = course.cost.residentCost
+  if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost
+
+  const chargeObj = {
+    payment_method: {
+      type: "oxxo_cash",
+    }
+  };
+  
+  if (!isOxxoPayment){
+    chargeObj['payment_method'] = {
+      type: "card",
+      token_id: conektaToken.id
+    }
+  }
+
+  //if (plazo !== "contado") chargeObj.payment_method.monthly_installments = parseInt(plazo);
+  const conektaObject =
+  {
+    currency: "MXN",
+    customer_info: {
+      name: `${user.basicData.name} ${user.basicData.dadSurname} ${user.basicData.momSurname}`,
+      phone: user.basicData.phone || phone,
+      email: user.email,
+    },
+    line_items: [
+      {
+        name: "course payment",
+        unit_price: courseCost * 100,
+        quantity: 1,
+      }
+    ],
+    charges: [chargeObj]
+  }
+  conekta.Order.create(
+    conektaObject,
+    async function (err, order) {
+      if (err) {
+        console.log('conektaerror', err)
+        return res.status(400).json(err);
+      }
+ 
+      const payment = await Payment.create({
+        user: user._id,
+        concept:event.title,
+        conektaId: order.toObject().id,
+        date: req.body.date ||order.toObject().created_at,
+        amount: order.toObject().amount,
+        paid: true,
+        paymentType: 'Event'        
+      })
+      await User.findByIdAndUpdate(user._id, { $push: { courseOrders: payment._id } }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
     }
   );

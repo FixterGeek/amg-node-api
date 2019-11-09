@@ -324,6 +324,10 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Payment'
   }],
+  courseOrders: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Payment'
+  }],
   deleted:{
     type:Boolean,
     default:false
