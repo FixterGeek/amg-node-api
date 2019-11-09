@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const Payment = require('../models/Payment')
 const Event = require('../models/Event')
+const Course = require('../models/Course')
 const conekta = require('conekta')
 const controller = {};
 
