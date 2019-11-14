@@ -140,14 +140,18 @@ controller.eventPayment = async (req, res) => {
 }
 
 controller.coursePayment = async (req, res) => {
-  const { conektaToken, courseId, phone, plazo="contado", isOxxoPayment=false} = req.body
+  const { conektaToken, courseIds, phone, plazo="contado", isOxxoPayment=false} = req.body
   const { user } = req
-  const course = await Course.findById(courseId)
-  let courseCost = course.cost.socioCost;
+  const coursesCost = courseIds.reduce(async (acc, courseId)=>{
+    const course = await Course.findById(courseId)
+    const courseCost = course
+    if(user.membershipStatus == 'Free') courseCost = course.cost.freeCost
+    if(user.membershipStatus == 'Residente') courseCost = course.cost.residentCost
+    if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost
+    acc += courseCost
+  }, 0)
   
-  if(user.membershipStatus == 'Free') courseCost = course.cost.freeCost
-  if(user.membershipStatus == 'Residente') courseCost = course.cost.residentCost
-  if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost
+  
 
   const chargeObj = {
     payment_method: {
@@ -174,7 +178,7 @@ controller.coursePayment = async (req, res) => {
     line_items: [
       {
         name: "course payment",
-        unit_price: courseCost * 100,
+        unit_price: coursesCost * 100,
         quantity: 1,
       }
     ],
