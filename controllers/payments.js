@@ -149,7 +149,7 @@ controller.coursePayment = async (req, res) => {
     if(user.membershipStatus == 'Residente') courseCost = course.cost.residentCost
     if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost    
     return acc + courseCost    
-  }, 0)  
+  }, 0)
   const chargeObj = {
     payment_method: {
       type: "oxxo_cash",
