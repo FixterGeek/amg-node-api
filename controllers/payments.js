@@ -140,19 +140,16 @@ controller.eventPayment = async (req, res) => {
 }
 
 controller.coursePayment = async (req, res) => {
-  const { conektaToken, courseIds, phone, plazo="contado", isOxxoPayment=false} = req.body
+  const { conektaToken, courseIds, phone, plazo="contado", isOxxoPayment=false} = req.body  
   const { user } = req
-  const coursesCost = courseIds.reduce(async (acc, courseId)=>{
-    const course = await Course.findById(courseId)
-    const courseCost = course
+  const courses = await Course.find({_id:{$in: courseIds}})
+  const coursesCost = courses.reduce((acc, course)=>{
+    let courseCost
     if(user.membershipStatus == 'Free') courseCost = course.cost.freeCost
     if(user.membershipStatus == 'Residente') courseCost = course.cost.residentCost
-    if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost
-    acc += courseCost
-  }, 0)
-  
-  
-
+    if(user.membershipStatus == 'Socio') courseCost = course.cost.socioCost    
+    return acc + courseCost    
+  }, 0)  
   const chargeObj = {
     payment_method: {
       type: "oxxo_cash",
