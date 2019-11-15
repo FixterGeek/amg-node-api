@@ -27,7 +27,7 @@ const paymentSchema = new Schema({
   },
   paymentType: {
     type: String,
-    enum: ['Subscription', 'Event']
+    enum: ['Subscription', 'Event', 'Course']
   },
   invoice: String,
   recipetURL: String,

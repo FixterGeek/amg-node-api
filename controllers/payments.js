@@ -191,12 +191,12 @@ controller.coursePayment = async (req, res) => {
  
       const payment = await Payment.create({
         user: user._id,
-        concept:event.title,
+        concept:`${courses.length} Cursos`,
         conektaId: order.toObject().id,
         date: req.body.date ||order.toObject().created_at,
         amount: order.toObject().amount,
         paid: true,
-        paymentType: 'Event'        
+        paymentType: 'Course'        
       })
       await User.findByIdAndUpdate(user._id, { $push: { courseOrders: payment._id } }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
