@@ -7,7 +7,7 @@ controller.getFiliales = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	filiales = await Filial.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	filiales = await Filial.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).populate('administrators')
 	return res.status(200).json(filiales)
 };
 
@@ -17,7 +17,7 @@ controller.postFilial = async (req, res) => {
 };
 
 controller.getFilial = async (req, res) => {
-  const filial = await Filial.findById(req.params.id)
+  const filial = await Filial.findById(req.params.id).populate('administrators')
 	res.status(200).json(filial);
 };
 
