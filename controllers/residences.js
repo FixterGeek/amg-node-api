@@ -8,7 +8,7 @@ controller.getResidences = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	residences = await Residence.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
+	residences = await Residence.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).populate('institution')
 	return res.status(200).json(residences)
 };
 
@@ -24,7 +24,7 @@ controller.postResidence = async (req, res) => {
 };
 
 controller.getResidence = async (req, res) => {  
-  const residence = await Residence.findById(req.params.id);  
+  const residence = await Residence.findById(req.params.id).populate('institution');
 	res.status(200).json(residence);
 };
 

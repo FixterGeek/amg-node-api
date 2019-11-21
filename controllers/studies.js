@@ -27,7 +27,7 @@ controller.postStudy = async (req, res) => {
 };
 
 controller.getStudy = async (req, res) => {  
-  const study = await Study.findById(req.params.id);  
+  const study = await Study.findById(req.params.id).populate('institution');
 	res.status(200).json(study);
 };
 
