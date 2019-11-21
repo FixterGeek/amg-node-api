@@ -11,7 +11,7 @@ const tryCatch=(fn) =>{
   };
 }
 /* Get all recursos*/
-router.get('/',verifyToken,tryCatch(controller.getRecursos))
+router.get('/',tryCatch(controller.getRecursos))
 
 /* Post all recursos*/
 router.post('/',verifyToken,upload('recursos').any(),tryCatch(controller.postRecurso))
