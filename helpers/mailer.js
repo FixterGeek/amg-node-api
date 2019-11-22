@@ -44,7 +44,16 @@ exports.welcomeMail = ({ email, basicData }, password) => {
 
 //exports.paid
 
-//exports.paymentReference
+exports.paymentReference = (user, order) => {
+	transport
+		.sendMail({
+			subject: "Aquí tienes tu orden",
+			bcc: user.email,
+			html: 'Tu pago es:'
+		})
+		.then(r => console.log(r))
+		.catch(e => console.log(e));
+};
 
 //exports.validating
 exports.validatingProfile = (user) => {
