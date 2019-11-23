@@ -13,8 +13,22 @@ const Traslado = require('cfdiv33').Traslado
 // const Retencion = require('cfdiv33').Retencion
 const controller = {};
 
+controller.getInvoices = async(req, res) => {  
+  const token = getApiToken()
+  const url = `${process.env.CONTABILIZATE_HOST}/invoices`  
+  let response = await fetch(url,{
+    method: 'GET',    
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization':token
+    }
+  })
+  let invoices = await response.json()
+  return res.status(200).json(invoices);
+}
 
-controller.postInvoice=async(req, res)=>{
+
+controller.postInvoice = async(req, res)=>{
 
   const amgDataFacturacion = await DataFacturacion.find()
   const amgData = amgDataFacturacion[0]
