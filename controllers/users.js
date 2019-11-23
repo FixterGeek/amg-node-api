@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const Filial = require("../models/Filial");
 const controller = {};
-const {validatingProfile} = require('../helpers/mailer')
+const {validatingProfile, userIsApproved, userIsRejected} = require('../helpers/mailer')
 
 
 controller.followUser = async(req, res) => {
@@ -50,7 +50,7 @@ controller.getUser = async(req, res) => {
 	return res.status(200).json(user)
 }
 
-controller.updateUser = async (req, res) => {
+controller.updateUser = async (req, res) => {	
 	if(req.body['teachingActivities']) delete req.body['teachingActivities']
 	if(req.body['hospitalActivities']) delete req.body['hospitalActivities']
 	if(req.body['medicalSocieties']) delete req.body['medicalSocieties']
@@ -76,8 +76,26 @@ controller.updateUser = async (req, res) => {
 		const filialForAdmin = await Filial.findOne({_id:req.body['filialAsAdmin'],administrators:{$in:[req.body['filialAsAdmin']]}})
 		if (filialForAdmin==null) await Filial.findByIdAndUpdate({_id:req.body.filialAsAdmin}, {$push:{administrators:req.params.id}}, {new:true})
 	}
-	
-	//if(req.body.userStatus == 'Pendiente') validatingProfile(user)
+
+	//mails
+	if(user.userStatus == 'Pendiente' && !user.mails.inRevision) {
+		validatingProfile(user)
+			.then((r)=>{
+				User.findByIdAndUpdate(req.params.id,{$set:{mails:{inRevision:true}}},{new:true})
+		}).catch(e=>console.log(e))
+	}
+	if(user.userStatus == 'Aprobado' && !user.mails.approved) {
+		userIsApproved(user)
+			.then((r)=>{
+				User.findByIdAndUpdate(req.params.id,{$set:{mails:{approved:true}}},{new:true})
+		}).catch(e=>console.log(e))
+	}
+	if(user.userStatus == 'No Aprobado' && !user.mails.rejected) {
+		userIsRejected(user)
+			.then((r)=>{
+				User.findByIdAndUpdate(req.params.id,{$set:{mails:{rejected:true}}},{new:true})
+		}).catch(e=>console.log(e))
+	}
 	return res.status(200).json(user)
 };
 

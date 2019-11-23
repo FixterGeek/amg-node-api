@@ -4,8 +4,7 @@ const controller = {};
 
 
 controller.getModules = async (req, res) => {
-	let eModules = [];
-	console.log(req.query)	
+	let eModules = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

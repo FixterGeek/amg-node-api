@@ -30,8 +30,7 @@ exports.uploadAndResize = (folder) =>{
   const storage = cloudinaryStorage({
     cloudinary,    
     folder: folder, // The name of the folder in cloudinary
-    transformation:function(req,file,cb){
-      console.log(file)
+    transformation:function(req,file,cb){      
       if(file.fieldname=="mainImages"){
         return cb(null,{width:700})                
       }

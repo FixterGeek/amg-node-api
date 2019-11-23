@@ -15,7 +15,10 @@ router.get('/', (req, res, next) => {
     developedBy: "FixterGeek",
     year: 2019,
     site: "www.fixter.org",
-    bliss: "t(*_*t)"
+    signatures: {
+      bliss: "t(*_*t)",
+      oswaldinho: "💪🏽🤓"
+    }
   })
 });
 
@@ -41,7 +44,6 @@ router.get('/', (req, res, next) => {
 //   createBucket()
 //     .then(()=>console.log('yhei'))
 //     .catch(e=>console.log(e))
-
 // })
 module.exports = router;
 

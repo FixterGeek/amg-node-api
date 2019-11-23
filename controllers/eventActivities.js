@@ -8,7 +8,6 @@ const controller = {};
 
 controller.getActivityEvents = async (req, res) => {
 	let events = [];
-	console.log(req.query)	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

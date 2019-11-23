@@ -4,8 +4,7 @@ const controller = {};
 
 
 controller.getStudies = async (req, res) => {
-	let studies = [];
-	console.log(req.query)	
+	let studies = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

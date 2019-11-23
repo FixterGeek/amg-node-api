@@ -11,22 +11,19 @@ function nowInMexico() { // in case we have to force TimeZone
 }
 
 function beforeTime(time) {
-	//let now = nowInMexico()
-	//console.log("befo:", Date.now() < Date.parse(time))
+	//let now = nowInMexico()	
 	return Date.now() < Date.parse(time)
 }
 
 function afterTime(time) {
-	//let now = nowInMexico()
-	//console.log("afte", Date.now() > Date.parse(time))
+	//let now = nowInMexico()	
 	return Date.now() > Date.parse(time)
 }
 
 
 
 controller.getExams = async (req, res) => {
-	let exams = [];
-	console.log(req.query)
+	let exams = [];	
 	let { limit, skip } = req.query
 	exams = await Exam.find(req.query || {}).limit(Number(limit) || 0).skip(Number(skip) || 0).populate('event')
 	return res.status(200).json(exams)
@@ -38,10 +35,8 @@ controller.postExam = async (req, res) => {
 };
 
 
-controller.getExam = async (req, res) => {
-	//let { user } = req
-	let { id: examId } = req.params
-	//
+controller.getExam = async (req, res) => {	
+	let { id: examId } = req.params	
 	//if user is admin
 	if (req.user.userType === 'Admin') {
 		const examAdmin = await Exam.findById(req.params.id).populate('event')
@@ -59,8 +54,7 @@ controller.getExam = async (req, res) => {
 		let answer = exists.resolved.find(a => String(a.user) === String(req.user._id))
 		let oExam = exam.toObject()
 		oExam.total = answer.total
-		oExam.answers = answer.answers
-		//console.log("polloyon", answer)
+		oExam.answers = answer.answers		
 		if (answer) return res.status(200).json(oExam);
 	}
 	///

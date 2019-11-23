@@ -7,8 +7,7 @@ const controller = {};
 
 
 controller.getCourseActivities = async (req, res) => {
-	let courses = [];
-	console.log(req.query)	
+	let courses = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

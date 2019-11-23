@@ -304,7 +304,7 @@ const userSchema = new Schema({
   /* Aproval  Data*/
   userStatus: {
     type: String,
-    enum: ['Registrado', 'Aprobado', 'No Aprobado', 'Activo'],
+    enum: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado', 'Activo'],
     default: 'Registrado'
   },
   userType: {
@@ -350,6 +350,20 @@ const userSchema = new Schema({
   filialAsAdmin:{
     type:Schema.Types.ObjectId,
     ref:'Filial'
+  },
+  mails:{
+    rejected:{
+      type: Boolean,
+      default: false
+    },
+    approved:{
+      type: Boolean,
+      default: false
+    },
+    inRevision:{
+      type: Boolean,
+      default: false
+    },
   }
 
 

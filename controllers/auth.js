@@ -79,22 +79,14 @@ controller.forgotPass = async (req, res) => {
 	let { email } = req.body
 	email = email.toLowerCase()
 	let user = await User.findOne({ email })
-	if (user) {
-		//console.log(user)
-		// ENVIAR MAIL CON TOKEN
+	if (user) {				
 		let token = jwt.sign({
 			email: user.email
 		}, "bliss")
 		await User.findByIdAndUpdate(user._id, { recoveryToken: true }, { new: true })
+		// MAIL 
 		recoveryMail(user.email, token)
 		res.json({ token })
-		// user.setPassword(req.body.password)
-		// 	.then(() => {
-		// 		user.save()
-		// 		return res.status(200).json(user)
-		// 	}).catch((e) => {
-		// 		return res.status(400).json(e)
-		// 	})
 	} else {
 		return res.status(404).json({ message: 'Este usuario no existe' })
 	}

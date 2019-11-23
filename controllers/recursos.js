@@ -14,8 +14,7 @@ controller.getRecursos = async (req, res) => {
 			{authors:{$regex:search || '', $options:'i'}},
 			{volume:{$regex:search || '', $options:'i'}}
 		]}
-	}
-	console.log(query)
+	}	
 	// si no hay query params mando todos
 	let count  = await Recurso.count()
 	recursos = await Recurso.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).sort('-created_at')//.populate('user')
@@ -26,9 +25,7 @@ controller.getRecursos = async (req, res) => {
 };
 
 
-controller.postRecurso = async (req, res) => {
-	//testing	
-	console.log(req.files, req.body)	
+controller.postRecurso = async (req, res) => {		
   req.body['user'] = req.user._id
   if(req.files){
 		req.files.forEach(element => {
@@ -42,8 +39,7 @@ controller.postRecurso = async (req, res) => {
 };
 
 controller.likeRecurso = async (req, res) => {
-  const recurso = await Recurso.findOne({_id:req.params.id,liked:{$in:[req.user._id]}})
-  console.log(recurso)
+  const recurso = await Recurso.findOne({_id:req.params.id,liked:{$in:[req.user._id]}})  
   let liked
   if(recurso==null){
     liked = await Recurso.findByIdAndUpdate({_id:req.params.id}, {$push:{liked:req.user._id}}, {new:true}).populate('user')

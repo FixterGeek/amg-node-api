@@ -3,10 +3,9 @@ const Payment = require('../models/Payment')
 const Event = require('../models/Event')
 const Course = require('../models/Course')
 const conekta = require('conekta')
+const {paymentReference, suscriptionAndWelcome} = require('../helpers/mailer')
+
 const controller = {};
-
-
-
 
 conekta.api_key = process.env.CONEKTA_PRIVATE_KEY
 conekta.api_version = '2.0.0';
@@ -53,8 +52,7 @@ controller.subscription = async (req, res) => {
   conekta.Order.create(
     conektaObject,
     async function (err, order) {
-      if (err) {
-        console.log('conektaerror', err)
+      if (err) {        
         return res.status(400).json(err);
       }
       
@@ -67,6 +65,9 @@ controller.subscription = async (req, res) => {
         paid: true,
         paymentType: 'Subscription',        
       })
+      // MAILS
+      paymentReference(user, payment)
+      suscriptionAndWelcome(user, subscriptionType)
       await User.findByIdAndUpdate(user._id, { $push: { renewals: payment._id } }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
     }
@@ -118,8 +119,7 @@ controller.eventPayment = async (req, res) => {
   conekta.Order.create(
     conektaObject,
     async function (err, order) {
-      if (err) {
-        console.log('conektaerror', err)
+      if (err) {        
         return res.status(400).json(err);
       }
  
@@ -132,6 +132,8 @@ controller.eventPayment = async (req, res) => {
         paid: true,
         paymentType: 'Event'        
       })
+      // MAIL 
+      paymentReference(user, payment)
       await User.findByIdAndUpdate(user._id, { $push: { eventOrders: payment._id } }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
     }
@@ -184,8 +186,7 @@ controller.coursePayment = async (req, res) => {
   conekta.Order.create(
     conektaObject,
     async function (err, order) {
-      if (err) {
-        console.log('conektaerror', err)
+      if (err) {        
         return res.status(400).json(err);
       }
  
@@ -198,6 +199,8 @@ controller.coursePayment = async (req, res) => {
         paid: true,
         paymentType: 'Course'        
       })
+      // MAIL 
+      paymentReference(user, payment)
       await User.findByIdAndUpdate(user._id, { $push: { courseOrders: payment._id } }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
     }
@@ -207,8 +210,7 @@ controller.coursePayment = async (req, res) => {
 
 
 controller.getPayments = async (req, res) => {
-  let payments = [];
-  console.log(req.query)
+  let payments = [];  
   let { query, limit, skip } = req.query
   if (query) query = JSON.parse(query)
   // si no hay query params mando todos

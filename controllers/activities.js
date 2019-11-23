@@ -4,8 +4,7 @@ const controller = {};
 
 
 controller.getActivities = async (req, res) => {
-	let activities = [];
-	console.log(req.query)	
+	let activities = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

@@ -4,8 +4,7 @@ const controller = {};
 
 controller.getPublications = async (req, res) => {
 	
-	let publications = [];
-	console.log(req.query)	
+	let publications = [];		
 	let {query, limit, skip} = req.query
 	const user = await User.findById(req.user._id)
 	if(query) query = JSON.parse(query)
@@ -16,8 +15,7 @@ controller.getPublications = async (req, res) => {
 
 
 controller.postPublication = async (req, res) => {
-	//testing	
-	console.log(req.files, req.body)	
+	//testing		
   req.body['user'] = req.user._id
   if(req.files){
 		req.files.forEach(element => {
@@ -31,8 +29,7 @@ controller.postPublication = async (req, res) => {
 };
 
 controller.likePublication = async (req, res) => {
-  const publication = await Publication.findOne({_id:req.params.id,liked:{$in:[req.user._id]}})
-  console.log(publication)
+  const publication = await Publication.findOne({_id:req.params.id,liked:{$in:[req.user._id]}})  
   let liked
   if(publication==null){
     liked = await Publication.findByIdAndUpdate({_id:req.params.id}, {$push:{liked:req.user._id}}, {new:true}).populate('user')

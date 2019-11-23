@@ -3,8 +3,7 @@ const controller = {};
 
 
 controller.getResidences = async (req, res) => {
-	let residences = [];
-	console.log(req.query)	
+	let residences = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos

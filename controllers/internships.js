@@ -3,8 +3,7 @@ const controller = {};
 
 
 controller.getInternships = async (req, res) => {
-	let internships = [];
-	console.log(req.query)	
+	let internships = [];	
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
