@@ -1,7 +1,7 @@
 'use strict'
 const Payment = require("../models/Payment");
 const DataFacturacion = require("../models/DataFacturacion");
-const {timbrarCfdi, getApiToken} = require('../helpers/contabilizate')
+const {timbrarCfdi, getApiToken, getFacturas} = require('../helpers/contabilizate')
 const CFDI = require('cfdiv33').CFDI
 const Emisor = require('cfdiv33').Emisor
 const Receptor = require('cfdiv33').Receptor
@@ -14,16 +14,8 @@ const Traslado = require('cfdiv33').Traslado
 const controller = {};
 
 controller.getInvoices = async(req, res) => {  
-  const token = getApiToken()
-  const url = `${process.env.CONTABILIZATE_HOST}/invoices`  
-  let response = await fetch(url,{
-    method: 'GET',    
-    headers:{
-      'Content-Type': 'application/json',
-      'Authorization':token
-    }
-  })
-  let invoices = await response.json()
+  const token = await getApiToken()
+  const invoices = await getFacturas(token.token)
   return res.status(200).json(invoices);
 }
 

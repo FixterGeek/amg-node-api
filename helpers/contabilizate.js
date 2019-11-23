@@ -35,3 +35,21 @@ exports.timbrarCfdi= async (token, xml) => {
   let invoice = await response.json()
   return invoice;
 }
+
+exports.cancelarCfdi = async (token, id) => {
+
+}
+
+exports.getFacturas = async (token) => {
+  const url = `${process.env.CONTABILIZATE_HOST}/invoices`  
+  let response = await fetch(url,{
+    method: 'GET',    
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization':token
+    }
+  })
+  let invoices = await response.json()
+  console.log(invoices)
+  return invoices
+}
