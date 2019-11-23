@@ -89,24 +89,24 @@ controller.updateUser = async (req, res) => {
 	}
 
 	//mails
-	if(user.userStatus == 'Pendiente' && !user.mails.inRevision) {
-		validatingProfile(user)
-			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{inRevision:true}}},{new:true})
-		}).catch(e=>console.log(e))
-	}
-	if(user.userStatus == 'Aprobado' && !user.mails.approved) {
-		userIsApproved(user)
-			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{approved:true}}},{new:true})
-		}).catch(e=>console.log(e))
-	}
-	if(user.userStatus == 'No Aprobado' && !user.mails.rejected) {
-		userIsRejected(user)
-			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{rejected:true}}},{new:true})
-		}).catch(e=>console.log(e))
-	}
+	// if(user.userStatus == 'Pendiente' && !user.mails.inRevision) {
+	// 	validatingProfile(user)
+	// 		.then((r)=>{
+	// 			User.findByIdAndUpdate(req.params.id,{$set:{mails:{inRevision:true}}},{new:true})
+	// 	}).catch(e=>console.log(e))
+	// }
+	// if(user.userStatus == 'Aprobado' && !user.mails.approved) {
+	// 	userIsApproved(user)
+	// 		.then((r)=>{
+	// 			User.findByIdAndUpdate(req.params.id,{$set:{mails:{approved:true}}},{new:true})
+	// 	}).catch(e=>console.log(e))
+	// }
+	// if(user.userStatus == 'No Aprobado' && !user.mails.rejected) {
+	// 	userIsRejected(user)
+	// 		.then((r)=>{
+	// 			User.findByIdAndUpdate(req.params.id,{$set:{mails:{rejected:true}}},{new:true})
+	// 	}).catch(e=>console.log(e))
+	// }
 	return res.status(200).json(user)
 };
 
