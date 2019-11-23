@@ -61,7 +61,7 @@ exports.welcomeMail = ({ email, basicData }, password) => {
 
 //exports.validating
 exports.validatingProfile = (user) => {
-	transport
+	return	transport
 		.sendMail({
 			subject: "¡Tu perfil está en revisión!",
 			bcc: user.email,
@@ -79,7 +79,7 @@ exports.validatingProfile = (user) => {
 
 //user is approved
 exports.userIsApproved = (user) => {
-	transport
+	return	transport
 		.sendMail({
 			subject: "¡Felicidades!",
 			bcc: user.email,
@@ -97,7 +97,7 @@ exports.userIsApproved = (user) => {
 
 //user is rejected
 exports.userIsRejected = (user) => {
-	transport
+	return	transport
 		.sendMail({
 			subject: "¡Lo sentimos!",
 			bcc: user.email,
@@ -146,5 +146,28 @@ exports.suscriptionAndWelcome = (user) => {
 			console.log(e)
 			throw e
 		});
+
+		exports.sendContactMail = ({nombre, mail, asunto}) => {
+			return transport
+				.sendMail({
+					subject: `${asunto}`,
+					bcc: user.mail,
+					html: `
+						<h1>¡Tienes un nuevo mensaje!</h1>
+
+						<p>Nombre: ${nombre}</p>
+						<p>Correo: ${mail}</p>
+						<p>Asunto: ${asunto}</p>
+
+					`
+				})
+				.then(r => {
+					console.log(r)
+					return r
+				})
+				.catch(e => {
+					console.log(e)
+					throw e
+				});
 };
 

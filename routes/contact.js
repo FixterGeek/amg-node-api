@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {welcomeMail} = require ('../helpers/mailer')
+const controller = require('../controllers/contact')
 
-router.post('/', (req, res) => {
+const tryCatch = (fn) => {
+  return (req, res, next) => {
+    return fn(req, res).catch(e => next(e));
+  };
+}
 
-  welcomeMail(req.body)
-    .then(r=>{
-      console.log(r)
-    }).catch(e=>console.log(e))
-  
-})
+router.post('/', tryCatch(controller.sendContactMail))

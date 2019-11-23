@@ -86,6 +86,7 @@ const courseRoutes = require('./routes/courses');
 const courseModulesRoutes = require('./routes/courseModules'); 
 const courseActivitiesRoutes = require('./routes/courseActivities'); 
 const filialesRoutes = require('./routes/filiales'); 
+const contactRoutes = require('./routes/contact'); 
 
 app.use('/', index);
 app.use('/auth', authRoutes)
@@ -109,6 +110,7 @@ app.use('/courses', courseRoutes)
 app.use('/courseModules', courseModulesRoutes)
 app.use('/courseActivities', courseActivitiesRoutes)
 app.use('/filiales', filialesRoutes)
+app.use('/contact', contactRoutes)
 
 
 module.exports = app;
