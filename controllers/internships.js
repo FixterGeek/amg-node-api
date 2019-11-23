@@ -1,4 +1,5 @@
 const Internship = require("../models/Internship");
+const Institution = require("../models/Institution");
 const controller = {};
 
 
@@ -12,7 +13,9 @@ controller.getInternships = async (req, res) => {
 };
 
 controller.postInternship = async (req, res) => {
-	const internship = await Internship.create(req.body);
+	let internship = await Internship.create(req.body);
+	internship = await Internship.findById(internship._id).populate('institution');	
+	const user = await User.findByIdAndUpdate(req.body.user,{$push:{internships:internship._id}}, {new:true})		
 	res.status(201).json(internship);
 };
 
