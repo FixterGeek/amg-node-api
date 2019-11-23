@@ -1,5 +1,5 @@
 const Internship = require("../models/Internship");
-const Institution = require("../models/Institution");
+const User = require("../models/User");
 const controller = {};
 
 

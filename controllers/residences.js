@@ -1,4 +1,5 @@
 const Residence = require("../models/Residence");
+const User = require("../models/User");
 const controller = {};
 
 
