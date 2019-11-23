@@ -65,8 +65,9 @@ controller.assistEvent = async (req, res) => {
 	let assist
 	
 	if(!event.assistants.includes(req.user._id)){		
-		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedEvents:event._id}}, {new:true})		
-		assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})		
+		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedEvents:event._id}}, {new:true})
+		assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:req.user._id}}, {new:true})
+		assistenceToEvent(user, assist)
 	}else{
 		return res.status(400).json({message:'You are already registered'})
 	}

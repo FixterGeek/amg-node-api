@@ -11,26 +11,29 @@ let transport = nodemailer.createTransport({
 });
 
 //load templates
-const accountCreated = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
-);
+// const accountCreated = hbs.compile(
+// 	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+// );
 const userInRevision = hbs.compile(
 	fs.readFileSync((__dirname, "./views/mails/revision.hbs"), "utf8")
 );
 const userApproved = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+	fs.readFileSync((__dirname, "./views/mails/aceptado.hbs"), "utf8")
 );
 const userRejected = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+	fs.readFileSync((__dirname, "./views/mails/rechazado.hbs"), "utf8")
 );
 const paymentSuccess = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+	fs.readFileSync((__dirname, "./views/mails/pago.hbs"), "utf8")
 );
 const suscriptionWelcome = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+	fs.readFileSync((__dirname, "./views/mails/bienvenido.hbs"), "utf8")
 );
 const recoverPassword = hbs.compile(
-	fs.readFileSync((__dirname, "./views/mails/welcome.hbs"), "utf8")
+	fs.readFileSync((__dirname, "./views/mails/resetpassword.hbs"), "utf8")
+);
+const assistEvent = hbs.compile(
+	fs.readFileSync((__dirname, "./views/mails/evento.hbs"), "utf8")
 );
 
 
@@ -39,7 +42,7 @@ exports.recoveryMail = (email, token) => {
 	transport.sendMail({
 		subject: "Recuperación de contraseña",
 		bcc: email,
-		html: recoverPassword(user),
+		html: recoverPassword(user, token),
 		html: `
 		<h2>Crea una nueva contraseña aqui:</h2>
 		<a href="http://amg-api.herokuapp.com/auth/recovery?token=${token}"> Click aquí  </a>
@@ -48,12 +51,12 @@ exports.recoveryMail = (email, token) => {
 }
 
 
-exports.welcomeMail = ({ email, basicData }, password) => {
+exports.assistenceToEvent = ({ email, basicData }, event) => {
 	transport
 		.sendMail({
 			subject: "¡Bienvenido a AMG",
 			bcc: email,
-			html: accountCreated({ basicData, email, password })
+			html: assistEvent({ basicData, email, event })
 		})
 		.then(r => r)
 		.catch(e => e);
@@ -134,7 +137,7 @@ exports.paymentReference = (user, element) => {
 exports.suscriptionAndWelcome = (user) => {
 	transport
 		.sendMail({
-			subject: "¡Tu pago está listo!",
+			subject: "¡Bienvenido a AMG!",
 			bcc: user.email,
 			html: suscriptionWelcome(user)
 		})
@@ -146,28 +149,29 @@ exports.suscriptionAndWelcome = (user) => {
 			console.log(e)
 			throw e
 		});
+	}
 
-		exports.sendContactMail = ({nombre, mail, asunto}) => {
-			return transport
-				.sendMail({
-					subject: `${asunto}`,
-					bcc: user.mail,
-					html: `
-						<h1>¡Tienes un nuevo mensaje!</h1>
+	exports.sendContactMail = ({nombre, mail, asunto}) => {
+		return transport
+			.sendMail({
+				subject: 'Has recibido un mensaje',
+				bcc: mail,
+				html: `
+					<h1>¡Tienes un nuevo mensaje!</h1>
 
-						<p>Nombre: ${nombre}</p>
-						<p>Correo: ${mail}</p>
-						<p>Asunto: ${asunto}</p>
+					<p>Nombre: ${nombre}</p>
+					<p>Correo: ${mail}</p>
+					<p>Asunto: ${asunto}</p>
 
-					`
-				})
-				.then(r => {
-					console.log(r)
-					return r
-				})
-				.catch(e => {
-					console.log(e)
-					throw e
-				});
-};
+				`
+			})
+			.then(r => {
+				console.log(r)
+				return r
+			})
+			.catch(e => {
+				console.log(e)
+				throw e
+			});
+	};
 

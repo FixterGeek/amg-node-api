@@ -55,8 +55,7 @@ controller.signup = async (req, res) => {
 			})
 		}
 	if(!req.body.username)req.body.username = req.body.email
-	let user = await User.register(req.body, req.body.password);
-	welcomeMail(user)
+	let user = await User.register(req.body, req.body.password);	
 	let token = generateToken(user);
 	delete user.hash
 	return res.status(201).send({ user, token });

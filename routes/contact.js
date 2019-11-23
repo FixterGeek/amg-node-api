@@ -9,3 +9,5 @@ const tryCatch = (fn) => {
 }
 
 router.post('/', tryCatch(controller.sendContactMail))
+
+module.exports = router
