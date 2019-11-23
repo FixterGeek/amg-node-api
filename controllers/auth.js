@@ -13,6 +13,8 @@ controller.self = async (req, res) => {
 	.populate('hospitalActivities')
 	.populate('medicalSocieties')
 	.populate('studies')
+	.populate('internships')
+	.populate('residences')
 	.populate('assistedEvents')
 	.populate('assistedActivities')
 	.populate('renewals')

@@ -40,6 +40,8 @@ controller.getUser = async(req, res) => {
 	.populate('hospitalActivities')
 	.populate('medicalSocieties')
 	.populate('studies')
+	.populate('internships')
+	.populate('residences')
 	.populate('assistedEvents')
 	.populate('assistedActivities')
 	.populate('renewals')
@@ -55,8 +57,17 @@ controller.updateUser = async (req, res) => {
 	if(req.body['hospitalActivities']) delete req.body['hospitalActivities']
 	if(req.body['medicalSocieties']) delete req.body['medicalSocieties']
 	if(req.body['studies']) delete req.body['studies']
+	if(req.body['internships']) delete req.body['internships']
+	if(req.body['residences']) delete req.body['residences']
 	if(req.body['assistedEvents']) delete req.body['assistedEvents']
-	if(req.body['assistedActivities']) delete req.body['assistedActivities']	
+	if(req.body['assistedActivities']) delete req.body['assistedActivities']
+	if(req.body['renewals']) delete req.body['renewals']
+	if(req.body['eventOrders']) delete req.body['eventOrders']
+	if(req.body['courseOrders']) delete req.body['courseOrders']
+	if(req.body['following']) delete req.body['following']
+	if(req.body['followers']) delete req.body['followers']
+
+
 	if(req.file||req.files){		
 		req.files.forEach(element => {
 			if(element.fieldname == 'photo'){
