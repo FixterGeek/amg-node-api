@@ -29,8 +29,11 @@ const paymentSuccess = hbs.compile(
 const suscriptionWelcome = hbs.compile(
 	fs.readFileSync((__dirname, "./views/mails/bienvenido.hbs"), "utf8")
 );
-const recoverPassword = hbs.compile(
+const recoverPasswordSuccess = hbs.compile(
 	fs.readFileSync((__dirname, "./views/mails/resetpassword.hbs"), "utf8")
+);
+const recoverPassword = hbs.compile(
+	fs.readFileSync((__dirname, "./views/mails/reqresetpassword.hbs"), "utf8")
 );
 const assistEvent = hbs.compile(
 	fs.readFileSync((__dirname, "./views/mails/evento.hbs"), "utf8")
@@ -38,15 +41,19 @@ const assistEvent = hbs.compile(
 
 
 // recovery
-exports.recoveryMail = (email, token) => {
+exports.recoveryMail = (user, token) => {
 	transport.sendMail({
 		subject: "Recuperación de contraseña",
-		bcc: email,
-		html: recoverPassword(user, token),
-		html: `
-		<h2>Crea una nueva contraseña aqui:</h2>
-		<a href="http://amg-api.herokuapp.com/auth/recovery?token=${token}"> Click aquí  </a>
-		`
+		bcc: user.email,
+		html: recoverPassword(user, token),		
+	})
+}
+
+exports.recoveryMailSuccess = (user) => {
+	transport.sendMail({
+		subject: "Recuperación de contraseña exitosa",
+		bcc: user.email,
+		html: recoverPasswordSuccess(user)
 	})
 }
 
@@ -117,12 +124,12 @@ exports.userIsRejected = (user) => {
 };
 
 //exports.paid
-exports.paymentReference = (user, element) => {
+exports.paymentReference = (user, payment) => {
 	transport
 		.sendMail({
 			subject: "¡Tu pago está listo!",
 			bcc: user.email,
-			html: paymentSuccess({user, element})
+			html: paymentSuccess({user, payment})
 		})
 		.then(r => {
 			console.log(r)
@@ -155,7 +162,7 @@ exports.suscriptionAndWelcome = (user) => {
 		return transport
 			.sendMail({
 				subject: 'Has recibido un mensaje',
-				bcc: mail,
+				bcc: `hola@gastrointerologia.mx`,
 				html: `
 					<h1>¡Tienes un nuevo mensaje!</h1>
 

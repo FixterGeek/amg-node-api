@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const { generateToken } = require("../helpers/jwt");
-const { welcomeMail, recoveryMail } = require("../helpers/mailer");
+const { recoveryMailSuccess, recoveryMail } = require("../helpers/mailer");
 const controller = {};
 const passport = require("passport");
 let jwt = require('jsonwebtoken')
@@ -67,6 +67,7 @@ controller.changePass = async (req, res) => {
 		user.changePassword(req.body.oldPassword, req.body.newPassword)
 			.then(() => {
 				user.save()
+				recoveryMailSuccess(user)
 				return res.status(200).json(user)
 			}).catch((e) => {
 				return res.status(400).json(e)
@@ -86,7 +87,7 @@ controller.forgotPass = async (req, res) => {
 		}, "bliss")
 		await User.findByIdAndUpdate(user._id, { recoveryToken: true }, { new: true })
 		// MAIL 
-		recoveryMail(user.email, token)
+		recoveryMail(user, token)
 		res.json({ token })
 	} else {
 		return res.status(404).json({ message: 'Este usuario no existe' })
