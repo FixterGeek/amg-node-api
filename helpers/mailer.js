@@ -45,7 +45,7 @@ exports.recoveryMail = (user, token) => {
 	transport.sendMail({
 		subject: "Recuperación de contraseña",
 		bcc: user.email,
-		html: recoverPassword(user, token),		
+		html: recoverPassword({user, token}),		
 	})
 }
 
