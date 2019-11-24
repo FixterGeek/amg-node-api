@@ -37,7 +37,7 @@ controller.postInvoice = async(req, res)=>{
   let iva = (subTotal * .16).toFixed(2).toString()
 
   console.log('payment:', payment)
-  console.log('amgData :', amgData )  
+  console.log('amgData :', amgData)
   
  const cfdi = new CFDI({
   'Serie':payment.paymentType == 'Event' ? amgData.eventSerie : amgData.membershipSerie,
@@ -63,13 +63,15 @@ controller.postInvoice = async(req, res)=>{
    'Nombre': amgData.name,
    'RegimenFiscal': amgData.regime
  }))
-    
+  console.log('bd', basicData)
+console.log('el fiscooo', fiscalData)
+   
  cfdi.add(new Receptor({
-   'Rfc': 'XAXX010101000',  
-  // 'Nombre': `${basicData.name || ''} ${basicData.dadSurname || ''} ${basicData.momSurname || ''}`,
-  //  'ResidenciaFiscal': 'MEX',
-  //  'NumRegIdTrib': '0000000000000',
-   'UsoCFDI': 'G03'
+   'Rfc': `${fiscalData.rfc}`,  
+   'Nombre': `${basicData.name || ''} ${basicData.dadSurname || ''} ${basicData.momSurname || ''}`,
+  // 'ResidenciaFiscal': 'MEX',
+   // 'NumRegIdTrib': '0000000000000',
+   //'UsoCFDI': 'G03'
  }))
     
  const concepto = new Concepto({
@@ -102,13 +104,14 @@ controller.postInvoice = async(req, res)=>{
     'TotalImpuestosTrasladados':iva
   }))
   
-
- 
-
   let promises = await Promise.all([getApiToken(), cfdi.getXml()])  
   const [tokenRes, xml] = promises
   let buff = Buffer.from(xml)
   let base64data = buff.toString('base64')
+  console.log({
+    token:tokenRes.token,
+    xml:xml
+  })
 
   timbrarCfdi(tokenRes.token, base64data)
     .then(c =>{
@@ -127,21 +130,21 @@ controller.postManualInvoice=async(req, res)=>{
 
   const amgDataFacturacion = await DataFacturacion.find()
   const amgData = amgDataFacturacion[0]
-  const {amount, rfc, address,  paymentMethod} = req.body
+  const {amountNoIva, rfc, address,  paymentMethod, fullName, paymentType } = req.body
   //const {paymentId} = req.params
   // njmvnmjvgfconst payment = await Payment.findById(paymentId)
 
-  if (!amount) return res.status(400).json({message:'Sin Cantidad no podemos facturar!'})  
+  if (!amountNoIva) return res.status(400).json({message:'Sin Cantidad no podemos facturar!'})  
   //if (payment.invoice) return res.status(400).json({message:'Ya se ha facturado este pago'}) 
   if (!rfc) return res.status(400).json({message:'No es posible facturar sin tu RFC'})
 
-  let total = amount
+  let total = amountNoIva
   let subTotal = (total / 1.16).toFixed(2).toString()
   let iva = (subTotal * .16).toFixed(2).toString()  
   
    const cfdi = new CFDI({
-    'Serie':payment.paymentType == 'Event' ? amgData.eventSerie : amgData.membershipSerie,
-    'Folio': payment.paymentType == 'Event' ? amgData.eventFolio + 1 : amgData.membershipFolio + 1,
+    'Serie':paymentType == 'Event' ? amgData.eventSerie : amgData.membershipSerie,
+    'Folio': paymentType == 'Event' ? amgData.eventFolio + 1 : amgData.membershipFolio + 1,
     'Fecha': new Date().toISOString().split('.')[0],
     'NoCertificado': amgData.privateNumber,
     'SubTotal': subTotal,
@@ -165,11 +168,11 @@ controller.postManualInvoice=async(req, res)=>{
    }))
       
    cfdi.add(new Receptor({
-     'Rfc': 'XAXX010101000',  
-    // 'Nombre': `${basicData.name || ''} ${basicData.dadSurname || ''} ${basicData.momSurname || ''}`,
-    //  'ResidenciaFiscal': 'MEX',
-    //  'NumRegIdTrib': '0000000000000',
-     'UsoCFDI': 'G03'
+     'Rfc': rfc,  
+     'Nombre': `${fullName}`,
+  //    'ResidenciaFiscal': 'MEX',
+  //    'NumRegIdTrib': '0000000000000',
+  //    'UsoCFDI': 'G03'
    }))
     
  const concepto = new Concepto({
@@ -206,6 +209,11 @@ controller.postManualInvoice=async(req, res)=>{
   const [tokenRes, xml] = promises
   let buff = Buffer.from(xml)
   let base64data = buff.toString('base64')
+
+  console.log({
+    token:tokenRes.token,
+    xml:xml
+  })
 
   timbrarCfdi(tokenRes.token, base64data)
     .then(c =>{
