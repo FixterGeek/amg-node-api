@@ -92,19 +92,22 @@ controller.updateUser = async (req, res) => {
 	if(user.userStatus == 'Pendiente' && !user.mails.inRevision) {
 		validatingProfile(user)
 			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{inRevision:true}}},{new:true})
+				user['mails']['inRevision'] = true
+				await User.findByIdAndUpdate(req.params.id,{$set:user},{new:true})
 		}).catch(e=>console.log(e))
 	}
 	if(user.userStatus == 'Aprobado' && !user.mails.approved) {
 		userIsApproved(user)
 			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{approved:true}}},{new:true})
+				user['mails']['approved'] = true
+				await User.findByIdAndUpdate(req.params.id,{$set:user},{new:true})
 		}).catch(e=>console.log(e))
 	}
 	if(user.userStatus == 'No Aprobado' && !user.mails.rejected) {
 		userIsRejected(user)
 			.then((r)=>{
-				User.findByIdAndUpdate(req.params.id,{$set:{mails:{rejected:true}}},{new:true})
+				user['mails']['rejected'] = true
+				await User.findByIdAndUpdate(req.params.id,{$set:user},{new:true})
 		}).catch(e=>console.log(e))
 	}
 	return res.status(200).json(user)
