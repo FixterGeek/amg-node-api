@@ -304,7 +304,7 @@ const userSchema = new Schema({
   /* Aproval  Data*/
   userStatus: {
     type: String,
-    enum: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado', 'Activo'],
+    enum: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado', 'Activo', 'Inactivo'],
     default: 'Registrado'
   },
   userType: {

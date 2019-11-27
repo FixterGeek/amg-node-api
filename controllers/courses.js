@@ -74,7 +74,7 @@ controller.enrollCourse = async (req, res) => {
 	
 	if(!course.students.includes(req.user._id)){		
 		const user = await User.findByIdAndUpdate(req.user._id, {$push:{enrolledCourses:Course._id}}, {new:true})		
-		enroll = await Course.findByIdAndUpdate(req.params.id, {$push:{students:req.user._id}}, {new:true})		
+		enroll = await Course.findByIdAndUpdate(req.params.id, {$push:{students:{user: req.user._id, date: Date.now()}}}, {new:true})
 	}else{
 		return res.status(400).json({message:'You are already registered'})
 	}
@@ -88,7 +88,7 @@ controller.unenrollCourse = async (req, res) => {
 	
 	if(course.students.includes(req.user._id)){		
 		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{enrolledCourses:Course._id}}, {new:true})		
-		enroll = await Course.findByIdAndUpdate(req.params.id, {$pull:{students:req.user._id}}, {new:true})		
+		enroll = await Course.findByIdAndUpdate(req.params.id, {$pull:{students:{user: req.user._id, date: req.params.date}}}, {new:true})		
 		return res.status(200).json(enroll)
 	}else{
 		return res.status(400).json({message:'Ya no eres parte, suscríbete!'})

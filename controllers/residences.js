@@ -21,7 +21,7 @@ controller.postResidence = async (req, res) => {
 	}
 	let residence = await Residence.create(req.body);
 	residence = await Residence.findById(residence._id).populate('institution');	
-	const user = await User.findByIdAndUpdate(req.body.user,{$push:{residences:residence._id}}, {new:true})		
+	const user = await User.findByIdAndUpdate(req.body.user,{$push:{residencies:residence._id}}, {new:true})		
 	res.status(201).json(residence);
 };
 

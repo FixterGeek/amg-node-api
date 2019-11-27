@@ -102,9 +102,14 @@ const courseSchema = new Schema({
 
   //asistentes
   students:[{
-    type:Schema.Types.ObjectId,
-    ref:'User'
+    user: {
+      type:Schema.Types.ObjectId,
+      ref:'User'
+    },
+    date: String
   }],
+
+  
 
   status:{
     type:String,

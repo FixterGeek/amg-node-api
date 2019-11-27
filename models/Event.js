@@ -105,8 +105,11 @@ const eventSchema = new Schema({
 
   //asistentes
   assistants:[{
-    type:Schema.Types.ObjectId,
-    ref:'User'
+    user: {
+      type:Schema.Types.ObjectId,
+      ref:'User'
+    },
+    date: String
   }],
 
   status:{
