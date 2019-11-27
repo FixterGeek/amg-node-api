@@ -82,7 +82,7 @@ controller.unassistEvent = async (req, res) => {
 	
 	if(event.assistants.includes(req.user._id)){		
 		const user = await User.findByIdAndUpdate(req.user._id, {$pull:{assistedEvents:event._id}}, {new:true})		
-		assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:{user: req.user._id, date: req.params.date}}}, {new:true})		
+		assist = await Event.findByIdAndUpdate(req.params.id, {$pull:{assistants:{user: req.user._id, date: req.query.date}}}, {new:true})		
 		return res.status(200).json(assist)
 	}else{
 		return res.status(400).json({message:'Ya no eres parte, suscríbete!'})
