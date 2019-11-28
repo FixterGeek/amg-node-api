@@ -22,6 +22,7 @@ controller.self = async (req, res) => {
 	.populate('courseOrders')
 	.populate('following')
 	.populate('followers')
+	.populate('consultories')
 	return res.status(200).json(user)	
 }
 
