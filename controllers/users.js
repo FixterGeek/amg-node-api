@@ -39,9 +39,30 @@ controller.getUser = async(req, res) => {
 	.populate('teachingActivities')
 	.populate('hospitalActivities')
 	.populate('medicalSocieties')
-	.populate('studies')
+	.populate('studies')	
+	.populate({ 
+		path: 'studies',
+		populate: {
+			path: 'institution',
+			model: 'Institution'
+		}
+	}) 
 	.populate('internships')
-	.populate('residences')
+	.populate({ 
+		path: 'internships',
+		populate: {
+			path: 'institution',
+			model: 'Institution'
+		}
+	}) 
+	.populate('residencies')
+	.populate({ 
+		path: 'residencies',
+		populate: {
+			path: 'institution',
+			model: 'Institution'
+		}
+	}) 
 	.populate('assistedEvents')
 	.populate('assistedActivities')
 	.populate('renewals')

@@ -245,7 +245,7 @@ const userSchema = new Schema({
   /**************Residencias y posgrados ************/
   residencies: [{
     type: Schema.Types.ObjectId,
-    ref: 'Residency'
+    ref: 'Residence'
   }],
   //Actividades docentes pasadas y presentes
   teachingActivities: [{
