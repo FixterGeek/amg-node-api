@@ -15,5 +15,7 @@ const tryCatch=(fn) =>{
 router.post('/new/:paymentId',verifyToken,controller.postInvoice)
 router.post('/new',verifyToken,controller.postManualInvoice)
 router.get('/',verifyToken,controller.getInvoices)
+router.get('/:id',verifyToken,controller.getInvoice)
+router.patch('/cancel/:id',verifyToken,controller.cancelInvoice)
 
 module.exports = router

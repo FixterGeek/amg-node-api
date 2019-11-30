@@ -1,7 +1,7 @@
 'use strict'
 const Payment = require("../models/Payment");
 const DataFacturacion = require("../models/DataFacturacion");
-const {timbrarCfdi, getApiToken, getFacturas} = require('../helpers/contabilizate')
+const {timbrarCfdi, getApiToken, getFacturas, getFactura, cancelarCfdi} = require('../helpers/contabilizate')
 const CFDI = require('cfdiv33').CFDI
 const Emisor = require('cfdiv33').Emisor
 const Receptor = require('cfdiv33').Receptor
@@ -13,10 +13,30 @@ const Traslado = require('cfdiv33').Traslado
 // const Retencion = require('cfdiv33').Retencion
 const controller = {};
 
+const cer = 'public/invoice_files/LAN7008173R5.cer.pem'
+const key = 'public/invoice_files/LAN7008173R5.key.pem'
+
 controller.getInvoices = async(req, res) => {  
   const token = await getApiToken()
   const invoices = await getFacturas(token.token)
   return res.status(200).json(invoices);
+}
+
+controller.getInvoice = async(req, res) => {  
+  const token = await getApiToken()
+  const invoice = await getFactura(token.token, req.params.id)
+  return res.status(200).json(invoice);
+}
+
+controller.cancelInvoice = async(req, res) => {  
+  const token = await getApiToken()
+  const data = {
+    uuid: req.params.id,
+    base_64_cer_pem: cer,
+    base64_key_pem: key
+  }
+  const invoice = await cancelarCfdi(token.token, data)
+  return res.status(200).json(invoice);
 }
 
 
@@ -54,8 +74,8 @@ controller.postInvoice = async(req, res)=>{
   'LugarExpedicion': amgData.zipCode,
  });
   
- cfdi.cer = 'public/invoice_files/LAN7008173R5.cer.pem'
- cfdi.key = 'public/invoice_files/LAN7008173R5.key.pem'
+ cfdi.cer = cer
+ cfdi.key = key
  cfdi.withOutCerts = false
   
  cfdi.add(new Emisor({
@@ -157,8 +177,8 @@ controller.postManualInvoice=async(req, res)=>{
     'LugarExpedicion': amgData.zipCode,
    });
     
-   cfdi.cer = 'public/invoice_files/LAN7008173R5.cer.pem'
-   cfdi.key = 'public/invoice_files/LAN7008173R5.key.pem'
+   cfdi.cer = cer
+   cfdi.key = key
    cfdi.withOutCerts = false
     
    cfdi.add(new Emisor({

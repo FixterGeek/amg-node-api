@@ -36,8 +36,19 @@ exports.timbrarCfdi= async (token, xml) => {
   return invoice;
 }
 
-exports.cancelarCfdi = async (token, id) => {
-
+exports.cancelarCfdi = async (token, data) => {
+  const url = `${process.env.CONTABILIZATE_HOST}/cancel_invoice`  
+  let response = await fetch(url,{
+    method: 'POST', 
+    body: JSON.stringify(data),   
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization':token
+    }
+  })
+  let invoice = await response.json()
+  console.log(invoice)
+  return invoice
 }
 
 exports.getFacturas = async (token) => {
@@ -52,4 +63,18 @@ exports.getFacturas = async (token) => {
   let invoices = await response.json()
   console.log(invoices)
   return invoices
+}
+
+exports.getFactura = async (token, invoiceId) => {
+  const url = `${process.env.CONTABILIZATE_HOST}/invoice/detail/${invoiceId}`  
+  let response = await fetch(url,{
+    method: 'GET',    
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization':token
+    }
+  })
+  let invoice = await response.json()
+  console.log(invoice)
+  return invoice
 }
