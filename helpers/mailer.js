@@ -41,11 +41,11 @@ const assistEvent = hbs.compile(
 
 
 // recovery
-exports.recoveryMail = (user, token) => {
+exports.recoveryMail = ({basicData, email}, token) => {
 	transport.sendMail({
 		subject: "Recuperación de contraseña",
-		bcc: user.email,
-		html: recoverPassword({user, token}),		
+		bcc: email,
+		html: recoverPassword({basicData, token}),
 	})
 }
 
@@ -124,12 +124,12 @@ exports.userIsRejected = (user) => {
 };
 
 //exports.paid
-exports.paymentReference = (user, payment) => {
+exports.paymentReference = ({basicData, email}, payment) => {
 	transport
 		.sendMail({
 			subject: "¡Tu pago está listo!",
-			bcc: user.email,
-			html: paymentSuccess({user, payment})
+			bcc: email,
+			html: paymentSuccess({basicData, payment})
 		})
 		.then(r => {
 			console.log(r)

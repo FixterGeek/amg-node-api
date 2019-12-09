@@ -16,19 +16,20 @@ const tryCatch=(fn) =>{
 router.post('/:id/follow', verifyToken, tryCatch(controller.followUser))
 
 /* Get all users*/
-router.get('/',verifyToken,tryCatch(controller.getUsers))
+router.get('/',verifyToken, tryCatch(controller.getUsers))
 
 // get summary of users (counts)
-router.get('/summary',verifyToken,tryCatch(controller.getUsersSummary))
+router.get('/summary',verifyToken, tryCatch(controller.getUsersSummary))
+/**testing mails */
+router.get('/mailing',verifyToken, tryCatch(controller.sendNudes))
 
 /*Get a single user*/
-router.get('/:id',verifyToken,tryCatch(controller.getUser))
+router.get('/:id',verifyToken, tryCatch(controller.getUser))
 
 /*Update a user*/
-router.patch('/:id',verifyToken,upload('users').any(),tryCatch(controller.updateUser))
+router.patch('/:id',verifyToken, upload('users').any(), tryCatch(controller.updateUser))
 
 /*Delete a user*/
-router.delete('/:id',verifyToken,tryCatch(controller.deleteUser))
-
+router.delete('/:id',verifyToken, tryCatch(controller.deleteUser))
 
 module.exports = router;

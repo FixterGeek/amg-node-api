@@ -153,9 +153,9 @@
                             <table style="width:60%; margin:80px auto; border:1px solid #979797; background-color: white;">
                                 <tr>
                                     <td style="padding:10% 20%; box-sizing: border-box;">
-                                        <h2 style="font-family: 'Red Hat Text', sans-serif; font-size: 20px; color:black;">Estimado {Nombre}</h2>
+                                        <h2 style="font-family: 'Red Hat Text', sans-serif; font-size: 20px; color:black;">Estimado {{basicData.name}}</h2>
 
-                                        <p style="font-size: 14px; color:#474747;">Su inscripción para el evento {Nombre del evento} ha sido registrado exitosamente.
+                                        <p style="font-size: 14px; color:#474747;">Su inscripción para el evento {{event.title}} ha sido registrado exitosamente.
                                             En la liga mostrada a continuación podrá consultar el programa, los ponentes y toda la información correspondiente.
 
 
@@ -164,7 +164,7 @@
                                         <br>
                                         <br>
                                         <br>
-                                        <a href="https://gastroenterologia.mx/login" target="_blank" style="text-align: center">
+                                        <a href="https://gastroenterologia.mx/events/{{event._id}}" target="_blank" style="text-align: center">
                                             <button style="width:70%; height:50px; background-color: #1f2536; color:white; font-weight: bold; margin-left:15%; cursor: pointer; ">Consultar detalle del evento</button>
                                         </a>
                                         <br>

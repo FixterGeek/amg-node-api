@@ -57,7 +57,7 @@ controller.postInvoice = async(req, res)=>{
   let iva = (subTotal * .16).toFixed(2).toString()
 
   console.log('payment:', payment)
-  console.log('amgData :', amgData)
+  console.log('amgData :', amgData)  
   
  const cfdi = new CFDI({
   'Serie':payment.paymentType == 'Event' ? amgData.eventSerie : amgData.membershipSerie,
@@ -147,10 +147,23 @@ console.log('el fiscooo', fiscalData)
 }
 
 controller.postManualInvoice=async(req, res)=>{
-
+  console.log('manual')
   const amgDataFacturacion = await DataFacturacion.find()
-  const amgData = amgDataFacturacion[0]
-  const {amountNoIva, rfc, address,  paymentMethod, fullName, paymentType } = req.body
+  const amgData = amgDataFacturacion[0]  
+  const {
+    address,
+    amountNoIva,
+    city,
+    colony,
+    concept,
+    fullName,
+    paymentMethod,
+    paymentType,
+    rfc,
+    state,
+    street,
+    zipCode,
+  } = req.body
   //const {paymentId} = req.params
   // njmvnmjvgfconst payment = await Payment.findById(paymentId)
 
@@ -233,7 +246,7 @@ controller.postManualInvoice=async(req, res)=>{
   console.log({
     token:tokenRes.token,
     xml:xml
-  })
+  })  
 
   timbrarCfdi(tokenRes.token, base64data)
     .then(c =>{
