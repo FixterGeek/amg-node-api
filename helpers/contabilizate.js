@@ -29,7 +29,7 @@ exports.timbrarCfdi= async (token, xml) => {
     body: JSON.stringify(data),
     headers:{
       'Content-Type': 'application/json',
-      'Authorization':token
+      'Authorization':token,
     }
   })
   let invoice = await response.json()

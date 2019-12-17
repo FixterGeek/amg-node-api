@@ -30,6 +30,7 @@ const eventSchema = new Schema({
         type:String,
         default:'Point'
     },
+    mapImage:String,
     addressName:{
       type:String,      
     },

@@ -9,7 +9,7 @@ controller.getPublications = async (req, res) => {
 	const user = await User.findById(req.user._id)
 	if(query) query = JSON.parse(query)
 	else query = {user:{$in:[...user.following, user._id]}}
-	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).sort('-created_at').populate('user')
+	publications = await Publication.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0).sort('created_at').populate('user')
 	return res.status(200).json(publications)
 };
 
