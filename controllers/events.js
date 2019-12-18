@@ -12,7 +12,7 @@ controller.getEvents = async (req, res) => {
 	let {query, limit, skip} = req.query
 	if(query) query = JSON.parse(query)
 	// si no hay query params mando todos
-	events = await Event.find({$or:[{"assistants.user":['5d5a22c1b93749ca00cc8ad8']}, {"assistants":'5d5a22c1b93749ca00cc8ad8'} ]}).limit(Number(limit)||0).skip(Number(skip)||0)
+	events = await Event.find(query||{}).limit(Number(limit)||0).skip(Number(skip)||0)
 	return res.status(200).json(events)
 };
 
