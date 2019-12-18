@@ -1,10 +1,10 @@
 const fetch = require('node-fetch')
 
 
-exports.checkForRobots = async (captcha) => {
+exports.checkForRobots = async (address, captcha) => {
   const url = process.env.RECAPTCHA_VERIFICATION_URL  
   const key = process.env.RECAPTCHA_SECRET_KEY
-  const verificationUrl = `${url}?secret=${key}&response=${captcha}&remoteip=${req.connection.remoteAddress}`
+  const verificationUrl = `${url}?secret=${key}&response=${captcha}&remoteip=${address}`
 
   let response = await fetch(verificationUrl,{
     method: 'GET',
