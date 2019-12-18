@@ -5,6 +5,7 @@ exports.checkForRobots = async (address, captcha) => {
   const url = process.env.RECAPTCHA_VERIFICATION_URL  
   const key = process.env.RECAPTCHA_SECRET_KEY
   const verificationUrl = `${url}?secret=${key}&response=${captcha}&remoteip=${address}`
+  console.log(verificationUrl)  
 
   let response = await fetch(verificationUrl,{
     method: 'GET',
@@ -12,7 +13,7 @@ exports.checkForRobots = async (address, captcha) => {
       'Content-Type': 'application/json'
     }
   })
-  let res = await response.json()
+  let res = await response.json()  
   console.log(res)
   return res;
 }
