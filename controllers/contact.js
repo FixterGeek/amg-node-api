@@ -3,7 +3,7 @@ const {checkForRobots} = require('../helpers/recaptcha')
 const controller = {}
 
 controller.sendContactMail = async (req, res) => {
-  const captcha = req.body['g-recaptcha-response']
+  const captcha = req.body['captchaResponse']
   if(captcha === undefined || captcha === '' || captcha === null) {
     return res.status(400).json({"message" : "Please select captcha"});
   }
