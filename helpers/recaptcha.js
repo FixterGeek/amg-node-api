@@ -1,18 +1,13 @@
 const fetch = require('node-fetch')
 
 
-exports.checkForRobots= async (captcha) => {
+exports.checkForRobots = async (captcha) => {
   const url = process.env.RECAPTCHA_VERIFICATION_URL  
   const key = process.env.RECAPTCHA_SECRET_KEY
   const verificationUrl = `${url}?secret=${key}&response=${captcha}&remoteip=${req.connection.remoteAddress}`
-  const data = {
-    "email": process.env.CONTABILIZATE_EMAIL,
-    "password": process.env.CONTABILIZATE_PASS
-  }
 
   let response = await fetch(verificationUrl,{
-    method: 'POST',
-    body: JSON.stringify(data),
+    method: 'GET',
     headers:{
       'Content-Type': 'application/json'
     }
