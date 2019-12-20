@@ -367,21 +367,30 @@ const userSchema = new Schema({
   },
   socioStatus:{
     activo:{
-      cost:Number,
+      cost: {
+        type: Number,
+        default: 3250
+      },
       assigned:{
         type: Boolean,
         default: false
       }
     },
     titular:{
-      cost:Number,
+      cost: {
+        type: Number,
+        default: 1625
+      },
       assigned:{
         type: Boolean,
         default: false
       }
     },
     emerito:{
-      cost:Number,
+      cost: {
+        type: Number,
+        default: 0
+      },
       assigned:{
         type: Boolean,
         default: false
