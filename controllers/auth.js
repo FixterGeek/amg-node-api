@@ -23,6 +23,8 @@ controller.self = async (req, res) => {
 	.populate('following')
 	.populate('followers')
 	.populate('consultories')
+
+	console.log(new Date() - user.renewals[user.renewals.length  -1].createdAt >= 31536000000)
 	return res.status(200).json(user)	
 }
 

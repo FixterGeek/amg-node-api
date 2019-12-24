@@ -88,7 +88,13 @@ controller.updateUser = async (req, res) => {
 	if(req.body['courseOrders']) delete req.body['courseOrders']
 	if(req.body['following']) delete req.body['following']
 	if(req.body['followers']) delete req.body['followers']
+	if(req.body['consultories']) delete req.body['consultories']
+	if(req.body['enrolledCourses']) delete req.body['enrolledCourses']
+	if(req.body['enrolledActivities']) delete req.body['enrolledActivities']
+	if(req.body['membersWhoRecommend']) delete req.body['membersWhoRecommend']
+	if(req.body['residentLetterURLS']) delete req.body['residentLetterURLS']
 
+  
 
 	if(req.file||req.files){		
 		req.files.forEach(element => {

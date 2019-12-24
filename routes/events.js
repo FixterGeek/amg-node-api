@@ -16,10 +16,10 @@ router.get('/',verifyToken,tryCatch(controller.getEvents))
 /* Post all Eventos*/
 router.post('/',verifyToken, checkIfAdmin, uploadAndResize('events').any(),tryCatch(controller.postEvent))
 
-/* assist or unassist an event*/
+/* assist an event*/
 router.post('/:id/assist',verifyToken,tryCatch(controller.assistEvent))
 
-/* assist or unassist an event*/
+/* unassist an event*/
 router.delete('/:id/unassist',verifyToken,tryCatch(controller.unassistEvent))
 
 /* add or remove a speaker*/
