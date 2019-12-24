@@ -24,11 +24,11 @@ controller.self = async (req, res) => {
 	.populate('followers')
 	.populate('consultories')
 
-	// if(new Date() - user.renewals[user.renewals.length  -1].createdAt >= 31536000000){
-	// 	const updatedUser = {...user}
-	// 	updatedUser['membershipStatus'] = 'Free'
-	// 	user = await User.findByIdAndUpdate(req.params.id,{$set:updatedUser},{new:true})
-	// }
+	if(user.renewals && new Date() - user.renewals[user.renewals.length  -1].createdAt >= 31536000000){
+		const updatedUser = {...user}
+		updatedUser['membershipStatus'] = 'Free'
+		user = await User.findByIdAndUpdate(req.params.id,{$set:updatedUser},{new:true})
+	}
 	return res.status(200).json(user)	
 }
 
