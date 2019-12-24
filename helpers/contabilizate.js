@@ -19,7 +19,7 @@ exports.getApiToken= async () => {
   return token;
 }
 
-exports.timbrarCfdi= async (token, xml) => {
+exports.timbrarCfdi= async (token, xml, ) => {
   const url = `${process.env.CONTABILIZATE_HOST}/invoices`
   const data = {
     "cfdi": xml
@@ -29,7 +29,8 @@ exports.timbrarCfdi= async (token, xml) => {
     body: JSON.stringify(data),
     headers:{
       'Content-Type': 'application/json',
-      'Authorization':token,
+      // 'Authorization':token,
+      'Api-Key': process.env.CONTABILIZATE_API_KEY
     }
   })
   let invoice = await response.json()
@@ -43,7 +44,8 @@ exports.cancelarCfdi = async (token, data) => {
     body: JSON.stringify(data),   
     headers:{
       'Content-Type': 'application/json',
-      'Authorization':token
+      // 'Authorization':token,
+      'Api-Key': process.env.CONTABILIZATE_API_KEY
     }
   })
   let invoice = await response.json()
@@ -51,13 +53,30 @@ exports.cancelarCfdi = async (token, data) => {
   return invoice
 }
 
-exports.getFacturas = async (token) => {
+exports.postTaxPayer = async (token, data) => {
+  const url = `${process.env.CONTABILIZATE_HOST}/taxpayers`  
+  let response = await fetch(url,{
+    method: 'POST', 
+    body: JSON.stringify(data),   
+    headers:{
+      'Content-Type': 'application/json',
+      // 'Authorization':token,
+      'Api-Key': process.env.CONTABILIZATE_API_KEY
+    }
+  })
+  let invoice = await response.json()
+  console.log(invoice)
+  return invoice
+}
+
+exports.getFacturas = async (token, ) => {
   const url = `${process.env.CONTABILIZATE_HOST}/invoices`  
   let response = await fetch(url,{
     method: 'GET',    
     headers:{
       'Content-Type': 'application/json',
-      'Authorization':token
+      // 'Authorization':token,
+      'Api-Key': process.env.CONTABILIZATE_API_KEY
     }
   })
   let invoices = await response.json()
@@ -65,13 +84,14 @@ exports.getFacturas = async (token) => {
   return invoices
 }
 
-exports.getFactura = async (token, invoiceId) => {
+exports.getFactura = async (token, invoiceId, ) => {
   const url = `${process.env.CONTABILIZATE_HOST}/invoice/detail/${invoiceId}`  
   let response = await fetch(url,{
     method: 'GET',    
     headers:{
       'Content-Type': 'application/json',
-      'Authorization':token
+      // 'Authorization':token,
+      'Api-Key': process.env.CONTABILIZATE_API_KEY
     }
   })
   let invoice = await response.json()

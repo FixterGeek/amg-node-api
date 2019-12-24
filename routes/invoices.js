@@ -14,6 +14,7 @@ const tryCatch=(fn) =>{
 /*Generate a CFDI */
 router.post('/new/:paymentId',verifyToken,controller.postInvoice)
 router.post('/new',verifyToken,controller.postManualInvoice)
+router.post('/taxpayers',verifyToken,controller.postTaxPayer)
 router.get('/',verifyToken,controller.getInvoices)
 router.get('/:id',verifyToken,controller.getInvoice)
 router.patch('/cancel/:id',verifyToken,controller.cancelInvoice)

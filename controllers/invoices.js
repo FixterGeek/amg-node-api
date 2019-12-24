@@ -17,26 +17,45 @@ const cer = 'public/invoice_files/LAN7008173R5.cer.pem'
 const key = 'public/invoice_files/LAN7008173R5.key.pem'
 
 controller.getInvoices = async(req, res) => {  
-  const token = await getApiToken()
+  // const token = await getApiToken()
   const invoices = await getFacturas(token.token)
   return res.status(200).json(invoices);
 }
 
 controller.getInvoice = async(req, res) => {  
-  const token = await getApiToken()
+  // const token = await getApiToken()
   const invoice = await getFactura(token.token, req.params.id)
   return res.status(200).json(invoice);
 }
 
 controller.cancelInvoice = async(req, res) => {  
-  const token = await getApiToken()
+  // const token = await getApiToken()
   const data = {
     uuid: req.params.id,
-    base_64_cer_pem: cer,
-    base64_key_pem: key
+    base_64_cer_pem: process.env.CER_PEM,
+    base64_key_pem: process.env.KEY_PEM
   }
   const invoice = await cancelarCfdi(token.token, data)
   return res.status(200).json(invoice);
+}
+
+controller.postTaxPayer = async(req, res) => {
+// const token = await getApiToken()
+  const data = {
+    cer_csd: "string",
+    cer_fiel: "string",
+    key_csd: "string",
+    key_fiel: "string",
+    pass_csd: "string",
+    pass_fiel: "string",
+    email: "string",
+    name: "string",
+    rfc: "string",
+    regime_sat_code: "string"
+  }
+  const taxPayer = await cancelarCfdi(token.token, data)
+  return res.status(200).json(taxPayer);
+
 }
 
 
