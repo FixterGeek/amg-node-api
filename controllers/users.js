@@ -108,12 +108,12 @@ controller.updateUser = async (req, res) => {
 	}
 	const user = await User.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
 	if (req.body['filialAsUser']) {
-		const filialForUser = await Filial.findOne({_id:req.body['filialAsUser'],users:{$in:[req.body['filialAsUser']]}})
+		const filialForUser = await Filial.findOne({_id:req.body['filialAsUser'],users:{$in:[req.params.id]}})
 		if(filialForUser==null) await Filial.findByIdAndUpdate({_id:req.body.filialAsUser}, {$push:{users:req.params.id}}, {new:true})
 	}
-	if(req.body['filialAsAdmin']){
-		const filialForAdmin = await Filial.findOne({_id:req.body['filialAsAdmin'],administrators:{$in:[req.body['filialAsAdmin']]}})
-		if (filialForAdmin==null) await Filial.findByIdAndUpdate({_id:req.body.filialAsAdmin}, {$push:{administrators:req.params.id}}, {new:true})
+	if(req.body['filialAsAdmin']){	
+		const filialForAdmin = await Filial.findById({_id:req.body['filialAsAdmin'],administrators:{$in:[req.params.id]}})				
+		if (filialForAdmin==null) await Filial.findByIdAndUpdate({_id:req.body.filialAsAdmin}, {$push:{administrators:req.params.id}}, {new:true})						
 	}
 
 	//mails

@@ -65,7 +65,7 @@ controller.assistEvent = async (req, res) => {
 	const event = await Event.findById(req.params.id)
 	let assist
 	
-	if(!event.assistants.includes(req.user._id)){		
+	if(!event.assistants.includes(req.user._id)){
 		const user = await User.findByIdAndUpdate(req.user._id, {$push:{assistedEvents:event._id}}, {new:true})
 		assist = await Event.findByIdAndUpdate(req.params.id, {$push:{assistants:{user: req.user._id, date: Date.now()}}}, {new:true})
 		assistenceToEvent(user, assist)
