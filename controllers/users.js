@@ -65,7 +65,12 @@ controller.getUser = async(req, res) => {
 	}) 
 	.populate('assistedEvents')
 	.populate('assistedActivities')
-	.populate('renewals')
+	.populate({
+		path: 'renewals',
+		options:{
+			sort: {createdAt: -1}
+		}
+	})
 	.populate('eventOrders')
 	.populate('courseOrders')
 	.populate('following')

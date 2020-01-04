@@ -68,7 +68,7 @@ controller.subscription = async (req, res) => {
       // MAILS
       paymentReference(user, payment)
       suscriptionAndWelcome(user, subscriptionType)
-      await User.findByIdAndUpdate(user._id, {
+      const updatedUser = await User.findByIdAndUpdate(user._id, {
         $push: { renewals: payment._id }, 
         $set: {membershipStatus: subscriptionType} }, { new: true })
       return res.status(200).json({payment, conektaOrder:order._json})
